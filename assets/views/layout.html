@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="${page.lang}">
+<head>
+    <title>%{page.name} - %{app.name}</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="${url.assets}/css/style.css?v=20190824"/>
+    <link rel="stylesheet" href="${url.assets}/css/header.css?v=20190824"/>
+
+    <link rel="shortcut icon" type="image/png" href="${url.assets}/img/icon.png?v=20190824"/>
+
+    <script src="${url.assets}/js/app.js?v=20190824" async></script>
+</head>
+<body>
+<header id="app-header">
+    <h1 id="app-title">%{app.name}</h1>
+</header>
+<div class="container" id="app-content">
+    @print_notification
+    ${page.content}
+</div>
+<footer id="app-footer">
+    %{app.name} 2019
+</footer>
+</body>
+</html>
