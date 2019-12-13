@@ -1,27 +1,23 @@
 <!DOCTYPE html>
 <html lang="${page.lang}">
 <head>
-    <title>%{page.name} - %{app.name}</title>
+    <title>%{page.name}</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="${url.assets}/css/style.css?v=20190824"/>
-    <link rel="stylesheet" href="${url.assets}/css/header.css?v=20190824"/>
-
-    <link rel="shortcut icon" type="image/png" href="${url.assets}/img/icon.png?v=20190824"/>
-
-    <script src="${url.assets}/js/app.js?v=20190824" async></script>
+    <link rel="stylesheet" href="${url.static}/css/style.css?v=20191213"/>
+    <link rel="stylesheet" href="${url.static}/css/header.css?v=20191213"/>
 </head>
 <body>
 <header id="app-header">
-    <h1 id="app-title">%{app.name}</h1>
+    <h1 id="app-title">%{page.name}</h1>
 </header>
-<div class="container" id="app-content">
+<div id="app-content">
     ${page.content}
 </div>
 <footer id="app-footer">
-    %{app.name} 2019
+    %{app.footer}
 </footer>
 </body>
 </html>

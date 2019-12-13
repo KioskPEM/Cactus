@@ -1,0 +1,24 @@
+header#app-header, footer#app-footer {
+    background-color: #ECEFF1;
+
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    vertical-align: center;
+    justify-content: center;
+
+    padding: 15px 20px;
+}
+
+header#app-header {
+    border-bottom: 1px solid #CFD8DC;
+}
+
+header#app-header h1#app-title {
+    font-weight: normal;
+    margin: 0;
+}
+
+footer#app-footer {
+    border-top: 1px solid #CFD8DC;
+}

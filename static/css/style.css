@@ -4,17 +4,33 @@
     box-sizing: border-box;
 }
 
-.container {
-    width: 75%;
-    min-width: 250px;
-    margin: 25px auto;
-}
-
 html, body {
     padding: 0;
     margin: 0;
+
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+
+    overflow: hidden;
 }
 
 body {
-    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+
+    font-family: "Open Sans", Fallback, sans-serif;
+    font-size: 1.2em;
+    color: #37474F;
+}
+
+div#app-content {
+    flex-grow: 1;
+    text-align: center;
+    background-color: #FFFFFF;
+    box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.2);
 }

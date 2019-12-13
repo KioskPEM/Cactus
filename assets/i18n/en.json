@@ -1,8 +1,15 @@
 {
   "app": {
-    "name": "Cactus"
+    "footer": "Lycée Pierre Emile Martin"
   },
   "pages": {
+    "welcome": {
+      "name": "Welcome",
+      "help": "{HELP}"
+    },
+    "main_menu": {
+      "name": "Main menu"
+    },
     "error": {
       "name": "Error",
       "400": "Bad request",

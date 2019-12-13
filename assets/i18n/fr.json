@@ -1,8 +1,12 @@
 {
   "app": {
-    "name": "Cactus"
+    "footer": "Lycée Pierre Emile Martin"
   },
   "pages": {
+    "welcome": {
+      "name": "Bienvenue",
+      "help": "{HELP}"
+    },
     "error": {
       "name": "Erreur",
       "400": "La syntaxe de la requête est erronée",
