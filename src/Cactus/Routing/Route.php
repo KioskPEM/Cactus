@@ -12,14 +12,14 @@ class Route
     private string $name;
     private string $path;
     private string $regex;
-    private IEndpoint $handler;
+    private IRouteEndpoint $endpoint;
 
-    public function __construct(string $name, string $path, string $regex, IEndpoint $handler)
+    public function __construct(string $name, string $path, string $regex, IRouteEndpoint $endpoint)
     {
         $this->name = $name;
         $this->path = $path;
         $this->regex = $regex;
-        $this->handler = $handler;
+        $this->endpoint = $endpoint;
     }
 
     public function match(string $url, array &$matches)
@@ -40,7 +40,7 @@ class Route
                 unset($matches[$key]);
         }
 
-        return $this->handler->handle($this, $matches);
+        return $this->endpoint->handle($this, $matches);
     }
 
     /**
@@ -51,7 +51,7 @@ class Route
         return $this->name;
     }
 
-    public static function parse(string $name, string $path, IEndpoint $handler): Route
+    public static function parse(string $name, string $path, IRouteEndpoint $handler): Route
     {
         return new Route(
             $name,

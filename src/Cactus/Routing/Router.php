@@ -14,19 +14,19 @@ class Router
         return array_key_exists($method, $this->routes);
     }
 
-    public function get(string $name, string $path, IEndpoint $handler): Route
+    public function get(string $name, string $path, IRouteEndpoint $endpoint): Route
     {
-        return $this->register($name, "GET", $path, $handler);
+        return $this->register($name, "GET", $path, $endpoint);
     }
 
-    public function post(string $name, string $path, IEndpoint $handler): Route
+    public function post(string $name, string $path, IRouteEndpoint $endpoint): Route
     {
-        return $this->register($name, "POST", $path, $handler);
+        return $this->register($name, "POST", $path, $endpoint);
     }
 
-    private function register(string $name, string $method, string $path, IEndpoint $handler): Route
+    private function register(string $name, string $method, string $path, IRouteEndpoint $endpoint): Route
     {
-        $route = Route::parse($name, trim($path, '/'), $handler);
+        $route = Route::parse($name, trim($path, '/'), $endpoint);
         $this->routes[$method][$name] = $route;
         return $route;
     }
@@ -46,7 +46,6 @@ class Router
         $methodRoutes = $this->routes[$method];
         foreach ($methodRoutes as $route) {
             /* @var $route Route */
-
             if ($route->match($url, $matches))
                 return $route;
         }
