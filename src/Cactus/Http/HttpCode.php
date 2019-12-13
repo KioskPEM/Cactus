@@ -28,6 +28,9 @@ class HttpCode
             case self::CLIENT_BAD_REQUEST:
             case self::CLIENT_NOT_FOUND:
             case self::CLIENT_METHOD_NOT_ALLOWED:
+
+            case self::SERVER_ERROR:
+
                 return true;
             default:
                 return false;
