@@ -1,7 +1,7 @@
 {
   "url": {
-    "root": "http:\/\/127.0.0.1",
-    "assets": "http:\/\/127.0.0.1\/assets"
+    "root": "http:\/\/localhost:8080",
+    "static": "http:\/\/localhost:8080\/static"
   },
   "page_template": {
     "color": "#000000"
