@@ -19,12 +19,15 @@ class TemplateManager implements IRouteEndpoint
 {
     const IDENTIFIER_PATTERN = '([\w\.-]+)';
 
+    private array $params;
+
     private I18nManager $i18nManager;
     private array $templates;
     private array $renderPasses;
 
-    public function __construct()
+    public function __construct(array $params)
     {
+        $this->params = $params;
         $this->i18nManager = new I18nManager();
         $this->templates = [];
         $this->renderPasses = [];
@@ -84,14 +87,15 @@ class TemplateManager implements IRouteEndpoint
         // set-up the render context
         $context = new RenderContext(
             $i18n,
-            [
-                'url' => $request->getUrl(),
-                'page' => [
-                    'name' => $templateName,
-                    'lang' => $lang
-                ],
-                "route" => $parameters
-            ]);
+            $this->params
+        );
+        $context->append([
+            'page' => [
+                'name' => $templateName,
+                'lang' => $lang
+            ],
+            "route" => $parameters
+        ]);
         $viewContent = $this->render($templateName, $context, $template);
 
         $context->append([

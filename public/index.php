@@ -15,7 +15,12 @@ try {
     $request = ClientRequest::Instance();
 
     $router = new Router();
-    $templateEngine = new TemplateManager();
+    $templateEngine = new TemplateManager([
+        'url' => [
+            "root" => $config["url"]["root"],
+            "static" => $config["url"]["static"]
+        ]
+    ]);
 
     $app = new App($config);
 
@@ -25,6 +30,9 @@ try {
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");
+
+    $router->get("welcome", "/welcome", $templateEngine);
+    $templateEngine->registerTemplate("welcome");
 
     $parameters = [];
     $route = $router->resolveRoute(
@@ -51,7 +59,7 @@ try {
 
         http_response_code(HttpCode::SERVER_ERROR);
         $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
-        $exceptionDetails = ini_get("display_errors") ? "<hr/>" . nl2br($e->getTraceAsString()) : null;
+        $exceptionDetails = ini_get("display_errors") ? "<hr/><code style='display: block; text-align: left;'>" . nl2br($e) . "</code>" : null;
         echo str_replace("%{exception.details}", $exceptionDetails, $fallback);
     }
 
