@@ -8,7 +8,6 @@ use Cactus\Routing\Exception\RouteException;
 
 interface IEndpoint
 {
-
     /**
      * @param Route $route
      * @param array $parameters
