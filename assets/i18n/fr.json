@@ -1,0 +1,12 @@
+{
+  "app": {
+    "name": "Cactus"
+  },
+  "pages": {
+    "error": {
+      "name": "Erreur",
+      "400": "La syntaxe de la requête est erronée",
+      "404": "L'URL demandée n'existe pas"
+    }
+  }
+}

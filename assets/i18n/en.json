@@ -1,0 +1,12 @@
+{
+  "app": {
+    "name": "Cactus"
+  },
+  "pages": {
+    "error": {
+      "name": "Error",
+      "400": "Bad request",
+      "404": "The requested url cannot be found on this server"
+    }
+  }
+}
