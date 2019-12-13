@@ -6,7 +6,7 @@ namespace Cactus\Routing;
 
 use Cactus\Routing\Exception\RouteException;
 
-interface IEndpoint
+interface IRouteEndpoint
 {
     /**
      * @param Route $route
