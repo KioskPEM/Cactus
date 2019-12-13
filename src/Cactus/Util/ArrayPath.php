@@ -6,7 +6,7 @@ namespace Cactus\Util;
 
 class ArrayPath
 {
-    public static function has(array $subject, string $path, string $delimiter = '.')
+    public static function has(array $subject, string $path, string $delimiter = '.'): bool
     {
         return (bool)ArrayPath::get($subject, $path, $delimiter);
     }
@@ -33,9 +33,9 @@ class ArrayPath
      * @param array $subject
      * @param string $path
      * @param string $delimiter
-     * @return array|mixed
+     * @return void
      */
-    public static function delete(array &$subject, string $path, string $delimiter = '.')
+    public static function delete(array &$subject, string $path, string $delimiter = '.'): void
     {
         $parts = explode($delimiter, $path);
 
@@ -59,9 +59,9 @@ class ArrayPath
      * @param string $path
      * @param $value
      * @param string $delimiter
-     * @return array|mixed
+     * @return void
      */
-    public static function set(array &$subject, string $path, $value, string $delimiter = '.')
+    public static function set(array &$subject, string $path, $value, string $delimiter = '.'): void
     {
         $parts = explode($delimiter, $path);
 
