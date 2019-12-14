@@ -2,7 +2,6 @@
 
 namespace Cactus\Routing;
 
-use BananaEngine\Util\Exception\SyntaxException;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteFormatException;
 use Cactus\Routing\Exception\RouteNotFoundException;
