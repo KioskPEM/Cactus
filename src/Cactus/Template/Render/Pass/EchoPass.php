@@ -1,22 +1,18 @@
 <?php
 
-namespace Cactus\Template\Pass;
+namespace Cactus\Template\Render\Pass;
 
 
 use Cactus\Template\Render\RenderContext;
-use Cactus\Template\TemplateManager;
 use Cactus\Template\Template;
+use Cactus\Template\TemplateManager;
 
 class EchoPass implements IRenderPass
 {
     const PATTERN = '/\$\{' . TemplateManager::IDENTIFIER_PATTERN . '}/';
 
     /**
-     * @param string $name
-     * @param RenderContext $context
-     * @param Template $template
-     * @param string $subject
-     * @return string
+     * @inheritDoc
      */
     function execute(string $name, RenderContext $context, Template $template, string $subject): string
     {

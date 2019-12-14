@@ -1,6 +1,6 @@
 <?php
 
-namespace Cactus\Template\Pass;
+namespace Cactus\Template\Render\Pass;
 
 use Cactus\Template\Render\RenderContext;
 use Cactus\Template\Template;
@@ -12,11 +12,7 @@ class I18nPass implements IRenderPass
     const PATTERN = '/%\{' . TemplateManager::IDENTIFIER_PATTERN . '}/';
 
     /**
-     * @param string $name
-     * @param RenderContext $context
-     * @param Template $template
-     * @param string $subject
-     * @return string
+     * @inheritDoc
      */
     function execute(string $name, RenderContext $context, Template $template, string $subject): string
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Cactus\Template\Pass;
+namespace Cactus\Template\Render\Pass;
 
 
 use Cactus\Template\Render\RenderContext;
