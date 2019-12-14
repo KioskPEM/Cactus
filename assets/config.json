@@ -1,7 +1,8 @@
 {
   "url": {
-    "root": "http:\/\/localhost:8080",
-    "static": "http:\/\/localhost:8080\/static"
+    "format":  "http://192.168.1.14:8080/public?lang=%s&url=%s",
+    "root": "http:\/\/192.168.1.14:8080",
+    "static": "http:\/\/192.168.1.14:8080\/static"
   },
   "page_template": {
     "color": "#000000"
