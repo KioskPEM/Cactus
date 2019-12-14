@@ -2,15 +2,14 @@ header#app-header, footer#app-footer {
     background-color: #ECEFF1;
 
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-content: center;
-    vertical-align: center;
+    align-items: center;
     justify-content: center;
-
-    padding: 15px 20px;
 }
 
 header#app-header {
+    padding: 15px 20px;
     border-bottom: 1px solid #CFD8DC;
 }
 
@@ -20,5 +19,15 @@ header#app-header h1#app-title {
 }
 
 footer#app-footer {
+    justify-content: space-between;
     border-top: 1px solid #CFD8DC;
+}
+
+footer#app-footer p {
+    margin: 15px 20px;
+}
+
+footer#app-footer nav {
+    font-size: 3.5em;
+    padding: 0 10px;
 }

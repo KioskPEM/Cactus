@@ -1,19 +1,8 @@
 ul.button-list {
     display: block;
+    list-style: none;
     padding: 0;
 }
 
 ul.button-list li.button {
-    display: block;
-    border-radius: 5px;
-    background-color: #FFFFFF;
-    border: 2px solid #CFD8DC;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    padding: 2px 5px;
-    margin: 5px auto;
-}
-
-ul.button-list li.button:hover, ul.button-list li.button:active {
-    box-shadow: inset 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
