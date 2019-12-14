@@ -5,7 +5,7 @@
   "pages": {
     "welcome": {
       "name": "Bienvenue",
-      "help": "{HELP}"
+      "help": "Veuillez sélectionner une option ci-dessous"
     },
     "error": {
       "name": "Erreur",
