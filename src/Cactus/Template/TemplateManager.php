@@ -10,14 +10,15 @@ use Cactus\I18n\I18nManager;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
 use Cactus\Template\Controller\ITemplateController;
+use Cactus\Template\Exception\TemplateException;
 use Cactus\Template\Exception\TemplateNotFoundException;
-use Cactus\Template\Pass\IRenderPass;
+use Cactus\Template\Render\Pass\IRenderPass;
 use Cactus\Template\Render\RenderContext;
 use Cactus\Util\ClientRequest;
 
 class TemplateManager implements IRouteEndpoint
 {
-    const IDENTIFIER_PATTERN = '([\w\.-]+)';
+    const IDENTIFIER_PATTERN = "([a-z0-9\\.-]+)";
 
     private array $params;
 
@@ -109,9 +110,16 @@ class TemplateManager implements IRouteEndpoint
         return $this->render($templateName, $context, $appView);
     }
 
-    public function registerTemplate(string $route, ?ITemplateController $controller = null)
+    /**
+     * @param string $template
+     * @param ITemplateController|null $controller
+     * @throws TemplateException
+     */
+    public function registerTemplate(string $template, ?ITemplateController $controller = null)
     {
-        $this->templates[$route] = $controller;
+        if (!preg_match('/^' . self::IDENTIFIER_PATTERN . '$/', $template))
+            throw new TemplateException("Invalid template name");
+        $this->templates[$template] = $controller;
     }
 
     public function addPass(IRenderPass $pass)
