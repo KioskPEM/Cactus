@@ -1,5 +1,5 @@
 const Cactus = {
-    idleDelay: 3,
+    idleDelay: 90,
     init: function () {
         ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
             document.addEventListener(name, Cactus.resetIdleDelay, true);
