@@ -21,8 +21,15 @@ html, body {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-row: 3;
+    grid-column: 1;
+    grid-template-rows: 60px 1fr 80px;
+    grid-template-columns: auto;
+    grid-template-areas:
+            "header"
+            "content"
+            "footer";
 
     font-family: "Open Sans", Fallback, sans-serif;
     font-size: 1.2em;
@@ -30,11 +37,14 @@ body {
 }
 
 div#app-content {
-    flex-grow: 1;
+    grid-area: content;
+
     text-align: center;
     background-color: #FFFFFF;
     box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.2);
     padding: 10px 50px;
+
+    overflow: hidden auto;
 }
 
 a {

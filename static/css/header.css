@@ -5,11 +5,14 @@ header#app-header, footer#app-footer {
     flex-direction: row;
     align-content: center;
     align-items: center;
-    justify-content: center;
+
+    padding: 15px 20px;
 }
 
 header#app-header {
-    padding: 15px 20px;
+    grid-area: header;
+
+    justify-content: center;
     border-bottom: 1px solid #CFD8DC;
 }
 
@@ -19,15 +22,12 @@ header#app-header h1#app-title {
 }
 
 footer#app-footer {
+    grid-area: footer;
+
     justify-content: space-between;
     border-top: 1px solid #CFD8DC;
 }
 
-footer#app-footer p {
-    margin: 15px 20px;
-}
-
 footer#app-footer nav {
     font-size: 3.5em;
-    padding: 0 10px;
 }
