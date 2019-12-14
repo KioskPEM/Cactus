@@ -13,7 +13,8 @@
     "error": {
       "name": "Error",
       "400": "Bad request",
-      "404": "The requested url cannot be found on this server"
+      "404": "The requested url cannot be found on this server",
+      "500": "Something went wrong on our side, we'll be right back"
     }
   }
 }

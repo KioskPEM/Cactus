@@ -10,7 +10,8 @@
     "error": {
       "name": "Erreur",
       "400": "La syntaxe de la requête est erronée",
-      "404": "L'URL demandée n'existe pas"
+      "404": "L'URL demandée n'existe pas",
+      "500": "Une erreur internet est survenue"
     }
   }
 }
