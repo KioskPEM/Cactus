@@ -43,12 +43,14 @@ class Route
         return $this->endpoint->handle($this, $matches);
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
     }
 
     public static function parse(string $name, string $path, IRouteEndpoint $handler): Route
