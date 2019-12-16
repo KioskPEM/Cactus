@@ -18,6 +18,10 @@ html, body {
 
     overflow: hidden;
     user-select: none;
+
+    user-drag: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
 }
 
 body {
@@ -26,17 +30,17 @@ body {
     grid-column: 1;
     grid-template-rows: 60px 1fr 80px;
     grid-template-columns: auto;
-    grid-template-areas:
-            "header"
-            "content"
-            "footer";
+    grid-template-areas: "header" "content" "footer";
 
     font-family: "Open Sans", Fallback, sans-serif;
     font-size: 1.2em;
     color: #37474F;
 }
 
-div#app-content {
+section#app-content {
+    display: flex;
+    flex-direction: column;
+
     grid-area: content;
 
     text-align: center;
@@ -44,12 +48,18 @@ div#app-content {
     box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.2);
     padding: 10px 50px;
 
-    overflow: hidden auto;
+    overflow: hidden paged-y-controls;
+}
+
+section#app-content .full-size {
+    flex-grow: 1;
 }
 
 a {
     color: #37474F;
     cursor: pointer;
+
+    -webkit-user-drag: none;
 }
 
 a.button {
@@ -58,7 +68,7 @@ a.button {
     text-decoration: none;
 
     padding: 2px 5px;
-    margin: 5px auto;
+    margin: 0 auto;
 
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
     background-color: #FFFFFF;
