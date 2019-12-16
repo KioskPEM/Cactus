@@ -62,7 +62,7 @@ try {
         }
         echo $route->call($parameters);
 
-    } catch (Throwable $e) {
+    } catch (Throwable $_) {
 
         http_response_code(HttpCode::SERVER_ERROR);
         $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
