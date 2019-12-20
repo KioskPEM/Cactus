@@ -29,8 +29,8 @@ try {
 
     $templateEngine->registerTemplate("layout");
 
-    $router->get("debug", "/debug", $templateEngine);
-    $templateEngine->registerTemplate("debug");
+    $router->get("admin", "/admin", $templateEngine);
+    $templateEngine->registerTemplate("admin");
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");
