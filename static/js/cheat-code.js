@@ -14,14 +14,14 @@ const CheatCode = {
         CheatCode.commands[command] = action;
     },
     handleKeyPress(e) {
-        if (e.keyCode === 13) {
+        if (e.key === "Enter") {
             let cmd = CheatCode.commands[CheatCode.buffer];
             if (cmd === undefined)
                 return;
             cmd();
             CheatCode.buffer = "";
         } else
-            CheatCode.commands += e.char;
+            CheatCode.buffer += e.key;
     }
 
 };
