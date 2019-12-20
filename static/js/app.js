@@ -6,6 +6,7 @@ const Cactus = {
         });
 
         Cactus.resetIdleDelay();
+        CheatCode.init()
     },
     goToWelcome: function () {
         let welcomeBtn = document.getElementById("welcome-btn");

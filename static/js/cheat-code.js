@@ -1,18 +1,27 @@
-const CHEAT_CODES = [
-    'p', 'o', 'm', 'm', 'e'
-];
+const CheatCode = {
+    init: function () {
+        CheatCode.commands = [];
+        CheatCode.buffer = '';
 
-let cursor = 0;
-document.addEventListener("keydown", e => {
-    if (e.Key === CHEAT_CODES[cursor]) {
-        cursor++;
-        if (cursor === CHEAT_CODES.length) {
+        document.addEventListener("keydown", CheatCode.handleKeyPress);
 
+        CheatCode.register("pomme", function () {
             let adminPage = document.getElementById("admin-page");
             window.location.href = adminPage.value;
+        });
+    },
+    register: function (command, action) {
+        CheatCode.commands[command] = action;
+    },
+    handleKeyPress(e) {
+        if (e.keyCode === 13) {
+            let cmd = CheatCode.commands[CheatCode.buffer];
+            if (cmd === undefined)
+                return;
+            cmd();
+            CheatCode.buffer = "";
+        } else
+            CheatCode.commands += e.char;
+    }
 
-            cursor = 0;
-        }
-    } else
-        cursor = 0;
-})
+};

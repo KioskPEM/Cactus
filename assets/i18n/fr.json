@@ -10,7 +10,7 @@
     "admin": {
       "name": "Administration",
       "actions": {
-        "main_menu": "Retourner au menu principal"
+        "main_menu": "Retourner au menu principal",
         "close": "Quitter l'application"
       }
     },
