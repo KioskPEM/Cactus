@@ -1,16 +1,7 @@
 {
   "url": {
-    "format":  "http://192.168.1.14:8080/public?lang=%s&url=%s",
-    "root": "http:\/\/192.168.1.14:8080",
-    "static": "http:\/\/192.168.1.14:8080\/static"
-  },
-  "page_template": {
-    "color": "#000000"
-  },
-  "database": {
-    "host": "127.0.0.1",
-    "name": "cactus",
-    "user": "cactus",
-    "password": "cactus_password"
+    "format":  "http://127.0.0.1:8080/public/index.php?lang=%s&url=%s",
+    "root": "http://127.0.0.1:8080/public",
+    "static": "http://127.0.0.1:8080/static"
   }
 }
