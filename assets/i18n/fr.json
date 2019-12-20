@@ -7,6 +7,13 @@
       "name": "Bienvenue",
       "help": "Veuillez sélectionner une option ci-dessous"
     },
+    "admin": {
+      "name": "Administration",
+      "actions": {
+        "main_menu": "Retourner au menu principal"
+        "close": "Quitter l'application"
+      }
+    },
     "error": {
       "name": "Erreur",
       "400": "La syntaxe de la requête est erronée",
