@@ -23,5 +23,7 @@ class AdminEndpoint implements IRouteEndpoint
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }
+
+        return "";
     }
 }
