@@ -33,13 +33,13 @@ class Router
     }
 
     /**
-     * @param string $url
+     * @param string $path
      * @param string $method
      * @param array $matches
      * @return Route
      * @throws RouteNotFoundException
      */
-    public function resolveRoute(string $url, string $method, array &$matches): Route
+    public function resolveRoute(string $path, string $method, array &$matches): Route
     {
         if (!$this->hasMethod($method))
             return null;
@@ -47,11 +47,11 @@ class Router
         $methodRoutes = $this->routes[$method];
         foreach ($methodRoutes as $route) {
             /* @var $route Route */
-            if ($route->match($url, $matches))
+            if ($route->match($path, $matches))
                 return $route;
         }
 
-        throw new RouteNotFoundException("No route found (url: " . $url . ')', HttpCode::CLIENT_NOT_FOUND);
+        throw new RouteNotFoundException("No route found (url: " . $path . ')', HttpCode::CLIENT_NOT_FOUND);
     }
 
     /**

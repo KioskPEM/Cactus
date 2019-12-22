@@ -10,6 +10,7 @@ use Cactus\Template\TemplateManager;
 use Cactus\Util\ClientRequest;
 
 try {
+
     $config = json_decode(file_get_contents(ASSET_PATH . "config.json"), true, 512, JSON_THROW_ON_ERROR);
 
     $request = ClientRequest::Instance();
@@ -40,7 +41,7 @@ try {
 
     $parameters = [];
     $route = $router->resolveRoute(
-        $request->getUrl(),
+        $request->getPath(),
         $request->getMethod(),
         $parameters
     );

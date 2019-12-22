@@ -22,9 +22,9 @@ class Route
         $this->endpoint = $endpoint;
     }
 
-    public function match(string $url, array &$matches)
+    public function match(string $path, array &$matches)
     {
-        return preg_match($this->regex, $url, $matches);
+        return preg_match($this->regex, $path, $matches);
     }
 
     /**

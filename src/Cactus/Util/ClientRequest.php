@@ -7,13 +7,13 @@ namespace Cactus\Util;
 class ClientRequest
 {
     private string $method;
-    private string $url;
+    private string $path;
     private string $lang;
 
     private function __construct()
     {
         $this->method = $_SERVER["REQUEST_METHOD"];
-        $this->url = $_GET["url"] ?? "/";
+        $this->path = $_GET["path"] ?? "/";
         $this->lang = $_GET["lang"] ?? "en";
     }
 
@@ -41,9 +41,9 @@ class ClientRequest
     /**
      * @return mixed|string
      */
-    public function getUrl()
+    public function getPath()
     {
-        return $this->url;
+        return $this->path;
     }
 
     /**
