@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
+use Cactus\Endpoint\AdminEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
@@ -31,6 +32,7 @@ try {
     $templateEngine->registerTemplate("layout");
 
     $router->get("admin", "/admin", $templateEngine);
+    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
     $templateEngine->registerTemplate("admin");
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
