@@ -18,7 +18,7 @@ use Cactus\Util\ClientRequest;
 
 class TemplateManager implements IRouteEndpoint
 {
-    const IDENTIFIER_PATTERN = "([a-z0-9\\.-_]+)";
+    const IDENTIFIER_PATTERN = "([a-z0-9\\.\\-_]+)";
 
     private array $params;
 
