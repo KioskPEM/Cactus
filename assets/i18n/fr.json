@@ -1,24 +1,30 @@
 {
   "app": {
-    "footer": "Lycée Pierre Emile Martin"
+    "footer": "Cactus"
   },
   "pages": {
     "welcome": {
       "name": "Bienvenue",
       "help": "Veuillez sélectionner une option ci-dessous"
     },
+    "sign-up": {
+      "name": "Inscription",
+      "help": "blablabla",
+      "form": {
+        "submit": "S'inscrire"
+      }
+    },
     "admin": {
       "name": "Administration",
       "actions": {
-        "main_menu": "Retourner au menu principal",
-        "close": "Quitter l'application"
+        "main_menu": "Menu principal",
+        "close": "Fermer l'application",
+        "update": "Mettre à jour"
       }
     },
     "error": {
       "name": "Erreur",
-      "400": "La syntaxe de la requête est erronée",
-      "404": "L'URL demandée n'existe pas",
-      "500": "Une erreur interne est survenue"
+      "description": "Oops ! Une erreur est survenue :/"
     }
   }
 }

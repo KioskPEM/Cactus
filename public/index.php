@@ -2,6 +2,7 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
 use Cactus\Endpoint\AdminEndpoint;
+use Cactus\Endpoint\UpdateEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
@@ -33,6 +34,7 @@ try {
 
     $router->get("admin", "/admin", $templateEngine);
     $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
+    $router->get("admin_update", "/admin/update", new UpdateEndpoint());
     $templateEngine->registerTemplate("admin");
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
@@ -40,6 +42,9 @@ try {
 
     $router->get("welcome", "/welcome", $templateEngine);
     $templateEngine->registerTemplate("welcome");
+
+    $router->get("sign-up", "/sign-up", $templateEngine);
+    $templateEngine->registerTemplate("sign-up");
 
     $parameters = [];
     $route = $router->resolveRoute(
@@ -70,7 +75,7 @@ try {
         http_response_code(HttpCode::SERVER_ERROR);
         $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
         $exceptionDetails = ini_get("display_errors") ? "<code style='display: block; text-align: left;'>" . nl2br($e) . "</code>" : null;
-        echo str_replace("%{exception.details}", $exceptionDetails, $fallback);
+        echo str_replace("\${route.exception.details}", $exceptionDetails, $fallback);
     }
 
 }
