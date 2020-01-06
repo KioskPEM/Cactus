@@ -7,6 +7,16 @@ namespace Cactus\Endpoint;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
 use ZipArchive;
+use function curl_close;
+use function curl_exec;
+use function curl_getinfo;
+use function curl_init;
+use function curl_setopt_array;
+use function sys_get_temp_dir;
+use function tempnam;
+use function unlink;
+use const CURLOPT_FILE;
+use const CURLOPT_URL;
 
 class UpdateEndpoint implements IRouteEndpoint
 {
