@@ -33,8 +33,8 @@ try {
     $templateEngine->registerTemplate("layout");
 
     $router->get("admin", "/admin", $templateEngine);
-    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
     $router->get("admin_update", "/admin/update", new UpdateEndpoint());
+    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
     $templateEngine->registerTemplate("admin");
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
