@@ -23,17 +23,28 @@ class UpdateEndpoint implements IRouteEndpoint
         $this->archiveFile = \tempnam($tmpDir, "Cactus");
 
         $options = array(
-            \CURLOPT_FILE => $this->archiveFile,
             \CURLOPT_URL => self::APP_URL,
+            \CURLOPT_RETURNTRANSFER => true,
+            \CURLOPT_BINARYTRANSFER => true,
+            \CURLOPT_FOLLOWLOCATION => true,
+            \CURLOPT_USERAGENT => "Cactus",
+            \CURLOPT_CONNECTTIMEOUT => 60,
+            \CURLOPT_TIMEOUT => 60
         );
         $ch = \curl_init();
         \curl_setopt_array($ch, $options);
-        $success = \curl_exec($ch);
+        $archiveData = \curl_exec($ch);
+
+        if (!$archiveData) {
+            $error = \curl_error($ch);
+            \curl_close($ch);
+            return $this->release("Unable to download the latest version of Cactus: " . $error);
+        }
+
         \curl_close($ch);
 
-        if (!$success) {
-            $info = \curl_getinfo($ch);
-            return $this->release("Unable to download the latest version of Cactus: " . $info);
+        if (!file_put_contents($this->archiveFile, $archiveData)) {
+            return $this->release("Unable to save the archive to the disk.");
         }
 
         $zip = new ZipArchive();
@@ -47,7 +58,7 @@ class UpdateEndpoint implements IRouteEndpoint
         }
 
         $zip->close();
-        return "Cactus is now up-to-date";
+        return $this->release("Cactus is now up-to-date");
     }
 
     private function release(string $error): string
