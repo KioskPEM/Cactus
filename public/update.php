@@ -5,20 +5,21 @@ const APP_URL = "https://github.com/TheWhoosher/Cactus/archive/master.zip";
 
 function release()
 {
+    global $extractedFolder;
+    if (file_exists($extractedFolder))
+        recursive_rmdir($extractedFolder);
+
     global $zipArchive;
-    if (isset($zipArchive)) {
+    if (isset($zipArchive))
         $zipArchive->close();
-    }
 
     global $curlHandler;
-    if (isset($curlHandler)) {
+    if (isset($curlHandler))
         curl_close($curlHandler);
-    }
 
     global $archivePath;
-    if (file_exists($archivePath)) {
+    if (file_exists($archivePath))
         unlink($archivePath);
-    }
 }
 
 function report(int $code, string $message)
@@ -35,20 +36,35 @@ function report(int $code, string $message)
 
 function recursive_rmdir($dir): bool
 {
+    if (is_file($dir))
+        return unlink($dir);
+
     if (is_dir($dir)) {
-        $objects = scandir($dir);
-        foreach ($objects as $object) {
-            if ($object != "." && $object != "..") {
-                if (is_dir($dir . "/" . $object) && !is_link($dir . "/" . $object))
-                    recursive_rmdir($dir . "/" . $object);
-                else if (!unlink($dir . "/" . $object))
-                    return false;
-            }
+        $files = scandir($dir);
+        foreach ($files as $file) {
+            if ($file != "." && $file != "..")
+                recursive_rmdir("$dir/$file");
         }
-        if (!rmdir($dir))
-            return false;
+        rmdir($dir);
     }
+
     return true;
+}
+
+function recursive_copy($src, $dst)
+{
+    if (file_exists($dst))
+        recursive_rmdir($dst);
+
+    if (is_dir($src)) {
+        mkdir($dst);
+        $files = scandir($src);
+        foreach ($files as $file) {
+            if ($file != "." && $file != "..")
+                recursive_copy("$src/$file", "$dst/$file");
+        }
+    } else if (file_exists($src))
+        copy($src, $dst);
 }
 
 /** @var string $tmpDir */
@@ -93,13 +109,11 @@ if (!$zipArchive->extractTo($tmpDir)) {
 }
 
 /** @var string $extractedFolder */
-$extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master";
-/** @var string $destination */
-$destination = dirname(ROOT);
+$extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
 
-if (!rename($extractedFolder, ROOT)) {
-    report(500, "Unable to move the up-to-date application to the Web directory.");
-}
+recursive_copy($extractedFolder . "assets", ROOT . "assets");
+recursive_copy($extractedFolder . "public", ROOT . "public");
+recursive_copy($extractedFolder . "src", ROOT . "src");
+recursive_copy($extractedFolder . "static", ROOT . "static");
 
-recursive_rmdir($extractedFolder);
 report(200, "Cactus is now up-to-date");
