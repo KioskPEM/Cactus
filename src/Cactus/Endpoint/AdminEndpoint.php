@@ -9,6 +9,17 @@ use Cactus\Routing\Route;
 
 class AdminEndpoint implements IRouteEndpoint
 {
+    private string $updateUrl;
+
+    /**
+     * AdminEndpoint constructor.
+     * @param string $updateUrl
+     */
+    public function __construct(string $updateUrl)
+    {
+        $this->updateUrl = $updateUrl;
+    }
+
     /**
      * @inheritDoc
      */
@@ -17,13 +28,12 @@ class AdminEndpoint implements IRouteEndpoint
         $action = $parameters["action"];
 
         switch ($action) {
+            case "update":
+                return "<a href=\"$this->updateUrl\" onclick=\"this.text = 'Cactus is now updating...'\">Click here to update Cactus.</a>";
             case "quit":
-                system("cmd /c C:\Cactus\stop.bat");
-                break;
+                return system("cmd /c C:\Cactus\stop.bat");
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }
-
-        return "";
     }
 }

@@ -2,7 +2,6 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
 use Cactus\Endpoint\AdminEndpoint;
-use Cactus\Endpoint\UpdateEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
@@ -18,9 +17,10 @@ try {
     $request = ClientRequest::Instance();
 
     $router = new Router();
+    $rootUrl = $config["url"]["root"];
     $templateEngine = new TemplateManager([
         "url" => [
-            "root" => $config["url"]["root"],
+            "root" => $rootUrl,
             "static" => $config["url"]["static"]
         ]
     ]);
@@ -33,8 +33,8 @@ try {
     $templateEngine->registerTemplate("layout");
 
     $router->get("admin", "/admin", $templateEngine);
-    $router->get("admin_update", "/admin/update", new UpdateEndpoint());
-    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
+
+    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint($rootUrl . "/update.php"));
     $templateEngine->registerTemplate("admin");
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
