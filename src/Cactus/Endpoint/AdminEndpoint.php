@@ -41,10 +41,19 @@ class AdminEndpoint implements IRouteEndpoint
 
                 $text = $_GET['text'] ?? "test";
                 $com = $_GET['com'] ?? "COM1";
+                $code = $_GET['code'] ?? "POMME";
+                $qrCode = $_GET['qrcode'] ?? "false";
+
                 $connector = new WindowsPrintConnector($com);
                 $printer = new Printer($connector);
                 $printer->initialize();
                 $printer->text($text);
+
+                if ($qrCode === "true")
+                    $printer->qrCode($code);
+                else
+                    $printer->barcode($code);
+
                 $printer->feed();
                 $printer->cut();
                 $printer->close();
