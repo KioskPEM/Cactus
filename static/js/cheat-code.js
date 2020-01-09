@@ -21,6 +21,7 @@ const CheatCode = {
             let cmd = CheatCode.commands[CheatCode.buffer];
             if (cmd === undefined) {
                 console.error("Unknown command", CheatCode.buffer);
+                CheatCode.buffer = "";
                 return;
             }
             console.log("Executing command", CheatCode.buffer);
