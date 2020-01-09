@@ -34,6 +34,9 @@ class AdminEndpoint implements IRouteEndpoint
                 return "<a href=\"$this->updateUrl\" onclick=\"this.text = 'Cactus is now updating...'\">Click here to update Cactus.</a>";
             case "quit":
                 return system("cmd /c C:\Cactus\stop.bat");
+            case "info":
+                phpinfo();
+                return "";
             case "print":
 
                 $text = $_GET['text'] ?? "";
