@@ -9,7 +9,7 @@
     },
     "sign-up": {
       "name": "Inscription",
-      "help": "blablabla",
+      "help": "{sign-up.help}",
       "form": {
         "submit": "S'inscrire"
       }
