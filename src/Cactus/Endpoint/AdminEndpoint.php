@@ -44,8 +44,9 @@ class AdminEndpoint implements IRouteEndpoint
                 $code = $_GET['code'] ?? "AZERTY";
                 $connector = new WindowsPrintConnector($com);
                 $printer = new Printer($connector);
+                $printer->initialize();
                 $printer->text($text);
-                $printer->barcode($code, Printer::BARCODE_CODE39);
+                //$printer->barcode($code, Printer::BARCODE_CODE39);
                 $printer->cut();
                 $printer->close();
                 return "PRINTED_OR_IS_IT?";
