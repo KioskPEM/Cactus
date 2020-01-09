@@ -1,11 +1,10 @@
 const Cactus = {
     idleDelay: 60,
     init: function () {
-        ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
+        /*["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
             document.addEventListener(name, Cactus.resetIdleDelay, true);
-        });
+        });*/
 
-        Cactus.resetIdleDelay();
         CheatCode.init()
     },
     goToWelcome: function () {
