@@ -52,7 +52,7 @@ class AdminEndpoint implements IRouteEndpoint
                 $printer->feed();
 
                 if ($qrCode === "true")
-                    $printer->qrCode($code, Printer::QR_ECLEVEL_L, 10);
+                    $printer->qrCode($code, Printer::QR_ECLEVEL_H, 16);
                 else
                     $printer->barcode($code);
 
