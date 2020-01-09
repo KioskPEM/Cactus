@@ -14,9 +14,6 @@ const CheatCode = {
         CheatCode.commands[command] = action;
     },
     handleKeyPress(e) {
-        if (e.repeat || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey)
-            return;
-
         if (e.key === "Enter") {
             let cmd = CheatCode.commands[CheatCode.buffer];
             if (cmd === undefined) {
@@ -27,7 +24,7 @@ const CheatCode = {
             console.log("Executing command", CheatCode.buffer);
             CheatCode.buffer = "";
             cmd();
-        } else
+        } else if (/[A-Z0-9]/.test(e.key))
             CheatCode.buffer += e.key;
     }
 
