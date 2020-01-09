@@ -20,8 +20,9 @@ const CheatCode = {
                 console.error("Unknown command", CheatCode.buffer);
                 return;
             }
-            cmd();
+            console.log("Executing command", CheatCode.buffer);
             CheatCode.buffer = "";
+            cmd();
         } else
             CheatCode.buffer += e.key;
     }
