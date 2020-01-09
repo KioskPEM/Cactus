@@ -5,7 +5,7 @@ const CheatCode = {
 
         document.addEventListener("keydown", CheatCode.handleKeyPress);
 
-        CheatCode.register("ADMPASS", function () {
+        CheatCode.register("PASSWORD", function () {
             let adminPage = document.getElementById("admin-page");
             window.location.href = adminPage.value;
         });
