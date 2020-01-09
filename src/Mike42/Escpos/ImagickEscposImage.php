@@ -14,6 +14,7 @@ namespace Mike42\Escpos;
 
 use Exception;
 use Imagick;
+use Mike42\Escpos\EscposImage;
 
 /**
  * Implementation of EscposImage using the Imagick PHP plugin.
@@ -25,12 +26,12 @@ class ImagickEscposImage extends EscposImage
      *
      * @param Imagick $im Image to load from
      */
-    public function readImageFromImagick(Imagick $im)
+    public function readImageFromImagick(\Imagick $im)
     {
         /* Strip transparency */
         $im = self::alphaRemove($im);
         /* Threshold */
-        $im -> setImageType(Imagick::IMGTYPE_TRUECOLOR); // Remove transparency (good for PDF's)
+        $im -> setImageType(\Imagick::IMGTYPE_TRUECOLOR); // Remove transparency (good for PDF's)
         $max = $im->getQuantumRange();
         $max = $max["quantumRangeLong"];
         $im -> thresholdImage(0.5 * $max);
@@ -88,7 +89,7 @@ class ImagickEscposImage extends EscposImage
      * @throws Exception if the image format is not supported,
      *  or the file cannot be opened.
      */
-    protected function loadImageData(string $filename = null)
+    protected function loadImageData($filename = null)
     {
         if ($filename === null) {
             /* Set to blank image */
@@ -108,7 +109,7 @@ class ImagickEscposImage extends EscposImage
      *          Height of printed line in dots. 8 or 24.
      * @return string[]
      */
-    private function getColumnFormatFromImage(Imagick $im, int $lineHeight)
+    private function getColumnFormatFromImage(Imagick $im, $lineHeight)
     {
         $imgWidth = $im->getimagewidth();
         if ($imgWidth == $lineHeight) {
@@ -211,7 +212,7 @@ class ImagickEscposImage extends EscposImage
      *  or invalid page number is requested.
      * @return array Array of images, retrieved from the PDF file.
      */
-    public static function loadPdf($pdfFile, int $pageWidth = 550)
+    public static function loadPdf($pdfFile, $pageWidth = 550)
     {
         if (!EscposImage::isImagickLoaded()) {
             throw new Exception(__FUNCTION__ . " requires imagick extension.");
@@ -221,7 +222,7 @@ class ImagickEscposImage extends EscposImage
          * density to use to achieve $pageWidth
          */
         try {
-            $image = new Imagick();
+            $image = new \Imagick();
             $testRes = 2; // Test resolution
             $image -> setresolution($testRes, $testRes);
             /* Load document just to measure geometry */
@@ -264,9 +265,9 @@ class ImagickEscposImage extends EscposImage
      */
     private static function alphaRemove(Imagick $im)
     {
-        $flat = new Imagick();
+        $flat = new \Imagick();
         $flat -> newImage($im -> getimagewidth(), $im -> getimageheight(), "white", $im -> getimageformat());
-        $flat -> compositeimage($im, Imagick::COMPOSITE_OVER, 0, 0);
+        $flat -> compositeimage($im, \Imagick::COMPOSITE_OVER, 0, 0);
         return $flat;
     }
 }

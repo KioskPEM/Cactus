@@ -18,23 +18,23 @@ use \InvalidArgumentException;
  * Class to handle data about a particular CodePage, as loaded from the receipt print
  * database.
  *
- * Also computes map between UTF-8 and this encoding if necessary, using the intl library.
+ * Also computes map between UTF-8 and this encoding if necessary, using the iconv library.
  */
 class CodePage
 {
     /**
-     * Value to use when no character is set. This is a space in ASCII.
+     * The input encoding for generating character maps with iconv.
      */
-    const MISSING_CHAR_CODE = 0x20;
+    const INPUT_ENCODING = "UTF-8";
 
     /**
-     * @var array|null $data
+     * @var string $data
      *  Data string, null if not known (can be computed with iconv)
      */
     protected $data;
 
     /**
-     * @var string|null $iconv
+     * @var string $iconv
      *  Iconv encoding name, null if not known
      */
     protected $iconv;
@@ -52,7 +52,7 @@ class CodePage
     protected $name;
 
     /**
-     * @var string|null $notes
+     * @var string $notes
      *  Notes on this code page, or null if not set.
      */
     protected $notes;
@@ -70,27 +70,28 @@ class CodePage
     {
         $this->id = $id;
         $this->name = isset($codePageData['name']) ? $codePageData['name'] : $id;
-        $this->data = isset($codePageData['data']) ? self::encodingArrayFromData($codePageData['data']) : null;
+        $this->data = isset($codePageData['data']) ? implode("", $codePageData['data']) : null;
         $this->iconv = isset($codePageData['iconv']) ? $codePageData['iconv'] : null;
         $this->notes = isset($codePageData['notes']) ? $codePageData['notes'] : null;
     }
 
     /**
-     * Get a 128-entry array of unicode code-points from this code page.
+     * Get a 128-character data string representing this encoding.
+     * It will be
+     * calculated and cached if it was not previously known.
      *
      * @throws InvalidArgumentException Where the data is now known or computable.
-     * @return array Data for this encoding.
+     * @return string Data for this encoding.
      */
-    public function getDataArray() : array
+    public function getData()
     {
-        // Make string
         if ($this->data !== null) {
             // Return data if known
             return $this->data;
         }
         if ($this->iconv !== null) {
             // Calculate with iconv if we know the encoding name
-            $this->data = self::generateEncodingArray($this->iconv);
+            $this->data = self::generateEncodingMap($this->iconv);
             return $this->data;
         }
         // Can't encode..
@@ -99,7 +100,7 @@ class CodePage
 
     /**
      *
-     * @return string|null Iconv encoding name, or null if not set.
+     * @return string Iconv encoding name, or blank if not set.
      */
     public function getIconv()
     {
@@ -110,15 +111,15 @@ class CodePage
      *
      * @return string Unique identifier of the code page.
      */
-    public function getId() : string
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @return string Name of the code page.
+     * Name of the code page.
      */
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -126,7 +127,7 @@ class CodePage
     /**
      * The notes may explain quirks about a code-page, such as a source if it's non-standard or un-encodeable.
      *
-     * @return string|null Notes on the code page, or null if not set.
+     * @return string Notes on the code page, or null if not set.
      */
     public function getNotes()
     {
@@ -146,53 +147,35 @@ class CodePage
     }
 
     /**
-     * Given an ICU encoding name, generate a 128-entry array, with the unicode code points
-     * for the character at positions 128-255 in this code page.
+     * Given an iconv encoding name, generate a 128-character UTF-8 string, containing code points 128-255.
      *
-     * @param string $encodingName Name of the encoding
-     * @return array 128-entry array of code points
+     * This string is used to map UTF-8 characters to their location in this code page.
+     *
+     * @param string $iconvName
+     *            Name of the encoding
+     * @return string 128-character string in UTF-8.
      */
-    protected static function generateEncodingArray(string $encodingName) : array
+    protected static function generateEncodingMap($iconvName)
     {
-        // Set up converter for encoding
-        $missingChar = chr(self::MISSING_CHAR_CODE);
-        // Throws a lot of warnings for ambiguous code pages, but fallbacks seem fine.
-        $converter = @new \UConverter("UTF-8", $encodingName);
-        $converter -> setSubstChars($missingChar);
+        // Start with array of blanks (" " indicates unknown character).
+        $charMap = array_fill(0, 128, " ");
         // Loop through 128 code points
-        $intArray = array_fill(0, 128, self::MISSING_CHAR_CODE);
-        for ($char = 128; $char <= 255; $char++) {
-            // Try to identify the UTF-8 character at this position in the code page
-            $encodingChar = chr($char);
-            $utf8 = $converter ->convert($encodingChar, false);
-            if ($utf8 === $missingChar) {
-                // Cannot be mapped to unicode
+        for ($char = 128; $char <= 255; $char ++) {
+            // Try to identify the UTF-8 character that would go here
+            $utf8 = @iconv($iconvName, self::INPUT_ENCODING, chr($char));
+            if ($utf8 == '') {
                 continue;
             }
-            $reverse = $converter ->convert($utf8, true);
-            if ($reverse !== $encodingChar) {
-                // Avoid conversions which don't reverse well (eg. multi-byte code pages)
+            if (iconv(self::INPUT_ENCODING, $iconvName, $utf8) != chr($char)) {
+                // Avoid non-canonical conversions (no known examples)
                 continue;
             }
-            // Replace space with the correct character if we found it
-            $intArray[$char - 128] = \IntlChar::ord($utf8);
+            // Replace the ' ' with the correct character if we found it
+            $charMap[$char - 128] = $utf8;
         }
-        assert(count($intArray) == 128);
-        return $intArray;
-    }
-
-
-    private static function encodingArrayFromData(array $data) : array
-    {
-        $text = implode("", $data); // Join lines
-        $codePointIterator = \IntlBreakIterator::createCodePointInstance();
-        $codePointIterator -> setText($text);
-        $ret = array_fill(0, 128, self::MISSING_CHAR_CODE);
-        for ($i = 0; ($codePointIterator -> next() > 0) && ($i < 128); $i++) {
-            $codePoint = $codePointIterator -> getLastCodePoint();
-            $ret[$i] = $codePoint;
-        }
-        assert(count($ret) == 128);
-        return $ret;
+        // Join into a 128-character string and return.
+        $charMapStr = implode("", $charMap);
+        assert(mb_strlen($charMapStr, self::INPUT_ENCODING) == 128);
+        return $charMapStr;
     }
 }

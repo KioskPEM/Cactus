@@ -286,9 +286,6 @@ class WindowsPrintConnector implements PrintConnector
             }
             /* Final print-out */
             $filename = tempnam(sys_get_temp_dir(), "escpos");
-            if ($filename === false) {
-                throw new Exception("Failed to create temp file for printing.");
-            }
             file_put_contents($filename, $data);
             if (!$this -> runCopy($filename, $device)) {
                 throw new Exception("Failed to copy file to printer");

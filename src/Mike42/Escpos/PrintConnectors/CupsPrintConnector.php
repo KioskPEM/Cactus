@@ -78,9 +78,6 @@ class CupsPrintConnector implements PrintConnector
         
         // Build command to work on data
         $tmpfname = tempnam(sys_get_temp_dir(), 'print-');
-        if ($tmpfname === false) {
-            throw new Exception("Failed to create temp file for printing.");
-        }
         file_put_contents($tmpfname, $data);
         $cmd = sprintf(
             "lp -d %s %s",
@@ -137,7 +134,7 @@ class CupsPrintConnector implements PrintConnector
      * Read data from the printer.
      *
      * @param string $len Length of data to read.
-     * @return string Data read from the printer, or false where reading is not possible.
+     * @return Data read from the printer, or false where reading is not possible.
      */
     public function read($len)
     {

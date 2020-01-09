@@ -13,7 +13,6 @@
 namespace Mike42\Escpos\PrintBuffers;
 
 use LogicException;
-use Mike42\Escpos\CodePage;
 use Mike42\Escpos\Printer;
 
 /**
@@ -29,19 +28,24 @@ class EscposPrintBuffer implements PrintBuffer
     const COMPRESS_CACHE = true;
 
     /**
+     * The input encoding of the buffer.
+     */
+    const INPUT_ENCODING = "UTF-8";
+
+    /**
      * Un-recognised characters will be replaced with this.
      */
     const REPLACEMENT_CHAR = "?";
 
     /**
      * @var array $available
-     * Map code points to printer-specific code page numbers which contain them
+     *  This array Maps ESC/POS character tables to names iconv encodings
      */
     private $available = null;
 
     /**
      * @var array $encode
-     * Map code pages to a map of code points to encoding-specific characters 128-255
+     *  Maps of UTF-8 to code-pages
      */
     private $encode = null;
 
@@ -80,43 +84,42 @@ class EscposPrintBuffer implements PrintBuffer
         }
     }
 
-    public function writeText(string $text)
+    public function writeText($text)
     {
-        if ($this->printer == null) {
+        if ($this -> printer == null) {
             throw new LogicException("Not attached to a printer.");
         }
-        // Normalize text - this replaces combining characters with composed glyphs, and also helps us eliminated bad UTF-8 early
-        $text = \Normalizer::normalize($text);
-        if ($text === false) {
-            throw new \Exception("Input must be UTF-8");
+        if ($text == null) {
+            return;
         }
-        // Iterate code points
-        $codePointIterator = \IntlBreakIterator::createCodePointInstance();
-        $codePointIterator->setText($text);
-        $encoding = $this->printer->getCharacterTable();
-        $currentBlock = [];
-        while ($codePointIterator->next() > 0) {
-            // Write each code point
-            $codePoint = $codePointIterator->getLastCodePoint();
-            // See if we need to change code pages
-            $matching = !isset($this->available[$codePoint]) || isset($this->encode[$encoding][$codePoint]);
-            if ($matching) {
-                $currentBlock[] = $codePoint;
-            } else {
-                // Write what we have
-                $this->writeTextUsingEncoding($currentBlock, $encoding);
-                // New encoding..
-                $encoding = self::identifyText($codePoint);
-                $currentBlock = [$codePoint];
+        if (!mb_detect_encoding($text, self::INPUT_ENCODING, true)) {
+            // Assume that the user has already put non-UTF8 into the target encoding.
+            return $this -> writeTextRaw($text);
+        }
+        $i = 0;
+        $j = 0;
+        $len = mb_strlen($text, self::INPUT_ENCODING);
+        while ($i < $len) {
+            $matching = true;
+            if (($encoding = $this -> identifyText(mb_substr($text, $i, 1, self::INPUT_ENCODING))) === false) {
+                // Un-encodeable text
+                $encoding = $this -> getPrinter() -> getCharacterTable();
             }
-        }
-        // Write out last bytes
-        if (count($currentBlock) != 0) {
-            $this->writeTextUsingEncoding($currentBlock, $encoding);
+            $i++;
+            $j = 1;
+            do {
+                $char = mb_substr($text, $i, 1, self::INPUT_ENCODING);
+                $matching = !isset($this -> available[$char]) || isset($this -> available[$char][$encoding]);
+                if ($matching) {
+                    $i++;
+                    $j++;
+                }
+            } while ($matching && $i < $len);
+            $this -> writeTextUsingEncoding(mb_substr($text, $i - $j, $j, self::INPUT_ENCODING), $encoding);
         }
     }
 
-    public function writeTextRaw(string $text)
+    public function writeTextRaw($text)
     {
         if ($this -> printer == null) {
             throw new LogicException("Not attached to a printer.");
@@ -145,19 +148,26 @@ class EscposPrintBuffer implements PrintBuffer
      * Return an encoding which we can start to use for outputting this text.
      * Later parts of the text need not be included in the returned code page.
      *
-     * @param int $codePoint Code point to check.
+     * @param string $text Input text to check.
      * @return boolean|integer Code page number, or FALSE if the text is not
      *  printable on any supported encoding.
      */
-    private function identifyText(int $codePoint)
+    private function identifyText($text)
     {
-        if (!isset($this -> available[$codePoint])) {
+        // TODO Replace this with an algorithm to choose the encoding which will
+        //      encode the farthest into the string, to minimise code page changes.
+        $char = mb_substr($text, 0, 1, self::INPUT_ENCODING);
+        if (!isset($this -> available[$char])) {
             /* Character not available anywhere */
             return false;
         }
-        return $this -> available[$codePoint];
+        foreach ($this -> available[$char] as $encodingNo => $true) {
+            /* Return first code-page where it is available */
+            return $encodingNo;
+        }
+        return false;
     }
-
+    
     /**
      * Based on the printer's connector, compute (or load a cached copy of) maps
      * of UTF character to unicode characters for later use.
@@ -188,39 +198,32 @@ class EscposPrintBuffer implements PrintBuffer
         }
 
         /* Generate conversion tables */
-        $encodeLegacy = [];
         $encode = [];
         $available = [];
 
         foreach ($supportedCodePages as $num => $codePage) {
-            $encodeLegacy[$num] = [];
+            $encode[$num] = [];
             if (!$codePage -> isEncodable()) {
                 continue;
             }
-            $map = $codePage -> getDataArray();
-            $encodeMap = [];
+            $map = $codePage -> getData();
             for ($char = 128; $char <= 255; $char++) {
-                $codePoint = $map[$char - 128];
-                if ($codePoint == CodePage::MISSING_CHAR_CODE) { // Skip placeholders
+                $utf8 = mb_substr($map, $char - 128, 1, self::INPUT_ENCODING);
+                if ($utf8 == " ") { // Skip placeholders
                     continue;
                 }
-                $encodeMap[$codePoint] = $char;
-                if (!isset($available[$codePoint])) {
-                    $available[$codePoint] = $num;
+                if (!isset($available[$utf8])) {
+                    $available[$utf8] = [];
                 }
+                $available[$utf8][$num] = true;
+                $encode[$num][$utf8] = chr($char);
             }
-            $encode[$num] = $encodeMap;
         }
         
         /* Use generated data */
-        $dataArray = [
-            "available" => $available,
-            "encode" => $encode,
-            "key" => $cacheKey
-        ];
-        $this -> available = $available;
-        $this -> encode = $encode;
-
+        $dataArray = ["available" => $available, "encode" => $encode, "key" => $cacheKey];
+        $this -> available = $dataArray["available"];
+        $this -> encode = $dataArray["encode"];
         $cacheData = serialize($dataArray);
         if (self::COMPRESS_CACHE) {
             $cacheData = gzcompress($cacheData);
@@ -232,35 +235,31 @@ class EscposPrintBuffer implements PrintBuffer
     /**
      * Encode a block of text using the specified map, and write it to the printer.
      *
-     * @param array $codePoints Text to print, as list of unicode code points
+     * @param string $text Text to print, UTF-8 format.
      * @param integer $encodingNo Encoding number to use- assumed to exist.
      */
-    private function writeTextUsingEncoding(array $codePoints, int $encodingNo)
+    private function writeTextUsingEncoding($text, $encodingNo)
     {
         $encodeMap = $this -> encode[$encodingNo];
-        $len = count($codePoints);
-
+        $len = mb_strlen($text, self::INPUT_ENCODING);
         $rawText = str_repeat(self::REPLACEMENT_CHAR, $len);
-        $bytesWritten = 0;
-        $cr = 0x0D; // extra character from line endings on Windows
+        $j = 0;
         for ($i = 0; $i < $len; $i++) {
-            $codePoint = $codePoints[$i];
-            if (isset($encodeMap[$codePoint])) {
-                // Printable via selected code page
-                $rawText[$bytesWritten] = chr($encodeMap[$codePoint]);
-            } elseif (($codePoint > 31 && $codePoint < 127) || $codePoint == 10) {
-                // Printable as ASCII
-                $rawText[$bytesWritten] = chr($codePoint);
-            } elseif ($codePoint === $cr) {
-                // Skip past Windows line endings, LF is fine
+            $char = mb_substr($text, $i, 1, self::INPUT_ENCODING);
+            if (isset($encodeMap[$char])) {
+                $rawText[$j] = $encodeMap[$char];
+            } elseif (self::asciiCheck($char)) {
+                $rawText[$j] = $char;
+            } elseif ($char === "\r") {
+                /* Skip past Windows line endings (UTF-8 usage) */
                 continue;
             }
-            $bytesWritten++;
+            $j++;
         }
         if ($this -> printer -> getCharacterTable() != $encodingNo) {
             $this -> printer -> selectCharacterTable($encodingNo);
         }
-        $this -> writeTextRaw(substr($rawText, 0, $bytesWritten));
+        $this -> writeTextRaw(substr($rawText, 0, $j));
     }
 
     /**
@@ -268,7 +267,7 @@ class EscposPrintBuffer implements PrintBuffer
      *
      * @param string $data
      */
-    private function write(string $data)
+    private function write($data)
     {
         $this -> printer -> getPrintConnector() -> write($data);
     }
@@ -280,7 +279,7 @@ class EscposPrintBuffer implements PrintBuffer
      * @param boolean $extended True to allow 128-256 values also (excluded by default)
      * @return boolean True if the character is printable, false if it is not.
      */
-    private static function asciiCheck(string $char, bool $extended = false)
+    private static function asciiCheck($char, $extended = false)
     {
         if (strlen($char) != 1) {
             // Multi-byte string

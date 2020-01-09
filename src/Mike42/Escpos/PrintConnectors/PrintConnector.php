@@ -34,7 +34,7 @@ interface PrintConnector
      * Read data from the printer.
      *
      * @param string $len Length of data to read.
-     * @return string Data read from the printer, or false where reading is not possible.
+     * @return Data read from the printer, or false where reading is not possible.
      */
     public function read($len);
 
