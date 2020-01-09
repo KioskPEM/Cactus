@@ -47,11 +47,12 @@ class AdminEndpoint implements IRouteEndpoint
                 $connector = new WindowsPrintConnector($com);
                 $printer = new Printer($connector);
                 $printer->initialize();
+                $printer->setJustification(Printer::JUSTIFY_CENTER);
                 $printer->text($text);
                 $printer->feed();
 
                 if ($qrCode === "true")
-                    $printer->qrCode($code);
+                    $printer->qrCode($code, Printer::QR_ECLEVEL_L, 10);
                 else
                     $printer->barcode($code);
 
