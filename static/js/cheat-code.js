@@ -16,8 +16,10 @@ const CheatCode = {
     handleKeyPress(e) {
         if (e.key === "Enter") {
             let cmd = CheatCode.commands[CheatCode.buffer];
-            if (cmd === undefined)
+            if (cmd === undefined) {
+                console.error("Unknown command", CheatCode.buffer);
                 return;
+            }
             cmd();
             CheatCode.buffer = "";
         } else
