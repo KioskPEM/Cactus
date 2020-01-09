@@ -48,6 +48,7 @@ class AdminEndpoint implements IRouteEndpoint
                 $printer = new Printer($connector);
                 $printer->initialize();
                 $printer->text($text);
+                $printer->feed();
 
                 if ($qrCode === "true")
                     $printer->qrCode($code);
