@@ -24,7 +24,7 @@ const CheatCode = {
             console.log("Executing command", CheatCode.buffer);
             CheatCode.buffer = "";
             cmd();
-        } else if (/[A-Z0-9]/.test(e.key))
+        } else if (/^[A-Z0-9]$/.test(e.key))
             CheatCode.buffer += e.key;
     }
 
