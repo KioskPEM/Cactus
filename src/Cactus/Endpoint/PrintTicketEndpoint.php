@@ -3,36 +3,57 @@
 namespace Cactus\Endpoint;
 
 
-use Cactus\Template\Render\Pass\IRenderPass;
-use Cactus\Template\Render\RenderContext;
-use Cactus\Template\Template;
+use Cactus\Http\HttpCode;
+use Cactus\Routing\IRouteEndpoint;
+use Cactus\Routing\Route;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
-class PrintTicketEndpoint implements IRenderPass
+class PrintTicketEndpoint implements IRouteEndpoint
 {
+    private string $port;
+
+    /**
+     * PrintTicketEndpoint constructor.
+     * @param string $port
+     */
+    public function __construct(string $port)
+    {
+        $this->port = $port;
+    }
 
     /**
      * @inheritDoc
      */
-    function execute(string $name, RenderContext $context, Template $template, string $subject): string
+    public function handle(Route $route, array $parameters): string
     {
-        $connector = new WindowsPrintConnector($com);
+        $connector = new WindowsPrintConnector($this->port);
         $printer = new Printer($connector);
+
         $printer->initialize();
+
         $printer->setJustification(Printer::JUSTIFY_CENTER);
-        $printer->text($text);
+        $printer->setTextSize(4, 4);
+        $printer->text("Lycée Pierre Emile Martin");
         $printer->feed();
 
-        /*if ($qrCode === "true")
-            $printer->qrCode($code, Printer::QR_ECLEVEL_L, 10);
-        else*/
-        $printer->barcode($code);
+        $firstName = $parameters["first_name"];
+        $lastName = $parameters["last_name"];
 
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $printer->setTextSize(1, 1);
+        $printer->text($firstName);
+        $printer->text(" ");
+        $printer->text($lastName);
         $printer->feed();
-        $printer->cut();
+
+        $id = $parameters["id"];
+        $printer->barcode($id, Printer::BARCODE_CODE39);
+
+        $printer->cut(Printer::CUT_PARTIAL);
         $printer->close();
 
-        return "OK";
+        http_response_code(HttpCode::SUCCESS_NO_CONTENT);
+        return null;
     }
 }

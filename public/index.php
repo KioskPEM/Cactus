@@ -2,30 +2,30 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
 use Cactus\Endpoint\AdminEndpoint;
+use Cactus\Endpoint\PrintTicketEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
 use Cactus\Template\Render\Pass\I18nPass;
 use Cactus\Template\Render\Pass\UrlPass;
 use Cactus\Template\TemplateManager;
+use Cactus\Util\AppConfiguration;
 use Cactus\Util\ClientRequest;
 
 try {
 
-    $config = json_decode(file_get_contents(ASSET_PATH . "config.json"), true, 512, JSON_THROW_ON_ERROR);
-
     $request = ClientRequest::Instance();
 
     $router = new Router();
-    $rootUrl = $config["url"]["root"];
+    $rootUrl = AppConfiguration::get("url.root");
     $templateEngine = new TemplateManager([
         "url" => [
             "root" => $rootUrl,
-            "static" => $config["url"]["static"]
+            "static" => AppConfiguration::get("url.static")
         ]
     ]);
 
-    $urlFormat = $config["url"]["format"];
+    $urlFormat = AppConfiguration::get("url.format");
     $templateEngine->addPass(new UrlPass($router, $urlFormat));
     $templateEngine->addPass(new EchoPass());
     $templateEngine->addPass(new I18nPass());
@@ -36,6 +36,9 @@ try {
 
     $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint($rootUrl . "/update.php"));
     $templateEngine->registerTemplate("admin");
+
+    $printerPort = AppConfiguration::get("printer.port");
+    $router->get("print_ticket", "/print", new PrintTicketEndpoint($printerPort));
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");

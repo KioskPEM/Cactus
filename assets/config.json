@@ -3,5 +3,8 @@
     "format":  "http://127.0.0.1:8080/public/index.php?lang=%s&path=%s",
     "root": "http://127.0.0.1:8080/public",
     "static": "http://127.0.0.1:8080/static"
+  },
+  "printer": {
+    "port": "COM1"
   }
 }

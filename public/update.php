@@ -1,9 +1,11 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
+use Cactus\Util\AppConfiguration;
+
 const APP_URL = "https://github.com/TheWhoosher/Cactus/archive/master.zip";
 
-function release()
+function clean()
 {
     global $extractedFolder;
     if (file_exists($extractedFolder))
@@ -24,7 +26,7 @@ function release()
 
 function report(int $code, string $message)
 {
-    release();
+    clean();
 
     http_response_code($code);
     header('Content-Type: application/json');
@@ -111,9 +113,16 @@ if (!$zipArchive->extractTo($tmpDir)) {
 /** @var string $extractedFolder */
 $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
 
+/** @var array $config */
+$config = AppConfiguration::getConfig();
+
 recursive_copy($extractedFolder . "assets", ROOT . "assets");
 recursive_copy($extractedFolder . "public", ROOT . "public");
 recursive_copy($extractedFolder . "src", ROOT . "src");
 recursive_copy($extractedFolder . "static", ROOT . "static");
+
+AppConfiguration::reload();
+AppConfiguration::apply($config);
+AppConfiguration::save();
 
 report(200, "Cactus is now up-to-date");
