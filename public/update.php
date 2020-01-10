@@ -74,8 +74,6 @@ $tmpDir = sys_get_temp_dir();
 
 /** @var string $archivePath */
 $archivePath = tempnam($tmpDir, "Cactus");
-if (file_exists($archivePath))
-    unlink($archivePath);
 
 /** @var false|resource $ch */
 $curlHandler = curl_init();
@@ -98,6 +96,10 @@ if (!$downloadData) {
     report(500, "Unable to download the latest version of Cactus: " . $error);
 }
 
+if (file_exists($archivePath)) {
+    unlink($archivePath);
+}
+
 if (!file_put_contents($archivePath, $downloadData)) {
     report(500, "Unable to save the archive to the disk.");
 }
@@ -115,11 +117,12 @@ if (!$zipArchive->extractTo($tmpDir)) {
 /** @var string $extractedFolder */
 $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
 
-if (file_exists($extractedFolder))
-    recursive_rmdir($extractedFolder);
-
 /** @var array $config */
 $config = AppConfiguration::getConfig();
+
+if (file_exists($extractedFolder)) {
+    recursive_rmdir($extractedFolder);
+}
 
 recursive_copy($extractedFolder . "assets", ROOT . "assets");
 recursive_copy($extractedFolder . "public", ROOT . "public");
