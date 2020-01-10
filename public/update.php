@@ -33,7 +33,7 @@ function report(int $code, string $message)
     echo json_encode([
         "message" => $message
     ]);
-    exit($code === 200 ? 0 : 1);
+    die($code === 200 ? 0 : 1);
 }
 
 function recursive_rmdir($dir): bool
@@ -74,6 +74,9 @@ $tmpDir = sys_get_temp_dir();
 
 /** @var string $archivePath */
 $archivePath = tempnam($tmpDir, "Cactus");
+if (file_exists($archivePath)) {
+    unlink($archivePath);
+}
 
 /** @var false|resource $ch */
 $curlHandler = curl_init();
@@ -96,10 +99,6 @@ if (!$downloadData) {
     report(500, "Unable to download the latest version of Cactus: " . $error);
 }
 
-if (file_exists($archivePath)) {
-    unlink($archivePath);
-}
-
 if (!file_put_contents($archivePath, $downloadData)) {
     report(500, "Unable to save the archive to the disk.");
 }
@@ -119,10 +118,6 @@ $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_S
 
 /** @var array $config */
 $config = AppConfiguration::getConfig();
-
-if (file_exists($extractedFolder)) {
-    recursive_rmdir($extractedFolder);
-}
 
 recursive_copy($extractedFolder . "assets", ROOT . "assets");
 recursive_copy($extractedFolder . "public", ROOT . "public");
