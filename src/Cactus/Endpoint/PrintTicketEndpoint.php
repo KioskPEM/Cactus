@@ -54,6 +54,6 @@ class PrintTicketEndpoint implements IRouteEndpoint
         $printer->close();
 
         http_response_code(HttpCode::SUCCESS_NO_CONTENT);
-        return null;
+        return "";
     }
 }
