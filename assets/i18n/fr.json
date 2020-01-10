@@ -19,7 +19,8 @@
       "actions": {
         "main_menu": "Menu principal",
         "close": "Fermer l'application",
-        "update": "Mettre à jour"
+        "update": "Mettre à jour",
+        "print_ticket": "Imprimer un ticket"
       }
     },
     "error": {
