@@ -38,7 +38,7 @@ try {
     $templateEngine->registerTemplate("admin");
 
     $printerPort = AppConfiguration::get("printer.port");
-    $router->get("print_ticket", "/print", new PrintTicketEndpoint($printerPort));
+    $router->get("print_ticket/:id{[A-Z0-9]+}", "/print", new PrintTicketEndpoint($printerPort));
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");
