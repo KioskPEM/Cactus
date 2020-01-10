@@ -37,8 +37,8 @@ class PrintTicketEndpoint implements IRouteEndpoint
         $printer->text("Lycée Pierre Emile Martin");
         $printer->feed();
 
-        $firstName = $parameters["first_name"];
-        $lastName = $parameters["last_name"];
+        $firstName = $parameters["first_name"] ?? "John";
+        $lastName = $parameters["last_name"] ?? "Doe";
 
         $printer->setJustification(Printer::JUSTIFY_LEFT);
         $printer->setTextSize(1, 1);
@@ -47,7 +47,7 @@ class PrintTicketEndpoint implements IRouteEndpoint
         $printer->text($lastName);
         $printer->feed();
 
-        $id = $parameters["id"];
+        $id = $parameters["id"] ?? "0123456789";
         $printer->barcode($id, Printer::BARCODE_CODE39);
 
         $printer->cut(Printer::CUT_PARTIAL);
