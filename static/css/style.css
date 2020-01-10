@@ -35,6 +35,8 @@ body {
     font-family: "Open Sans", Fallback, sans-serif;
     font-size: 1.2em;
     color: #37474F;
+
+    background-image: url("../img/background.jpg");
 }
 
 section#app-content {
