@@ -34,7 +34,7 @@ try {
 
     $router->get("admin", "/admin", $templateEngine);
 
-    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint($rootUrl . "/update.php"));
+    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
     $templateEngine->registerTemplate("admin");
 
     $printerPort = AppConfiguration::get("printer.port");
