@@ -74,6 +74,8 @@ $tmpDir = sys_get_temp_dir();
 
 /** @var string $archivePath */
 $archivePath = tempnam($tmpDir, "Cactus");
+if (file_exists($archivePath))
+    unlink($archivePath);
 
 /** @var false|resource $ch */
 $curlHandler = curl_init();
@@ -112,6 +114,9 @@ if (!$zipArchive->extractTo($tmpDir)) {
 
 /** @var string $extractedFolder */
 $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
+
+if (file_exists($extractedFolder))
+    recursive_rmdir($extractedFolder);
 
 /** @var array $config */
 $config = AppConfiguration::getConfig();
