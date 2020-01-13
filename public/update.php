@@ -119,10 +119,17 @@ $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_S
 /** @var array $config */
 $config = AppConfiguration::getConfig();
 
-recursive_copy($extractedFolder . "assets", ROOT . "assets");
-recursive_copy($extractedFolder . "public", ROOT . "public");
-recursive_copy($extractedFolder . "src", ROOT . "src");
-recursive_copy($extractedFolder . "static", ROOT . "static");
+$extractedFiles = scandir($extractedFolder);
+foreach ($extractedFiles as $file) {
+    if ($file === '.' || $file === "..")
+        continue;
+
+    $filePath = $extractedFolder . $file;
+    if (is_dir($filePath))
+        recursive_copy($filePath . $file, ROOT . $file);
+    else if (is_file($filePath))
+        copy($filePath, ROOT . $file);
+}
 
 AppConfiguration::reload();
 AppConfiguration::apply($config);
