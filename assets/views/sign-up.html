@@ -1,8 +1,12 @@
 <p>%{page.help}</p>
 <form action="@{admin_action|action=quit}" method="post">
-    <label for="first-name">First name</label>
+    <label for="first-name">%{page.form.first_name}</label>
     <input id="first-name" type="text" placeholder="">
-    <label for="last-name">Last name</label>
+    <label for="last-name">%{page.form.last_name}</label>
     <input id="last-name" type="text" placeholder="">
+    <hr/>
+    <label for="school">%{page.form.last_name}</label>
+    <input id="school" type="text" placeholder="">
+    <hr/>
     <input type="submit" value="%{page.form.submit}">
 </form>

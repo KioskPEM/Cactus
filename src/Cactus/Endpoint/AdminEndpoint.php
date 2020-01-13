@@ -20,7 +20,7 @@ class AdminEndpoint implements IRouteEndpoint
         switch ($action) {
             case "update":
                 $updateUrl = AppConfiguration::get("url.root") . "/update.php";
-                return "<a href=\"$updateUrl\" onclick=\"this.text = 'Cactus is now updating...'\">Click here to update Cactus.</a>";
+                return "<a href=\"$updateUrl\" onclick=\"this.text = 'Cactus is now updating...';this.href=''\">Click here to update Cactus.</a>";
             case "quit":
                 return system("cmd /c C:\Cactus\stop.bat");
             default:
