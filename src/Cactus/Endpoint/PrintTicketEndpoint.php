@@ -54,6 +54,7 @@ class PrintTicketEndpoint implements IRouteEndpoint
         $printer->feed(2);
 
         $id = $parameters["id"] ?? "0123456789";
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->barcode($id, Printer::BARCODE_CODE39);
 
         $printer->cut(Printer::CUT_PARTIAL);

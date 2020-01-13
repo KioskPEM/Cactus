@@ -2,6 +2,7 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
 use Cactus\Endpoint\AdminEndpoint;
+use Cactus\Endpoint\PrinterEndpoint;
 use Cactus\Endpoint\PrintTicketEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
@@ -38,7 +39,8 @@ try {
     $templateEngine->registerTemplate("admin");
 
     $printerPort = AppConfiguration::get("printer.port");
-    $router->get("print_ticket/:id{[A-Z0-9]+}", "/print", new PrintTicketEndpoint($printerPort));
+    $router->get("printer_print", "/printer/print/:id{[A-Z0-9]+}", new PrintTicketEndpoint($printerPort));
+    $router->get("printer_action", "/printer/:action{[a-z]+}", new PrinterEndpoint($printerPort));
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");
