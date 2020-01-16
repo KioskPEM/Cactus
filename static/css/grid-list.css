@@ -8,6 +8,11 @@ ul.grid-list {
     grid-gap: 10px;
 }
 
+ul.grid-list.grid-1x {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+}
+
 ul.grid-list li.grid-list-item {
     vertical-align: center;
 }
