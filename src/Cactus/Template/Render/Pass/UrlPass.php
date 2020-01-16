@@ -14,7 +14,7 @@ class UrlPass implements IRenderPass
 {
     const PATTERN = '/@\{' . TemplateManager::IDENTIFIER_PATTERN . '(\|((' . self::PARAM_ENTRY_PATTERN . ',)*' . self::PARAM_ENTRY_PATTERN . '))?}/';
 
-    private const PARAM_ENTRY_PATTERN = TemplateManager::IDENTIFIER_PATTERN . "=([\w\d]+)";
+    private const PARAM_ENTRY_PATTERN = TemplateManager::IDENTIFIER_PATTERN . "=([\w\d\\.\\-_]+)";
     private const PARAM_PATTERN = '/' . self::PARAM_ENTRY_PATTERN . '/';
 
     private Router $router;
