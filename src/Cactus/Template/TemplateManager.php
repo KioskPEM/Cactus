@@ -43,7 +43,7 @@ class TemplateManager implements IRouteEndpoint
      */
     public function load(string $name): Template
     {
-        $viewContentPath = VIEWS_PATH . $name . ".html";
+        $viewContentPath = VIEWS_PATH . str_replace('.', DIRECTORY_SEPARATOR, $name) . ".html";
         if (!array_key_exists($name, $this->templates) || !file_exists($viewContentPath))
             throw new TemplateNotFoundException($name, "Template not found", HttpCode::CLIENT_NOT_FOUND);
 
