@@ -7,7 +7,7 @@ use Cactus\Routing\Exception\RouteException;
 
 class Route
 {
-    const PARAM_PATTERN = "#:([a-z_]+)(?:\{(.+)\})?#";
+    const PARAM_PATTERN = "/:([a-z_]+)\{([^\/]+)\}/";
 
     private string $name;
     private string $path;
@@ -58,7 +58,7 @@ class Route
         return new Route(
             $name,
             $path,
-            '#^' . preg_replace(Route::PARAM_PATTERN, '(?P<$1>$2)', $path) . '$#',
+            "#^" . preg_replace(Route::PARAM_PATTERN, "(?P<\$1>\$2)", $path) . "\$#",
             $handler
         );
     }

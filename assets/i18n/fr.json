@@ -8,21 +8,44 @@
       "help": "Veuillez sélectionner une option ci-dessous"
     },
     "sign-up": {
-      "name": "Inscription",
-      "help": "{sign-up.help}",
-      "form": {
-        "first_name": "Prénom",
-        "last_name": "Nom",
-        "submit": "S'inscrire"
+      "user-info": {
+        "name": "Inscription",
+        "help": "{sign-up.help}",
+        "form": {
+          "first_name": "Prénom",
+          "last_name": "Nom",
+          "submit": "S'inscrire"
+        }
+      },
+      "select-region": {
+        "name": "Séléctionnez une region"
+      },
+      "select-school": {
+        "name": "Séléctionnez votre école",
+        "form": {
+          "location": {
+            "department": "Département",
+            "school": "Ecole"
+          },
+          "submit": "S'inscrire"
+        }
       }
     },
     "admin": {
-      "name": "Administration",
-      "actions": {
-        "main_menu": "Menu principal",
-        "close": "Fermer l'application",
-        "update": "Mettre à jour",
-        "print_ticket": "Imprimer un ticket"
+      "index": {
+        "name": "Administration",
+        "actions": {
+          "main_menu": "Menu principal",
+          "close": "Fermer l'application",
+          "clear_cache": "Vider le cache",
+          "update": "Mettre à jour",
+          "print_ticket": "Imprimer un ticket"
+        }
+      },
+      "update": {
+        "name": "Mise à jour",
+        "do_update": "Appuyez ici pour lancer la mise à jour",
+        "updating": "La mise à jour de Cactus est en cours. Veuillez patienter..."
       }
     },
     "error": {

@@ -4,6 +4,7 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATO
 use Cactus\Endpoint\AdminEndpoint;
 use Cactus\Endpoint\PrinterEndpoint;
 use Cactus\Endpoint\PrintTicketEndpoint;
+use Cactus\Endpoint\SchoolEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
@@ -33,14 +34,17 @@ try {
 
     $templateEngine->registerTemplate("layout");
 
-    $router->get("admin", "/admin", $templateEngine);
-
-    $router->get("admin_action", "/admin/:action{[a-z]+}", new AdminEndpoint());
-    $templateEngine->registerTemplate("admin");
+    $router->get("admin.index", "/admin", $templateEngine);
+    $templateEngine->registerTemplate("admin.index");
+    $router->get("admin.update", "/admin/update", $templateEngine);
+    $templateEngine->registerTemplate("admin.update");
+    $router->get("admin_action", "/admin/:action{[a-z_]+}", new AdminEndpoint());
 
     $printerPort = AppConfiguration::get("printer.port");
     $router->get("printer_print", "/printer/print/:id{[A-Z0-9]+}", new PrintTicketEndpoint($printerPort));
     $router->get("printer_action", "/printer/:action{[a-z]+}", new PrinterEndpoint($printerPort));
+
+    $router->get("schools", "/schools/:region_code{\d{2}}/:department_code{\d{2}}", new SchoolEndpoint());
 
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");
@@ -48,8 +52,13 @@ try {
     $router->get("welcome", "/welcome", $templateEngine);
     $templateEngine->registerTemplate("welcome");
 
-    $router->get("sign-up", "/sign-up", $templateEngine);
-    $templateEngine->registerTemplate("sign-up");
+    // sign up
+    $router->get("sign-up.user-info", "/sign-up", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.user-info");
+    $router->get("sign-up.select-region", "/sign-up/select-region", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-region");
+    $router->get("sign-up.select-school", "/sign-up/select-school", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-school");
 
     $parameters = [];
     $route = $router->resolveRoute(
