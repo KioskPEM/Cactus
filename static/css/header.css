@@ -1,5 +1,5 @@
 header#app-header, footer#app-footer {
-    background-color: #ECEFF1;
+    background-color: var(--light-color-alt);
 
     display: flex;
     flex-direction: row;
@@ -10,10 +10,12 @@ header#app-header, footer#app-footer {
 }
 
 header#app-header {
+    height: var(--header-size);
+
     grid-area: header;
 
     justify-content: center;
-    border-bottom: 1px solid var(--light-color-alt);
+    border-bottom: 1px solid var(--dark-color-alt);
 }
 
 header#app-header h1#app-title {
@@ -22,10 +24,12 @@ header#app-header h1#app-title {
 }
 
 footer#app-footer {
+    height: var(--footer-size);
+
     grid-area: footer;
 
     justify-content: space-between;
-    border-top: 1px solid var(--light-color-alt);
+    border-top: 1px solid var(--dark-color-alt);
 }
 
 footer#app-footer nav {

@@ -1,5 +1,6 @@
 :root {
     --light-color: #FFFFFF;
-    --light-color-alt: #CFD8DC;
+    --light-color-alt: #ECEFF1;
     --dark-color: #37474F;
+    --dark-color-alt: #CFD8DC;
 }

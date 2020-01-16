@@ -8,7 +8,7 @@ form label {
     text-align: left;
 }
 
-form input{
+form input, form select {
     display: block;
 
     width: 100%;
@@ -22,7 +22,7 @@ form input{
 
 form input[type=submit] {
     background-color: var(--dark-color);
-    color: #FFFFFF;
+    color: var(--light-color);
     box-shadow: none;
     margin: 10px auto;
     padding: 15px 0;
