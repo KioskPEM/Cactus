@@ -40,8 +40,6 @@ body {
     font-family: "Open Sans", Fallback, sans-serif;
     font-size: 1.2em;
     color: var(--dark-color);
-
-    background-image: url("../img/background.jpg");
 }
 
 section#app-content {
@@ -54,10 +52,13 @@ section#app-content {
 
     text-align: center;
     background-color: var(--light-color);
+    background-image: var(--page-background);
+    background-size: cover;
+    background-position: center center;
     box-shadow: inset 0 0 2px 0 rgba(0, 0, 0, 0.2);
     padding: 10px 50px;
 
-    overflow: hidden paged-y-controls;
+    overflow: paged-y-controls;
 }
 
 section#app-content .full-size {
