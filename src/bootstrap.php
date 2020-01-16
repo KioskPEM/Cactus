@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 //
 
-session_name("BananaSession");
+session_name("Cactus");
 session_start();
 
 define("ROOT", dirname(__DIR__) . DIRECTORY_SEPARATOR);
