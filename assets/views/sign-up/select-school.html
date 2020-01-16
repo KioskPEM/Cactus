@@ -1,9 +1,47 @@
+<p>Selected region: ${route.region_code}</p>
 <label for="department">%{page.form.location.department}</label>
-<select id="department">
-    <option value="45" selected>45 - LOIRET</option>
-    <option value="18" selected>18 - CHER</option>
+<select id="department" onchange="updateSchools(event)">
 </select>
 <label for="school">%{page.form.location.school}</label>
 <select id="school">
-    <option value="45" selected>45 - LOIRET</option>
 </select>
+<script>
+    const schoolSelect = document.getElementById("school");
+    let schools = [];
+
+    function updateSchools(e) {
+        while (schoolSelect.firstChild)
+            schoolSelect.removeChild(schoolSelect.firstChild);
+
+    }
+
+    function createOption(parent, text, value) {
+        let opt = document.createElement('option');
+        opt.value = value;
+        opt.innerText = text;
+        parent.appendChild(opt);
+    }
+
+    fetch("@{schools|region_code=${route.region_code},department_code=00}")
+        .then(value => {
+            return value.json()
+        })
+        .then(value => {
+
+            let departmentSelect = document.getElementById("department");
+
+            for (let school of value) {
+
+                let departmentCode = school[10];
+                if (schools[departmentCode] === undefined) {
+                    createOption(departmentSelect, school[0], departmentCode);
+                }
+
+                schools[departmentCode] = [];
+            }
+
+            console.log(value);
+        }).catch(reason => {
+        console.error(reason);
+    });
+</script>

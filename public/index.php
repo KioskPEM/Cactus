@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
+use Cactus\Controller\SignUp\SelectDepartmentController;
 use Cactus\Endpoint\AdminEndpoint;
 use Cactus\Endpoint\PrinterEndpoint;
 use Cactus\Endpoint\PrintTicketEndpoint;
@@ -8,6 +9,7 @@ use Cactus\Endpoint\SchoolEndpoint;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
+use Cactus\Template\Render\Pass\HandlerPass;
 use Cactus\Template\Render\Pass\I18nPass;
 use Cactus\Template\Render\Pass\UrlPass;
 use Cactus\Template\TemplateManager;
@@ -28,8 +30,9 @@ try {
     ]);
 
     $urlFormat = AppConfiguration::get("url.format");
-    $templateEngine->addPass(new UrlPass($router, $urlFormat));
     $templateEngine->addPass(new EchoPass());
+    $templateEngine->addPass(new HandlerPass());
+    $templateEngine->addPass(new UrlPass($router, $urlFormat));
     $templateEngine->addPass(new I18nPass());
 
     $templateEngine->registerTemplate("layout");
@@ -55,9 +58,11 @@ try {
     // sign up
     $router->get("sign-up.user-info", "/sign-up", $templateEngine);
     $templateEngine->registerTemplate("sign-up.user-info");
-    $router->get("sign-up.select-region", "/sign-up/select-region", $templateEngine);
+    $router->get("sign-up.select-region", "/sign-up/region", $templateEngine);
     $templateEngine->registerTemplate("sign-up.select-region");
-    $router->get("sign-up.select-school", "/sign-up/select-school", $templateEngine);
+    $router->get("sign-up.select-department", "/sign-up/region/:region_code{\d{2}}/department", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-department", new SelectDepartmentController());
+    $router->get("sign-up.select-school", "/sign-up/select-school/:region_code{\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("sign-up.select-school");
 
     $parameters = [];
