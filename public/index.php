@@ -1,7 +1,8 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
-use Cactus\Controller\SignUp\SelectDepartmentController;
+use Cactus\Controller\SignUp\SignUpSelectDepartmentController;
+use Cactus\Controller\SignUp\SignUpSelectSchoolController;
 use Cactus\Endpoint\AdminEndpoint;
 use Cactus\Endpoint\PrinterEndpoint;
 use Cactus\Endpoint\PrintTicketEndpoint;
@@ -60,10 +61,12 @@ try {
     $templateEngine->registerTemplate("sign-up.user-info");
     $router->get("sign-up.select-region", "/sign-up/region", $templateEngine);
     $templateEngine->registerTemplate("sign-up.select-region");
-    $router->get("sign-up.select-department", "/sign-up/region/:region_code{\d{2}}/department", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-department", new SelectDepartmentController());
-    $router->get("sign-up.select-school", "/sign-up/select-school/:region_code{\d{2}}", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-school");
+    $router->get("sign-up.select-department", "/sign-up/:region{\d{2}}/department", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-department", new SignUpSelectDepartmentController());
+    $router->get("sign-up.select-grade", "/sign-up/:region{\d{2}}/:department{\d{2}}/grade", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-grade");
+    $router->get("sign-up.select-school", "/sign-up/:region{\d{2}}/:department{\d{2}}/school", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-school", new SignUpSelectSchoolController());
 
     $parameters = [];
     $route = $router->resolveRoute(
