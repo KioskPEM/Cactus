@@ -11,6 +11,7 @@ define("ROOT", dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define("SOURCE_PATH", ROOT . "src" . DIRECTORY_SEPARATOR);
 define("STATIC_PATH", ROOT . "static" . DIRECTORY_SEPARATOR);
 define("ASSET_PATH", ROOT . "assets" . DIRECTORY_SEPARATOR);
+define("DATA_PATH", ASSET_PATH . "data" . DIRECTORY_SEPARATOR);
 define("VIEWS_PATH", ASSET_PATH . "views" . DIRECTORY_SEPARATOR);
 
 spl_autoload_register(function ($className) {
