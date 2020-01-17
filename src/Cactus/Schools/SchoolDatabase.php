@@ -20,7 +20,7 @@ class SchoolDatabase
      */
     public static function search(int $regionCode = 0, int $departmentCode = 0)
     {
-        $handle = fopen(ASSET_PATH . "schools.csv", "r");
+        $handle = fopen(DATA_PATH . "schools.csv", "r");
         if ($handle === false)
             return false;
 

@@ -6,17 +6,17 @@ namespace Cactus\Schools;
 
 class School
 {
-    public string $id;
-    public string $name;
-    public int $department;
+    private string $id;
+    private string $name;
+    private string $department;
 
     /**
      * School constructor.
      * @param string $id
      * @param string $name
-     * @param int $department
+     * @param string $department
      */
-    public function __construct(string $id, string $name, int $department)
+    public function __construct(string $id, string $name, string $department)
     {
         $this->id = $id;
         $this->name = $name;
@@ -33,7 +33,7 @@ class School
         return $this->name;
     }
 
-    public function getDepartment(): int
+    public function getDepartment(): string
     {
         return $this->department;
     }
