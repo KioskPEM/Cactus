@@ -4,7 +4,7 @@ ul.grid-list {
     padding: 0;
 
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: auto;
     grid-gap: 10px;
 }
 
@@ -18,6 +18,10 @@ ul.grid-list li.grid-list-item {
 }
 
 ul.grid-list li.grid-list-item a.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     padding: 15px 15px;
     width: 100%;
     height: 100%;
