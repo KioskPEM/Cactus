@@ -1,0 +1,53 @@
+{
+  "welcome": {
+    "path": "/welcome"
+  },
+
+  "error": {
+    "path": "/error/:error{[1-5]\\d{2}}"
+  },
+
+  "admin.admin-index": {
+    "path": "/admin"
+  },
+  "admin.update": {
+    "path": "/admin/update"
+  },
+  "admin_action": {
+    "path": "/admin/:action{[a-z_]+}",
+    "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
+  },
+
+  "printer_print": {
+    "path": "/printer/print/:id{[A-Z0-9]+}",
+    "endpoint": "Cactus\\Endpoint\\PrintTicketEndpoint"
+  },
+  "printer_action": {
+    "path": "/printer/:action{[a-z]+}",
+    "endpoint": "Cactus\\Endpoint\\PrinterEndpoint"
+  },
+
+  "search-school.region": {
+    "path": "/search-school/region"
+  },
+  "search-school.department": {
+    "path": "/search-school/region/:region{\\d{2}}/department",
+    "controller": "Cactus\\Controller\\SearchSchool\\SelectDepartmentController"
+  },
+  "search-school.school-type": {
+    "path": "/search-school/region/:region{\\d{2}}/department/:department{\\d{2}}/school"
+  },
+  "search-school.school": {
+    "path": "/search-school/region/:region{\\d{2}}/department/:department{\\d{2}}/school/:school_type{college|high_school}",
+    "controller": "Cactus\\Controller\\SearchSchool\\SelectSchoolController"
+  },
+
+  "sign-up": {
+    "path": "/sign-up/:school_id{\\d{7}[A-Z]}"
+  },
+  "sign-up.finalize": {
+    "method": "POST",
+    "path": "/sign-up",
+    "endpoint": "Cactus\\Endpoint\\SignUpEndpoint"
+  }
+}

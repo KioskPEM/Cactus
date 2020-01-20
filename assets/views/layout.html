@@ -17,21 +17,14 @@
     <script type="application/javascript" src="${url.static}/js/cheat-code.js?v=20191216" async></script>
 </head>
 <body onload="Cactus.init()">
-<input type="hidden" id="admin-page" value="@{admin.index}">
+<input type="hidden" id="admin-page" value="@{admin.admin-index}">
 <header id="app-header">
+    <a id="app-back-btn" href="javascript:history.back()"><span class="mdi mdi-arrow-left-thick"></span></a>
     <h1 id="app-title">%{page.name}</h1>
+    <a id="app-home-btn" href="@{${home-page}}"><span class="mdi mdi-home"></span></a>
 </header>
 <section id="app-content">
     ${page.content}
 </section>
-<footer id="app-footer">
-    <nav>
-        <a href="javascript:history.back()"><span class="mdi mdi-arrow-left-thick"></span></a>
-        <a href="@{welcome}" id="welcome-btn"><span class="mdi mdi-home"></span></a>
-    </nav>
-    <p>
-        %{app.footer}
-    </p>
-</footer>
 </body>
 </html>

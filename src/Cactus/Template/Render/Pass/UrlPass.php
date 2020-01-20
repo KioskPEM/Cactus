@@ -42,7 +42,7 @@ class UrlPass implements IRenderPass
                     $parameters[$entry[1]] = $entry[2];
             }
 
-            $url = $this->router->generateUrl('GET', $matches[1], $parameters);
+            $url = $this->router->generateUrl('*', $matches[1], $parameters);
             return sprintf($this->format, $lang, $url);
         }, $subject);
     }

@@ -1,13 +1,9 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
-use Cactus\Controller\SignUp\SignUpSelectDepartmentController;
-use Cactus\Controller\SignUp\SignUpSelectSchoolController;
-use Cactus\Endpoint\AdminEndpoint;
-use Cactus\Endpoint\PrinterEndpoint;
-use Cactus\Endpoint\PrintTicketEndpoint;
 use Cactus\Endpoint\SchoolEndpoint;
 use Cactus\Http\HttpCode;
+use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
 use Cactus\Template\Render\Pass\HandlerPass;
@@ -27,7 +23,8 @@ try {
         "url" => [
             "root" => $rootUrl,
             "static" => AppConfiguration::get("url.static")
-        ]
+        ],
+        "home-page" => AppConfiguration::get("home-page")
     ]);
 
     $urlFormat = AppConfiguration::get("url.format");
@@ -38,8 +35,28 @@ try {
 
     $templateEngine->registerTemplate("layout");
 
-    $router->get("admin.index", "/admin", $templateEngine);
-    $templateEngine->registerTemplate("admin.index");
+    $routesContent = file_get_contents(ASSET_PATH . "routes.json");
+    if ($routesContent === false)
+        throw new RouteException("Missing routes.json");
+
+    $routes = json_decode($routesContent, true, 512, JSON_THROW_ON_ERROR);
+    foreach ($routes as $name => $entry) {
+        $method = $entry["method"] ?? "GET";
+        $path = $entry["path"];
+
+        if (array_key_exists("endpoint", $entry)) {
+            $endpoint = new $entry["endpoint"]();
+            $router->register($name, $method, $path, $endpoint);
+        } else {
+            $router->register($name, $method, $path, $templateEngine);
+
+            $controller = array_key_exists("controller", $entry) ? new $entry["controller"]() : null;
+            $templateEngine->registerTemplate($name, $controller);
+        }
+    }
+
+    /*$router->get("admin.admin-index", "/admin", $templateEngine);
+    $templateEngine->registerTemplate("admin.admin-index");
     $router->get("admin.update", "/admin/update", $templateEngine);
     $templateEngine->registerTemplate("admin.update");
     $router->get("admin_action", "/admin/:action{[a-z_]+}", new AdminEndpoint());
@@ -48,8 +65,6 @@ try {
     $router->get("printer_print", "/printer/print/:id{[A-Z0-9]+}", new PrintTicketEndpoint($printerPort));
     $router->get("printer_action", "/printer/:action{[a-z]+}", new PrinterEndpoint($printerPort));
 
-    $router->get("schools", "/schools/:region_code{\d{2}}/:department_code{\d{2}}", new SchoolEndpoint());
-
     $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
     $templateEngine->registerTemplate("error");
 
@@ -57,16 +72,16 @@ try {
     $templateEngine->registerTemplate("welcome");
 
     // sign up
-    $router->get("sign-up.user-info", "/sign-up", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.user-info");
-    $router->get("sign-up.select-region", "/sign-up/region", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-region");
-    $router->get("sign-up.select-department", "/sign-up/:region{\d{2}}/department", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-department", new SignUpSelectDepartmentController());
-    $router->get("sign-up.select-grade", "/sign-up/:region{\d{2}}/:department{\d{2}}/grade", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-grade");
-    $router->get("sign-up.select-school", "/sign-up/:region{\d{2}}/:department{\d{2}}/school", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-school", new SignUpSelectSchoolController());
+    $router->get("search-school.region", "/sign-up/region", $templateEngine);
+    $templateEngine->registerTemplate("search-school.region");
+    $router->get("sign-up.select-department", "/sign-up/region/:region{\d{2}}/department", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-department", new SelectDepartmentController());
+    $router->get("sign-up.select-school-type", "/sign-up/region/:region{\d{2}}/department/:department{\d{2}}/school/type", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-school-type");
+    $router->get("sign-up.select-school", "/sign-up/region/:region{\d{2}}/department/:department{\d{2}}/:school_type{college|high_school}", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.select-school", new SelectSchoolController());
+    $router->get("sign-up.user-info", "/sign-up/:school_id{\d{7}[A-Z]}", $templateEngine);
+    $templateEngine->registerTemplate("sign-up.user-info");*/
 
     $parameters = [];
     $route = $router->resolveRoute(
@@ -82,22 +97,9 @@ try {
     if (!HttpCode::isHttpCode($httpCode))
         $httpCode = HttpCode::SERVER_ERROR;
 
-    try {
-
-        http_response_code($httpCode);
-        $parameters = [];
-        $route = $router->resolveRoute("error/" . $httpCode, "GET", $parameters);
-        if (ini_get("display_errors")) {
-            $parameters['exception']['details'] = "<code style='display: block; text-align: left;'>" . nl2br($e) . "</code>";
-        }
-        echo $route->call($parameters);
-
-    } catch (Throwable $_) {
-
-        http_response_code(HttpCode::SERVER_ERROR);
-        $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
-        $exceptionDetails = ini_get("display_errors") ? "<code style='display: block; text-align: left;'>" . nl2br($e) . "</code>" : null;
-        echo str_replace("\${route.exception.details}", $exceptionDetails, $fallback);
-    }
+    http_response_code(HttpCode::SERVER_ERROR);
+    $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
+    $exceptionDetails = ini_get("display_errors") ? html_entity_decode(nl2br($e)) : null;
+    echo str_replace("\${route.exception.details}", $exceptionDetails, $fallback);
 
 }

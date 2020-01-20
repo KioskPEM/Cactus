@@ -1,20 +1,20 @@
 const Cactus = {
-    idleDelay: 60,
+    idleDelay: 300,
     init: function () {
-        /*["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
+        ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
             document.addEventListener(name, Cactus.resetIdleDelay, true);
-        });*/
+        });
 
         CheatCode.init()
     },
-    goToWelcome: function () {
-        let welcomeBtn = document.getElementById("welcome-btn");
+    home: function () {
+        let welcomeBtn = document.getElementById("app-home-btn");
         if (welcomeBtn !== null)
             welcomeBtn.click();
     },
     resetIdleDelay: function () {
         if (Cactus.idleTimeoutId)
             window.clearTimeout(Cactus.idleTimeoutId);
-        Cactus.idleTimeoutId = window.setTimeout(Cactus.goToWelcome, Cactus.idleDelay * 1000);
+        Cactus.idleTimeoutId = window.setTimeout(Cactus.home, Cactus.idleDelay * 1000);
     }
 };

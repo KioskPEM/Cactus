@@ -23,7 +23,11 @@ spl_autoload_register(function ($className) {
         $fileName = SOURCE_PATH . str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . ".php";
-    require_once $fileName;
+
+    if(file_exists($fileName))
+        require_once $fileName;
+    else
+        throw new Exception("Class not found " . $className);
 });
 
 set_exception_handler(function ($e) {

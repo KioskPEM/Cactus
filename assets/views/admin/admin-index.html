@@ -1,0 +1,24 @@
+<ul class="grid-list full-size">
+    <li class="grid-list-item">
+        <a class="button" href="@{admin_action|action=quit}"><i class="mdi mdi-close"></i> %{page.actions.close}</a>
+    </li>
+    <li class="grid-list-item">
+        <a class="button" href="@{admin_action|action=clear_cache}"><i class="mdi mdi-cached"></i>
+            %{page.actions.clear_cache}</a>
+    </li>
+    <li class="grid-list-item">
+        <a class="button" href="@{admin.update}"><i class="mdi mdi-download"></i> %{page.actions.update}</a>
+    </li>
+    <li class="grid-list-item">
+        <a class="button" href="@{printer_print|id=SENDNUDES}"><i class="mdi mdi-printer"></i>
+            %{page.actions.print_ticket}</a>
+    </li>
+    <li class="grid-list-item">
+        <a class="button" href="@{error|error=500}"><i class="mdi mdi-alert"></i>%{page.actions.generate_error}</a>
+    </li>
+</ul>
+<script type="application/javascript">
+    let backBtn = document.getElementById("app-back-btn");
+    let homeBtn = document.getElementById("app-home-btn");
+    backBtn.href = homeBtn.href = "@{admin_action|action=restart}";
+</script>

@@ -4,6 +4,7 @@
     "root": "http://127.0.0.1:8080/public",
     "static": "http://127.0.0.1:8080/static"
   },
+  "home-page": "welcome",
   "printer": {
     "port": "COM1"
   }

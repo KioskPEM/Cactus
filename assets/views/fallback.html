@@ -4,18 +4,100 @@
     <meta charset="UTF-8">
     <title>Error :(</title>
     <style>
-        body {
-            font-family: "Open Sans", Fallback, sans-serif;
-            text-align: center;
-            background-color: #FAFAFA;
-            color: #424242;
+        * {
+            box-sizing: border-box;
         }
-        h2 { font-weight: normal; }
+
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            animation: skew 5s linear infinite;
+
+            font-family: "Inconsolata", monospace;
+            font-size: 1em;
+
+            background-color: black;
+            background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
+
+            color: #18ff62;
+            text-shadow: 0 0 5px #18ff62;
+
+            padding: 10px 25px;
+
+            width: 100vw;
+            height: 100vh;
+        }
+
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15),
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 2px
+            );
+        }
+
+        code#stacktrace {
+            display: block;
+        }
+
+        div#scan-line {
+            animation: scan-line 1.25s linear infinite;
+            background: linear-gradient(180deg, transparent 0, snow 50%, #64ff64 0, transparent);
+            height: 1em;
+            left: 0;
+            opacity: .1;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        @keyframes skew {
+            0% {
+                transform: skewX(0.5deg);
+            }
+
+            8% {
+                transform: skewX(1deg) scale(1.0001);
+            }
+
+            15% {
+                transform: skewX(0.6deg) skewY(-0.05deg);
+            }
+
+            30% {
+                transform: skewX(0.6deg);
+            }
+
+            100% {
+                transform: skewX(0.1deg);
+            }
+        }
+
+        @keyframes scan-line {
+            0% {
+                top: 0;
+            }
+
+            100% {
+                top: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-<h1>Something went wrong</h1>
-<h2>We'll be right back!</h2>
-${route.exception.details}
+<div id="scan-line"></div>
+<h1>> An error occurred</h1>
+<code id="stacktrace">${route.exception.details}</code>
 </body>
 </html>

@@ -1,56 +1,46 @@
 {
-  "app": {
-    "footer": "Cactus"
-  },
   "pages": {
     "welcome": {
       "name": "Bienvenue",
       "help": "Veuillez sélectionner une option ci-dessous"
     },
-    "sign-up": {
-      "user-info": {
-        "name": "Inscription",
-        "help": "{sign-up.help}",
-        "form": {
-          "first_name": "Prénom",
-          "last_name": "Nom",
-          "submit": "S'inscrire"
-        }
-      },
-      "select-region": {
+    "search-school": {
+      "region": {
         "name": "Séléctionnez votre region"
       },
-      "select-department": {
+      "department": {
         "name": "Séléctionnez votre département"
       },
-      "select-grade": {
+      "school-type": {
         "name": "Séléctionnez votre type d'établissement",
-        "grades": {
+        "types": {
           "college": "Collège",
-          "high_school": "Lycée général",
-          "high_school_professional": "Lycée professionnel"
+          "high_school": "Lycée"
         }
       },
-      "select-school": {
-        "name": "Séléctionnez votre école",
-        "form": {
-          "location": {
-            "department": "Département",
-            "school": "Ecole"
-          },
-          "submit": "S'inscrire"
-        }
+      "school": {
+        "name": "Séléctionnez votre établissement"
+      }
+    },
+    "sign-up": {
+      "name": "Inscription",
+      "help": "{sign-up.help}",
+      "form": {
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "submit": "S'inscrire"
       }
     },
     "admin": {
-      "index": {
+      "admin-index": {
         "name": "Administration",
         "actions": {
           "main_menu": "Menu principal",
           "close": "Fermer l'application",
           "clear_cache": "Vider le cache",
           "update": "Mettre à jour",
-          "print_ticket": "Imprimer un ticket"
+          "print_ticket": "Imprimer un ticket",
+          "generate_error": "Générer une erreur"
         }
       },
       "update": {
@@ -61,7 +51,7 @@
     },
     "error": {
       "name": "Erreur",
-      "description": "Oops ! Une erreur est survenue :/"
+      "description": "Une erreur est survenue"
     }
   }
 }

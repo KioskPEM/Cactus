@@ -1,20 +1,11 @@
 ul.grid-list {
     display: grid;
+    grid-auto-flow: dense;
+    grid-template: none;
+    grid-gap: 10px;
+
     list-style: none;
     padding: 0;
-
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto;
-    grid-gap: 10px;
-}
-
-ul.grid-list.grid-1x {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-}
-
-ul.grid-list li.grid-list-item {
-    vertical-align: center;
 }
 
 ul.grid-list li.grid-list-item a.button {
@@ -25,4 +16,12 @@ ul.grid-list li.grid-list-item a.button {
     padding: 15px 15px;
     width: 100%;
     height: 100%;
+}
+
+ul.grid-list.grid-3x {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+ul.grid-list.grid-2x {
+    grid-template-columns: repeat(2, 1fr);
 }

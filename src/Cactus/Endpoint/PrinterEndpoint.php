@@ -8,28 +8,21 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
+use Cactus\Util\AppConfiguration;
+use Exception;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
 class PrinterEndpoint implements IRouteEndpoint
 {
-    private string $port;
-
-    /**
-     * PrintTicketEndpoint constructor.
-     * @param string $port
-     */
-    public function __construct(string $port)
-    {
-        $this->port = $port;
-    }
-
     /**
      * @inheritDoc
+     * @throws Exception
      */
     public function handle(Route $route, array $parameters): string
     {
-        $connector = new WindowsPrintConnector($this->port);
+        $port = AppConfiguration::get("printer.port");
+        $connector = new WindowsPrintConnector($port);
         $printer = new Printer($connector);
 
         $printer->initialize();

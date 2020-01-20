@@ -23,6 +23,10 @@ class AdminEndpoint implements IRouteEndpoint
             case "quit":
                 system("cmd /c C:\Cactus\stop.bat");
                 break;
+            case "restart":
+                system("cmd /c C:\Cactus\stop.bat");
+                system("cmd /c C:\Cactus\start.bat");
+                break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }

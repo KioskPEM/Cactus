@@ -25,7 +25,7 @@ class Router
         return $this->register($name, "POST", $path, $endpoint);
     }
 
-    private function register(string $name, string $method, string $path, IRouteEndpoint $endpoint): Route
+    public function register(string $name, string $method, string $path, IRouteEndpoint $endpoint): Route
     {
         $route = Route::parse($name, trim($path, '/'), $endpoint);
         $this->routes[$method][$name] = $route;
@@ -63,6 +63,19 @@ class Router
      */
     public function generateUrl(string $method, string $routeName, array $parameters): string
     {
+        if ($method === '*') {
+            $methods = ["GET", "POST"];
+            foreach ($methods as $method) {
+                try {
+                    return $this->generateUrl($method, $routeName, $parameters);
+                } catch (RouteNotFoundException $e) {
+                    continue;
+                }
+            }
+
+            throw new RouteNotFoundException("Not found (" . $routeName . ')', HttpCode::CLIENT_NOT_FOUND);
+        }
+
         if (!$this->hasMethod($method))
             throw new RouteNotFoundException("Method not allowed", HttpCode::CLIENT_METHOD_NOT_ALLOWED);
 

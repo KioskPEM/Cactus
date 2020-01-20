@@ -1,7 +1,10 @@
 <p>%{page.help}</p>
-<ul class="grid-list full-size">
+<ul class="grid-list grid-3x full-size">
     <li class="grid-list-item">
-        <a class="button" href="@{error|error=404}" style="background-color: red;">Error 404</a>
+        <a class="button welcome__bac_pro_sn" href="@{error|error=404}">Error 404</a>
+    </li>
+    <li class="grid-list-item">
+        <a class="button" href="@{error|error=404}">Error 404</a>
     </li>
     <li class="grid-list-item">
         <a class="button" href="@{error|error=404}">Error 404</a>
@@ -25,3 +28,11 @@
         <a class="button" href="@{error|error=404}">Error 404</a>
     </li>
 </ul>
+<style>
+    a.button.welcome__bac_pro_sn {
+        background-color: red;
+        background-image: var(--page-background);
+        background-size: cover;
+        background-position: center center;
+    }
+</style>
