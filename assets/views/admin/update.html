@@ -8,6 +8,7 @@
 </ul>
 <script type="application/javascript">
     function doUpdate(link) {
+        link.onclick = undefined;
         link.text = '%{page.updating}';
 
         fetch("${url.root}/update.php").catch(reason => {
