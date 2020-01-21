@@ -56,13 +56,17 @@ function recursive_rmdir($dir): bool
 function recursive_move($src, $dst)
 {
     if (is_dir($src)) {
-        mkdir($dst);
+
+        if (!file_exists($dst))
+            mkdir($dst);
+
         $files = scandir($src);
         foreach ($files as $file) {
             if ($file != "." && $file != "..")
                 recursive_move("$src/$file", "$dst/$file");
         }
-    } else if (file_exists($src))
+
+    } else if (is_file($src))
         rename($src, $dst);
 }
 
