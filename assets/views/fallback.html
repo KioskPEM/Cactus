@@ -8,32 +8,51 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --light-color: #18ff62;
+            --light-color-alt: #009600;
+            --dark-color: #000000;
+        }
+
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+        }
+
+        .background {
+            z-index: -100;
+        }
+
         html, body {
             padding: 0;
             margin: 0;
         }
 
         body {
-            animation: skew 5s linear infinite;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
 
             font-family: "Inconsolata", monospace;
             font-size: 1em;
 
-            background-color: black;
+            background-color: var(--dark-color);
             background-image: radial-gradient(rgba(0, 150, 0, 0.75), black 120%);
 
-            color: #18ff62;
-            text-shadow: 0 0 5px #18ff62;
-
-            padding: 10px 25px;
-
-            width: 100vw;
-            height: 100vh;
+            color: var(--light-color);
+            text-shadow: 0 0 5px var(--light-color);
         }
 
-        body::after {
-            content: "";
-            position: absolute;
+        code#stacktrace {
+            font-family: inherit;
+            font-size: inherit;
+        }
+
+        div#black-lines {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
@@ -47,57 +66,83 @@
             );
         }
 
+        section.container {
+            padding: 10px;
+            margin: 10px;
+            border: 2px solid var(--light-color-alt);
+        }
+
         code#stacktrace {
             display: block;
         }
 
         div#scan-line {
             animation: scan-line 1.25s linear infinite;
-            background: linear-gradient(180deg, transparent 0, snow 50%, #64ff64 0, transparent);
+            background: linear-gradient(180deg, transparent 0, snow 50%, var(--light-color) 0, transparent);
             height: 1em;
-            left: 0;
             opacity: .1;
-            position: absolute;
+            position: fixed;
+            left: 0;
             right: 0;
             top: 0;
         }
 
-        @keyframes skew {
-            0% {
-                transform: skewX(0.5deg);
-            }
-
-            8% {
-                transform: skewX(1deg) scale(1.0001);
-            }
-
-            15% {
-                transform: skewX(0.6deg) skewY(-0.05deg);
-            }
-
-            30% {
-                transform: skewX(0.6deg);
-            }
-
-            100% {
-                transform: skewX(0.1deg);
-            }
+        pre#aperture-logo {
+            animation: aperture-logo 5s alternate infinite;
+            position: fixed;
+            right: 40px;
+            bottom: 40px;
+            margin: 0;
         }
 
         @keyframes scan-line {
             0% {
                 top: 0;
             }
-
             100% {
                 top: 100%;
+            }
+        }
+
+        @keyframes aperture-logo {
+            0% {
+                opacity: .2;
+            }
+
+            100% {
+                opacity: .35;
             }
         }
     </style>
 </head>
 <body>
 <div id="scan-line"></div>
-<h1>> An error occurred</h1>
-<code id="stacktrace">${route.exception.details}</code>
+<div id="black-lines" class="fullscreen background"></div>
+<pre id="aperture-logo" class="background">
+              .,-:;//;:=,
+          . :H@@@MM@M#H/.,+%;,
+       ,/X+ +M@@M@MM%=,-%HMMM@X/,
+     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+  ,%MM@@MH ,@%=             .---=-=:=,.
+  =@#@@@MX.,                -%HX$$%%%:;
+ =-./@M@M$                   .;@MMMM@MM:
+ X@/ -$MM/                    . +MM@@@M$
+,@M@H: :@:                    . =X#@@@@-
+,@@@MMX, .                    /H- ;@M@M=
+.H@@@@M@+,                    %MM+..%#$.
+ /MMMM@MMH/.                  XM@MH; =;
+  /%+%$XHH@$=              , .H@@@@MX,
+   .=--------.           -%H.,@@@@@MX,
+   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.
+     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+       =%@M@M#@$-.=$@MM@@@M; %M%=
+         ,:+$+-,/H#MMMMMMM@= =,
+               =++%%%%+/:-.
+</pre>
+<section class="container fullscreen">
+    <h1>> An error occurred</h1>
+    <code id="stacktrace">${route.exception.details}</code>
+</section>
 </body>
 </html>
