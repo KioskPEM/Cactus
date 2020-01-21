@@ -10,7 +10,7 @@ use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
 use Cactus\Util\AppConfiguration;
 use Exception;
-use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
 use Mike42\Escpos\Printer;
 
 class PrinterEndpoint implements IRouteEndpoint
@@ -22,7 +22,7 @@ class PrinterEndpoint implements IRouteEndpoint
     public function handle(Route $route, array $parameters): string
     {
         $port = AppConfiguration::get("printer.port");
-        $connector = new WindowsPrintConnector($port);
+        $connector = new FilePrintConnector($port);
         $printer = new Printer($connector);
 
         $printer->initialize();
