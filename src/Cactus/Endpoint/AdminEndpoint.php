@@ -6,7 +6,6 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
-use Cactus\Util\AppConfiguration;
 
 class AdminEndpoint implements IRouteEndpoint
 {
@@ -20,11 +19,6 @@ class AdminEndpoint implements IRouteEndpoint
         switch ($action) {
             case "clear_cache":
                 session_destroy();
-                break;
-            case "quit":
-                system(
-                    AppConfiguration::get("commands.close")
-                );
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);

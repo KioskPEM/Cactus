@@ -35,8 +35,6 @@
       "admin-index": {
         "name": "Administration",
         "actions": {
-          "main_menu": "Menu principal",
-          "close": "Fermer l'application",
           "clear_cache": "Vider le cache",
           "update": "Mettre à jour",
           "print_ticket": "Imprimer un ticket",
