@@ -6,6 +6,7 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
+use Cactus\Util\AppConfiguration;
 
 class AdminEndpoint implements IRouteEndpoint
 {
@@ -21,11 +22,9 @@ class AdminEndpoint implements IRouteEndpoint
                 session_destroy();
                 break;
             case "quit":
-                system("cmd /c C:\Cactus\stop.bat");
-                break;
-            case "restart":
-                system("cmd /c C:\Cactus\stop.bat");
-                system("cmd /c C:\Cactus\start.bat");
+                system(
+                    AppConfiguration::get("system_commands.close")
+                );
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
