@@ -7,8 +7,5 @@
   "home-page": "welcome",
   "printer": {
     "port": "COM1"
-  },
-  "commands": {
-    "close": "pkill x"
   }
 }
