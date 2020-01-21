@@ -35,10 +35,10 @@
     "controller": "Cactus\\Controller\\SearchSchool\\SelectDepartmentController"
   },
   "search-school.school-type": {
-    "path": "/search-school/region/:region{\\d{2}}/department/:department{\\d{2}}/school"
+    "path": "/search-school/region/:region{\\d{2}}/department/:department{[A-D0-9]{2}}/school"
   },
   "search-school.school": {
-    "path": "/search-school/region/:region{\\d{2}}/department/:department{\\d{2}}/school/:school_type{college|high_school}",
+    "path": "/search-school/region/:region{\\d{2}}/department/:department{[A-D0-9]{2}}/school/:school_type{college|high_school}",
     "controller": "Cactus\\Controller\\SearchSchool\\SelectSchoolController"
   },
 
