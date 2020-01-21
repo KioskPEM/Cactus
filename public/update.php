@@ -53,20 +53,17 @@ function recursive_rmdir($dir): bool
     return true;
 }
 
-function recursive_copy($src, $dst)
+function recursive_move($src, $dst)
 {
-    if (file_exists($dst))
-        recursive_rmdir($dst);
-
     if (is_dir($src)) {
         mkdir($dst);
         $files = scandir($src);
         foreach ($files as $file) {
             if ($file != "." && $file != "..")
-                recursive_copy("$src/$file", "$dst/$file");
+                recursive_move("$src/$file", "$dst/$file");
         }
     } else if (file_exists($src))
-        copy($src, $dst);
+        rename($src, $dst);
 }
 
 /** @var string $tmpDir */
@@ -116,21 +113,18 @@ if (!$zipArchive->extractTo($tmpDir)) {
 /** @var string $extractedFolder */
 $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
 
+// load the current config
 /** @var array $config */
 $config = AppConfiguration::getConfig();
 
+// move all the extracted files to the production directory
 $extractedFiles = scandir($extractedFolder);
 foreach ($extractedFiles as $file) {
-    if ($file === '.' || $file === "..")
-        continue;
-
-    $filePath = $extractedFolder . $file;
-    if (is_dir($filePath))
-        recursive_copy($filePath . $file, ROOT . $file);
-    else if (is_file($filePath))
-        copy($filePath, ROOT . $file);
+    if ($file !== '.' && $file !== "..")
+        recursive_move($extractedFolder . $file, ROOT . $file);
 }
 
+// save the overwritten config
 AppConfiguration::reload();
 AppConfiguration::apply($config);
 AppConfiguration::save();
