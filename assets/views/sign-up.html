@@ -2,8 +2,8 @@
 <form action="@{sign-up.finalize}" method="post">
     <input type="hidden" name="school-id" value="${route.school_id}">
     <label for="first-name">%{page.form.first_name}</label>
-    <input id="first-name" name="first-name" type="text" placeholder="">
+    <input id="first-name" name="first-name" type="text" required>
     <label for="last-name">%{page.form.last_name}</label>
-    <input id="last-name" name="last-name" type="text" placeholder="">
+    <input id="last-name" name="last-name" type="text" required>
     <input type="submit" value="%{page.form.submit}">
 </form>
