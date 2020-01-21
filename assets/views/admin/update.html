@@ -1,1 +1,14 @@
-<a href="${url.root}/update.php" onclick="this.text = '%{page.updating}';this.href=''">%{page.do_update}</a>
+<ul class="grid-list full-size">
+    <li class="grid-list-item">
+        <a class="button" onclick="doUpdate(this);">
+            <i class="mdi mdi mdi-download"></i>
+            %{page.do_update}
+        </a>
+    </li>
+</ul>
+<script type="application/javascript">
+    function doUpdate(link) {
+        link.text = '%{page.updating}';
+        link.window.location = "${url.root}/update.php";
+    }
+</script>
