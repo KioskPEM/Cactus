@@ -8,7 +8,7 @@
   "printer": {
     "port": "COM1"
   },
-  "system_commands": {
+  "commands": {
     "close": "pkill x"
   }
 }

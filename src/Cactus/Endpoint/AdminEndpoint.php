@@ -23,7 +23,7 @@ class AdminEndpoint implements IRouteEndpoint
                 break;
             case "quit":
                 system(
-                    AppConfiguration::get("system_commands.close")
+                    AppConfiguration::get("commands.close")
                 );
                 break;
             default:
