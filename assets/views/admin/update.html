@@ -9,6 +9,13 @@
 <script type="application/javascript">
     function doUpdate(link) {
         link.text = '%{page.updating}';
-        window.location = "${url.root}/update.php";
+
+        fetch("${url.root}/update.php").catch(reason => {
+            link.text = reason;
+        }).then(result => {
+            return result.json();
+        }).then(result => {
+            link.text = result.message;
+        });
     }
 </script>
