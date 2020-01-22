@@ -23,6 +23,9 @@ class ErrorSongPlayer
 
     public static function play()
     {
+        var_dump(
+            "CALLED WITH " . "exec sh " . self::ERROR_SONG_FILE
+        );
         $descriptor = [
             0 => ["pipe", "r"],
             1 => ["pipe", "w"],
