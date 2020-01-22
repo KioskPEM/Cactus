@@ -2,6 +2,7 @@
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
 use Cactus\Endpoint\SchoolEndpoint;
+use Cactus\ErrorSongPlayer;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\Router;
@@ -14,6 +15,8 @@ use Cactus\Util\AppConfiguration;
 use Cactus\Util\ClientRequest;
 
 try {
+
+    ErrorSongPlayer::checkStatus();
 
     $request = ClientRequest::Instance();
 
@@ -92,6 +95,8 @@ try {
     echo $route->call($parameters);
 
 } catch (Throwable $e) {
+
+    ErrorSongPlayer::play();
 
     $httpCode = $e->getCode();
     if (!HttpCode::isHttpCode($httpCode))
