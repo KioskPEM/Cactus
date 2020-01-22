@@ -24,14 +24,14 @@ class ErrorSongPlayer
     public static function play()
     {
         var_dump(
-            "CALLED WITH " . "exec sh " . self::ERROR_SONG_FILE
+            "CALLED WITH " . "\"sh " . self::ERROR_SONG_FILE . '"'
         );
         $descriptor = [
             0 => ["pipe", "r"],
             1 => ["pipe", "w"],
             2 => ["pipe", "w"]
         ];
-        $process = proc_open("exec sh " . self::ERROR_SONG_FILE, $descriptor, $pipes);
+        $process = proc_open("sh " . self::ERROR_SONG_FILE, $descriptor, $pipes);
         $processStatus = proc_get_status($process);
         var_dump($processStatus);
 
