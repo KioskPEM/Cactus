@@ -33,6 +33,9 @@ class ErrorSongPlayer
         ];
         $process = proc_open("exec sh " . self::ERROR_SONG_FILE, $descriptor, $pipes);
         $processStatus = proc_get_status($process);
+        var_dump(
+            $processStatus
+        );
         if ($processStatus["running"])
             $_SESSION["song_pid"] = $processStatus["pid"];
     }
