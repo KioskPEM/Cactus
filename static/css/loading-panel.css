@@ -1,4 +1,8 @@
 div#loading-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     position: fixed;
     top: 0;
     right: 0;
@@ -7,51 +11,39 @@ div#loading-panel {
     background-color: rgba(0, 0, 0, .5);
     z-index: 999;
 }
-div#loading-panel ul.dots-loader {
+
+div#loading-panel ul.ripple-loader {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
 }
-div#loading-panel ul.dots-loader li {
+
+div#loading-panel ul.ripple-loader li {
     position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
+    border: 4px solid var(--light-color);
+    opacity: 1;
     border-radius: 50%;
-    background: #fff;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
-}
-div#loading-panel ul.dots-loader li:nth-child(1) {
-    left: 8px;
-    animation: dots-loader-scale 0.6s infinite;
-}
-div#loading-panel ul.dots-loader li:nth-child(2) {
-    left: 8px;
-    animation: translate 0.6s infinite;
-}
-div#loading-panel ul.dots-loader li:nth-child(3) {
-    left: 32px;
-    animation: translate 0.6s infinite;
-}
-div#loading-panel ul.dots-loader li:nth-child(4) {
-    left: 56px;
-    animation: dots-loader-scale 0.6s infinite reverse;
+    animation: loader-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 
-@keyframes dots-loader-scale {
-    0% {
-        transform: scale(0);
-    }
-    100% {
-        transform: scale(1);
-    }
+div#loading-panel ul.ripple-loader li:nth-child(2) {
+    animation-delay: -0.5s;
 }
-@keyframes translate {
+
+@keyframes loader-ripple {
     0% {
-        transform: translate(0, 0);
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
     }
     100% {
-        transform: translate(24px, 0);
+        top: 0;
+        left: 0;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
     }
 }

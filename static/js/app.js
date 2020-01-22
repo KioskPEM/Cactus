@@ -20,7 +20,7 @@ const Cactus = {
     showLoadingPanel: function() {
         let loadingPanel = document.getElementById("loading-panel");
         if (loadingPanel !== null)
-            loadingPanel.style.display = "block";
+            loadingPanel.style.display = "flex";
     },
     resetIdleDelay: function () {
         if (Cactus.idleTimeoutId)
