@@ -23,7 +23,7 @@ class ErrorSongPlayer
 
     public static function play()
     {
-        $process = proc_open("exec " . self::ERROR_SONG_FILE, [], $pipes);
+        $process = proc_open("exec sh " . self::ERROR_SONG_FILE, [], $pipes);
         $processStatus = proc_get_status($process);
         if ($processStatus["running"])
             $_SESSION["song_pid"] = $processStatus["pid"];
