@@ -1,6 +1,11 @@
 const Cactus = {
     idleDelay: 300,
     init: function () {
+
+        let links = document.getElementsByTagName("A");
+        for(let i = 0; i < links.length; i++)
+            links[i].addEventListener("click", Cactus.showLoadingPanel);
+
         ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
             document.addEventListener(name, Cactus.resetIdleDelay, true);
         });
@@ -11,6 +16,11 @@ const Cactus = {
         let welcomeBtn = document.getElementById("app-home-btn");
         if (welcomeBtn !== null)
             welcomeBtn.click();
+    },
+    showLoadingPanel: function() {
+        let loadingPanel = document.getElementById("loading-panel");
+        if (loadingPanel !== null)
+            loadingPanel.style.display = "block";
     },
     resetIdleDelay: function () {
         if (Cactus.idleTimeoutId)

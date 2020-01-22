@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${url.static}/css/style.css?v=20191213"/>
     <link rel="stylesheet" href="${url.static}/css/header.css?v=20191213"/>
     <link rel="stylesheet" href="${url.static}/css/grid-list.css?v=20191216"/>
+    <link rel="stylesheet" href="${url.static}/css/loading-panel.css?v=20191216"/>
     <link rel="stylesheet" href="${url.static}/css/form.css?v=20200113"/>
     <link rel="stylesheet" href="${url.static}/css/materialdesignicons.css?v=20191214"/>
 
@@ -18,6 +19,14 @@
 </head>
 <body onload="Cactus.init()">
 <input type="hidden" id="admin-page" value="@{admin.admin-index}">
+<div id="loading-panel" style="display: none">
+    <ul class="dots-loader">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
 <header id="app-header">
     <a id="app-back-btn" href="javascript:history.back()"><span class="mdi mdi-arrow-left-thick"></span></a>
     <h1 id="app-title">%{page.name}</h1>
