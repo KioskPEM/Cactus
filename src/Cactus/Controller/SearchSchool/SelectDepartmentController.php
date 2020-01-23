@@ -36,7 +36,7 @@ class SelectDepartmentController implements ITemplateController
             $departmentCode = $department[self::DEPARTMENT_CODE];
             $departmentName = $department[self::DEPARTMENT_NAME];
 
-            $url = $context->buildUrl("GET", "search-school.department", [
+            $url = $context->buildUrl("GET", "search-school.school-type", [
                 "region" => $regionCode,
                 "department" => $departmentCode,
             ]);
