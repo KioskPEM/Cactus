@@ -30,7 +30,7 @@ class RenderContext implements IRouteBuilder
     /**
      * @inheritDoc
      */
-    public function buildUrl(string $method, string $routeName, array $parameters): string
+    public function buildUrl(string $method, string $routeName, array $parameters = []): string
     {
         $config = AppConfiguration::Instance();
         $request = ClientRequest::Instance();

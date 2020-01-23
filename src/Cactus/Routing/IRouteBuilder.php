@@ -15,5 +15,5 @@ interface IRouteBuilder
      * @return string
      * @throws RouteNotFoundException
      */
-    public function buildUrl(string $method, string $routeName, array $parameters): string;
+    public function buildUrl(string $method, string $routeName, array $parameters = []): string;
 }
