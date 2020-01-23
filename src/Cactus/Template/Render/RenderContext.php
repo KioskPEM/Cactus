@@ -4,7 +4,9 @@
 namespace Cactus\Template\Render;
 
 use Cactus\Routing\IRouteBuilder;
+use Cactus\Util\AppConfiguration;
 use Cactus\Util\ArrayPath;
+use Cactus\Util\ClientRequest;
 
 class RenderContext implements IRouteBuilder
 {
@@ -30,7 +32,13 @@ class RenderContext implements IRouteBuilder
      */
     public function buildUrl(string $method, string $routeName, array $parameters): string
     {
-        return $this->routeBuilder->buildUrl($method, $routeName, $parameters);
+        $config = AppConfiguration::Instance();
+        $request = ClientRequest::Instance();
+
+        $format = $config->get("url.format");
+        $lang = $request->getLang();
+        $path = $this->routeBuilder->buildUrl($method, $routeName, $parameters);
+        return sprintf($format, $lang, $path);
     }
 
     public function hasParam(string $key): bool

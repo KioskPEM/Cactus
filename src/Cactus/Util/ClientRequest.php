@@ -22,7 +22,7 @@ class ClientRequest
      *
      * @return ClientRequest
      */
-    public static function Instance()
+    public static function Instance(): ClientRequest
     {
         static $inst = null;
         if ($inst === null)

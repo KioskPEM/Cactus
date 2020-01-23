@@ -21,7 +21,9 @@ class PrinterEndpoint implements IRouteEndpoint
      */
     public function handle(Route $route, array $parameters): string
     {
-        $port = AppConfiguration::get("printer.port");
+        $config = AppConfiguration::Instance();
+
+        $port = $config->get("printer.port");
         $connector = new FilePrintConnector($port);
         $printer = new Printer($connector);
 

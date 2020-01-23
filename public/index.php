@@ -15,18 +15,19 @@ use Cactus\Util\ClientRequest;
 try {
 
     $request = ClientRequest::Instance();
+    $config = AppConfiguration::Instance();
 
     $router = new Router();
-    $rootUrl = AppConfiguration::get("url.root");
+    $rootUrl = $config->get("url.root");
     $templateEngine = new TemplateManager([
         "url" => [
             "root" => $rootUrl,
-            "static" => AppConfiguration::get("url.static")
+            "static" => $config->get("url.static")
         ],
-        "home-page" => AppConfiguration::get("home-page")
+        "home-page" => $config->get("home-page")
     ]);
 
-    $urlFormat = AppConfiguration::get("url.format");
+    $urlFormat = $config->get("url.format");
     $templateEngine->addPass(new EchoPass());
     $templateEngine->addPass(new HandlerPass());
     $templateEngine->addPass(new UrlPass($router, $urlFormat));
@@ -53,34 +54,6 @@ try {
             $templateEngine->registerTemplate($name, $controller);
         }
     }
-
-    /*$router->get("admin.admin-index", "/admin", $templateEngine);
-    $templateEngine->registerTemplate("admin.admin-index");
-    $router->get("admin.update", "/admin/update", $templateEngine);
-    $templateEngine->registerTemplate("admin.update");
-    $router->get("admin_action", "/admin/:action{[a-z_]+}", new AdminEndpoint());
-
-    $printerPort = AppConfiguration::get("printer.port");
-    $router->get("printer_print", "/printer/print/:id{[A-Z0-9]+}", new PrintTicketEndpoint($printerPort));
-    $router->get("printer_action", "/printer/:action{[a-z]+}", new PrinterEndpoint($printerPort));
-
-    $router->get("error", "/error/:error{[1-5]\d{2}}", $templateEngine);
-    $templateEngine->registerTemplate("error");
-
-    $router->get("welcome", "/welcome", $templateEngine);
-    $templateEngine->registerTemplate("welcome");
-
-    // sign up
-    $router->get("search-school.region", "/sign-up/region", $templateEngine);
-    $templateEngine->registerTemplate("search-school.region");
-    $router->get("sign-up.select-department", "/sign-up/region/:region{\d{2}}/department", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-department", new SelectDepartmentController());
-    $router->get("sign-up.select-school-type", "/sign-up/region/:region{\d{2}}/department/:department{\d{2}}/school/type", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-school-type");
-    $router->get("sign-up.select-school", "/sign-up/region/:region{\d{2}}/department/:department{\d{2}}/:school_type{college|high_school}", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.select-school", new SelectSchoolController());
-    $router->get("sign-up.user-info", "/sign-up/:school_id{\d{7}[A-Z]}", $templateEngine);
-    $templateEngine->registerTemplate("sign-up.user-info");*/
 
     $parameters = [];
     $route = $router->resolveRoute(

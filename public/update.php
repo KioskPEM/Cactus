@@ -117,9 +117,12 @@ if (!$zipArchive->extractTo($tmpDir)) {
 /** @var string $extractedFolder */
 $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
 
+$config = AppConfiguration::Instance();
+
+
 // load the current config
-/** @var array $config */
-$config = AppConfiguration::getConfig();
+/** @var array $savedConfig */
+$savedConfig = $config->getConfig();;
 
 // move all the extracted files to the production directory
 $extractedFiles = scandir($extractedFolder);
@@ -129,8 +132,8 @@ foreach ($extractedFiles as $file) {
 }
 
 // save the overwritten config
-AppConfiguration::reload();
-AppConfiguration::apply($config);
-AppConfiguration::save();
+$config->reload();
+$config->apply($savedConfig);
+$config->save();
 
 report(200, "Cactus is now up-to-date");

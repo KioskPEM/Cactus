@@ -8,42 +8,56 @@ class AppConfiguration
 {
     private const CONFIG_PATH = ASSET_PATH . "config.json";
 
-    private static array $config;
+    private array $config;
 
     private function __construct()
     {
     }
 
-    private static function ensureLoad() {
-        if (!isset(self::$config))
-            self::reload();
+    /**
+     * Gets the client's request
+     *
+     * @return AppConfiguration
+     */
+    public static function Instance(): AppConfiguration
+    {
+        static $inst = null;
+        if ($inst === null)
+            $inst = new AppConfiguration();
+        return $inst;
     }
 
-    public static function apply(array $config)
+    private function ensureLoad()
     {
-        self::$config = array_merge(self::$config, $config);
+        if (!isset($this->config))
+            $this->reload();
     }
 
-    public static function set(string $path, $value)
+    public function apply(array $config)
     {
-        ArrayPath::set(self::$config, $path, $value);
+        $this->config = array_merge($this->config, $config);
     }
 
-    public static function get(string $path)
+    public function set(string $path, $value)
     {
-        self::ensureLoad();
-        return ArrayPath::get(self::$config, $path);
+        ArrayPath::set($this->config, $path, $value);
     }
 
-    public static function save(): bool
+    public function get(string $path)
     {
-        $content = json_encode(self::$config, JSON_PRETTY_PRINT, 512);
+        $this->ensureLoad();
+        return ArrayPath::get($this->config, $path);
+    }
+
+    public function save(): bool
+    {
+        $content = json_encode($this->config, JSON_PRETTY_PRINT, 512);
         if ($content === false)
             return false;
         return file_put_contents(self::CONFIG_PATH, $content);
     }
 
-    public static function reload(): bool
+    public function reload(): bool
     {
         $content = file_get_contents(self::CONFIG_PATH);
         if ($content === false)
@@ -53,17 +67,17 @@ class AppConfiguration
         if ($config === null)
             return false;
 
-        self::$config = $config;
+        $this->config = $config;
         return true;
     }
 
     /**
      * @return array
      */
-    public static function getConfig(): array
+    public function getConfig(): array
     {
-        self::ensureLoad();
-        return self::$config;
+        $this->ensureLoad();
+        return $this->config;
     }
 
 }
