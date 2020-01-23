@@ -16,7 +16,7 @@ class SelectSchoolController implements ITemplateController
     private const DEPARTMENT_CODE = 10;
     private const REGION_CODE = 12;
 
-    private const SCHOOL_PER_PAGES = 8;
+    private const SCHOOL_PER_PAGES = 12;
 
     private array $schools;
 
