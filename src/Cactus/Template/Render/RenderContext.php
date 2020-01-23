@@ -3,22 +3,34 @@
 
 namespace Cactus\Template\Render;
 
+use Cactus\Routing\IRouteBuilder;
 use Cactus\Util\ArrayPath;
 
-class RenderContext
+class RenderContext implements IRouteBuilder
 {
+    private IRouteBuilder $routeBuilder;
     private array $i18n;
     private array $params;
 
     /**
      * RenderContext constructor.
+     * @param IRouteBuilder $routeBuilder
      * @param array $i18n
      * @param array $params
      */
-    public function __construct(array $i18n, array $params = [])
+    public function __construct(IRouteBuilder $routeBuilder, array $i18n, array $params = [])
     {
+        $this->routeBuilder = $routeBuilder;
         $this->i18n = $i18n;
         $this->params = $params;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function buildUrl(string $method, string $routeName, array $parameters): string
+    {
+        return $this->routeBuilder->buildUrl($method, $routeName, $parameters);
     }
 
     public function hasParam(string $key): bool

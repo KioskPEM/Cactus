@@ -5,6 +5,7 @@ namespace Cactus\Controller\SearchSchool;
 
 
 use Cactus\Database\CsvDatabase;
+use Cactus\Routing\Exception\RouteNotFoundException;
 use Cactus\Template\Controller\ITemplateController;
 use Cactus\Template\Render\RenderContext;
 
@@ -17,6 +18,11 @@ class SelectSchoolController implements ITemplateController
 
     private const SCHOOL_PER_PAGES = 8;
 
+    /**
+     * @param RenderContext $context
+     * @return string
+     * @throws RouteNotFoundException
+     */
     public function get_schools(RenderContext $context): string
     {
         $regionCode = $context->param("route.region");
@@ -40,8 +46,9 @@ class SelectSchoolController implements ITemplateController
         for ($i = $page; $i < self::SCHOOL_PER_PAGES; $i++) {
             $school = $schools[$i * self::SCHOOL_PER_PAGES];
 
-            $schoolId = $school[self::SCHOOL_ID];
-            $url = "http://127.0.0.1:8080/public/index.php?lang=fr&path=sign-up/" . $schoolId;
+            $url = $context->buildUrl("GET", "sign-up", [
+                "school_id" => $school[self::SCHOOL_ID]
+            ]);
             $schoolName = $school[self::SCHOOL_NAME];
             $output .= "<li class=\"grid-list-item\"><a class=\"button\" href=\"$url\">$schoolName</a></li>";
         }

@@ -5,6 +5,7 @@ namespace Cactus\Controller\SearchSchool;
 
 
 use Cactus\Database\CsvDatabase;
+use Cactus\Routing\Exception\RouteNotFoundException;
 use Cactus\Template\Controller\ITemplateController;
 use Cactus\Template\Render\RenderContext;
 
@@ -14,6 +15,11 @@ class SelectDepartmentController implements ITemplateController
     private const DEPARTMENT_NAME = 1;
     private const REGION_CODE = 2;
 
+    /**
+     * @param RenderContext $context
+     * @return string
+     * @throws RouteNotFoundException
+     */
     public function get_departments(RenderContext $context): string
     {
         $regionCode = $context->param("route.region");
@@ -30,7 +36,10 @@ class SelectDepartmentController implements ITemplateController
             $departmentCode = $department[self::DEPARTMENT_CODE];
             $departmentName = $department[self::DEPARTMENT_NAME];
 
-            $url = "http://127.0.0.1:8080/public/index.php?lang=fr&path=search-school/region/$regionCode/department/$departmentCode/school";
+            $url = $context->buildUrl("GET", "search-school.department", [
+                "region" => $regionCode,
+                "department" => $departmentCode,
+            ]);
             $output .= "<li class=\"grid-list-item\"><a class=\"button\" href=\"$url\">$departmentName</a></li>";
         }
         return $output;

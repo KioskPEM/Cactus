@@ -6,7 +6,7 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteFormatException;
 use Cactus\Routing\Exception\RouteNotFoundException;
 
-class Router
+class Router implements IRouteBuilder
 {
     private array $routes = [];
 
@@ -27,7 +27,7 @@ class Router
 
     public function register(string $name, string $method, string $path, IRouteEndpoint $endpoint): Route
     {
-        $route = Route::parse($name, trim($path, '/'), $endpoint);
+        $route = Route::parse($this, $name, trim($path, '/'), $endpoint);
         $this->routes[$method][$name] = $route;
         return $route;
     }
@@ -61,13 +61,13 @@ class Router
      * @return string
      * @throws RouteNotFoundException
      */
-    public function generateUrl(string $method, string $routeName, array $parameters): string
+    public function buildUrl(string $method, string $routeName, array $parameters): string
     {
         if ($method === '*') {
             $methods = ["GET", "POST"];
             foreach ($methods as $method) {
                 try {
-                    return $this->generateUrl($method, $routeName, $parameters);
+                    return $this->buildUrl($method, $routeName, $parameters);
                 } catch (RouteNotFoundException $e) {
                     continue;
                 }

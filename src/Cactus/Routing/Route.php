@@ -9,13 +9,15 @@ class Route
 {
     const PARAM_PATTERN = "/:([a-z_]+)\{([^\/]+)\}/";
 
+    private Router $router;
     private string $name;
     private string $path;
     private string $regex;
     private IRouteEndpoint $endpoint;
 
-    public function __construct(string $name, string $path, string $regex, IRouteEndpoint $endpoint)
+    private function __construct(Router $router, string $name, string $path, string $regex, IRouteEndpoint $endpoint)
     {
+        $this->router = $router;
         $this->name = $name;
         $this->path = $path;
         $this->regex = $regex;
@@ -53,9 +55,18 @@ class Route
         return $this->path;
     }
 
-    public static function parse(string $name, string $path, IRouteEndpoint $handler): Route
+    /**
+     * @return Router
+     */
+    public function getRouter(): Router
+    {
+        return $this->router;
+    }
+
+    public static function parse(Router $router, string $name, string $path, IRouteEndpoint $handler): Route
     {
         return new Route(
+            $router,
             $name,
             $path,
             "#^" . preg_replace(Route::PARAM_PATTERN, "(?P<\$1>\$2)", $path) . "\$#",

@@ -87,6 +87,7 @@ class TemplateManager implements IRouteEndpoint
 
         // set-up the render context
         $context = new RenderContext(
+            $route->getRouter(),
             $i18n,
             $this->params
         );
