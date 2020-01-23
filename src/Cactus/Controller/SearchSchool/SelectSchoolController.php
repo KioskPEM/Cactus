@@ -45,7 +45,7 @@ class SelectSchoolController implements ITemplateController
         $page = intval($context->param("route.page"));
         $offset = $page * self::SCHOOL_PER_PAGES;
         $schoolCount = count($schools);
-        for ($i = 0; $i < self::SCHOOL_PER_PAGES && ($schoolCount < $offset + $i); $i++) {
+        for ($i = 0; $i < self::SCHOOL_PER_PAGES && (($offset + $i) < $schoolCount); $i++) {
             $school = $schools[$offset + $i];
 
             $url = $context->buildUrl("GET", "sign-up", [
