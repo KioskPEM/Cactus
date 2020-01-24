@@ -11,9 +11,9 @@ use Cactus\Template\Render\RenderContext;
 
 class SelectDepartmentController implements ITemplateController
 {
-    private const DEPARTMENT_CODE = 0;
-    private const DEPARTMENT_NAME = 1;
-    private const REGION_CODE = 2;
+    private const DEPARTMENT_CODE = "code_departement";
+    private const DEPARTMENT_NAME = "nom_departement";
+    private const REGION_CODE = "code_region";
 
     /**
      * @param RenderContext $context

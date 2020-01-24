@@ -11,10 +11,10 @@ use Cactus\Template\Render\RenderContext;
 
 class SelectSchoolController implements ITemplateController
 {
-    private const SCHOOL_ID = 0;
-    private const SCHOOL_NAME = 1;
-    private const DEPARTMENT_CODE = 10;
-    private const REGION_CODE = 12;
+    private const SCHOOL_ID = "Identifiant_de_l_etablissement";
+    private const SCHOOL_NAME = "Nom_etablissement";
+    private const DEPARTMENT_CODE = "Code_departement";
+    private const REGION_CODE = "Code_region";
 
     private const SCHOOL_PER_PAGES = 14;
 

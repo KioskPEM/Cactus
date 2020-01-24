@@ -28,27 +28,39 @@ class CsvDatabase
 
     public function get(callable $filter = null): array
     {
+        $replaceKeys = isset($this->header);
+
         $results = [];
         while (($entry = fgetcsv($this->handle, 0, $this->delimiter)) !== false) {
+
+            if ($replaceKeys) {
+                foreach ($this->header as $key => $name) {
+                    $entry[$name] = $entry[$key];
+                    unset($entry[$key]);
+                }
+            }
 
             if ($filter && $filter($entry) == false)
                 continue;
 
             $results[] = $entry;
         }
+
         return $results;
     }
 
-    public function open(): bool
+    public function open(bool $useHeader = true): bool
     {
         $this->handle = fopen(DATA_PATH . $this->name . ".csv", "r");
         if ($this->handle === false)
             return false;
 
-        $this->header = fgetcsv($this->handle, 0, $this->delimiter);
-        if ($this->header === false) {
-            $this->close();
-            return false;
+        if ($useHeader) {
+            $this->header = fgetcsv($this->handle, 0, $this->delimiter);
+            if ($this->header === false) {
+                $this->close();
+                return false;
+            }
         }
 
         return true;
