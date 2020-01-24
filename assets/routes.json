@@ -51,7 +51,7 @@
     "path": "/songs/:action{play|stop}",
     "endpoint": "Cactus\\Endpoint\\SongPlayerEndpoint"
   },
-  "easter-egg.song-player": {
-    "path": "/easter-egg/song-player"
+  "easter-egg.jukebox": {
+    "path": "/easter-egg/jukebox"
   }
 }

@@ -48,7 +48,7 @@
       }
     },
     "easter-egg": {
-      "song-player": {
+      "jukebox": {
         "name": "Jukebox",
         "play_song": "Jouer une musique"
       }
