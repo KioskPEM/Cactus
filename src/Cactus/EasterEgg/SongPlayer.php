@@ -37,7 +37,11 @@ class SongPlayer
         return $this->play($this->songs[$song]);
     }
 
-    public function play(array $song): bool
+    public function playAt(int $song): bool {
+        return $this->play($this->songs[$song]);
+    }
+
+    private function play(array $song): bool
     {
         $this->stop();
 

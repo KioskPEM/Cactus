@@ -19,10 +19,7 @@ try {
     $config = AppConfiguration::Instance();
 
     $songPlayer = SongPlayer::Instance();
-    if ($request->getPath() == "error")
-        $songPlayer->playRandom();
-    else
-        $songPlayer->stop();
+    $songPlayer->stop();
 
     $router = new Router();
     $rootUrl = $config->get("url.root");
@@ -71,6 +68,8 @@ try {
     echo $route->call($parameters);
 
 } catch (Throwable $e) {
+
+    $songPlayer->playAt(0);
 
     $httpCode = $e->getCode();
     if (!HttpCode::isHttpCode($httpCode))
