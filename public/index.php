@@ -15,11 +15,14 @@ use Cactus\Util\ClientRequest;
 
 try {
 
-    $songPlayer = SongPlayer::Instance();
-    $songPlayer->playRandom();
-
     $request = ClientRequest::Instance();
     $config = AppConfiguration::Instance();
+
+    $songPlayer = SongPlayer::Instance();
+    if ($request->getPath() == "error")
+        $songPlayer->playRandom();
+    else
+        $songPlayer->stop();
 
     $router = new Router();
     $rootUrl = $config->get("url.root");
