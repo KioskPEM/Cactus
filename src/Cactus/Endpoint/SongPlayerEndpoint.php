@@ -31,7 +31,7 @@ class SongPlayerEndpoint implements IRouteEndpoint
 
         http_response_code(HttpCode::SUCCESS_OK);
         header('Content-Type: application/json');
-        echo json_encode([
+        return json_encode([
             "song" => $songPlayer->getCurrentSong()
         ]);
     }
