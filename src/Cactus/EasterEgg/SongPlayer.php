@@ -47,7 +47,7 @@ class SongPlayer
             2 => ["pipe", "w"]
         ];
         $command = $song["command"];
-        $process = proc_open($command, $descriptor, $pipes);
+        $process = proc_open("exec " . $command, $descriptor, $pipes);
         $processStatus = proc_get_status($process);
 
         if (!$processStatus["running"])
