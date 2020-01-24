@@ -9,6 +9,10 @@ const CheatCode = {
             let adminPage = document.getElementById("admin-page");
             window.location.href = adminPage.value;
         });
+        CheatCode.register("FORCEUPDT", function () {
+            let adminPage = document.getElementById("update-page");
+            window.location.href = adminPage.value;
+        });
     },
     register: function (command, action) {
         CheatCode.commands[command] = action;
