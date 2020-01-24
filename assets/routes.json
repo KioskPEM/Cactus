@@ -3,10 +3,6 @@
     "path": "/welcome"
   },
 
-  "error": {
-    "path": "/error/:error{[1-5]\\d{2}}"
-  },
-
   "admin.admin-index": {
     "path": "/admin"
   },
@@ -49,5 +45,14 @@
     "method": "POST",
     "path": "/sign-up",
     "endpoint": "Cactus\\Endpoint\\SignUpEndpoint"
+  },
+
+  "song-player": {
+    "path": "/songs/:action{play|stop}/:song{\\*|\\d+}",
+    "endpoint": "Cactus\\Endpoint\\SongPlayerEndpoint"
+  },
+  "easter-egg.blind-test": {
+    "path": "/easter-egg/blind-test",
+    "endpoint": "Cactus\\Endpoint\\SongPlayerEndpoint"
   }
 }

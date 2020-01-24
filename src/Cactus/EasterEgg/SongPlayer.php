@@ -23,6 +23,11 @@ class SongPlayer
         return $inst;
     }
 
+    public function getCurrentSong(): string
+    {
+        return $_SESSION["song"]["name"] ?? false;
+    }
+
     private function loadSongs()
     {
         $songDatabase = new CsvDatabase("songs");
@@ -37,7 +42,8 @@ class SongPlayer
         return $this->play($this->songs[$song]);
     }
 
-    public function playAt(int $song): bool {
+    public function playAt(int $song): bool
+    {
         return $this->play($this->songs[$song]);
     }
 
@@ -57,17 +63,20 @@ class SongPlayer
         if (!$processStatus["running"])
             return false;
 
-        $_SESSION["song_pid"] = $processStatus["pid"];
+        $_SESSION["song"] = [
+            "name" => $song["name"],
+            "pid" => $processStatus["pid"]
+        ];
         return true;
     }
 
     public function stop()
     {
-        if (!array_key_exists("song_pid", $_SESSION))
+        if (!array_key_exists("song", $_SESSION))
             return;
 
-        $process = $_SESSION["song_pid"];
+        $process = $_SESSION["song"]["pid"];
         shell_exec("kill $process");
-        unset($_SESSION["song_pid"]);
+        unset($_SESSION["song"]);
     }
 }

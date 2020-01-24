@@ -47,9 +47,13 @@
         "updating": "La mise à jour de Cactus est en cours. Veuillez patienter..."
       }
     },
-    "error": {
-      "name": "Erreur",
-      "description": "Une erreur est survenue"
+    "easter-egg": {
+      "blind-test": {
+        "name": "Blind Test",
+        "play_song": "Jouer une musique",
+        "song_playing": "...",
+        "answer": "C'était "
+      }
     }
   }
 }
