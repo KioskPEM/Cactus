@@ -67,7 +67,7 @@ class SongPlayer
             return;
 
         $process = $_SESSION["song_pid"];
-        shell_exec("kill -9 $process");
+        shell_exec("kill $process");
         unset($_SESSION["song_pid"]);
     }
 }
