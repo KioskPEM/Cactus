@@ -34,7 +34,7 @@ class SongPlayer
     public function playRandom(): bool
     {
         $song = array_rand($this->songs);
-        return $this->play($song);
+        return $this->play($this->songs[$song]);
     }
 
     public function play(array $song): bool
