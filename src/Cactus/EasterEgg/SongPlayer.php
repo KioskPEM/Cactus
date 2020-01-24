@@ -47,11 +47,6 @@ class SongPlayer
             2 => ["pipe", "w"]
         ];
         $command = $song["command"];
-
-        var_dump(
-            "PLAYING " . $song["name"] . " WITH \"" . $command . '"'
-        );
-
         $process = proc_open($command, $descriptor, $pipes);
         $processStatus = proc_get_status($process);
         var_dump($processStatus);
