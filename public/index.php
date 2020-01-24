@@ -1,6 +1,7 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
+use Cactus\EasterEgg\SongPlayer;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\Router;
@@ -13,6 +14,9 @@ use Cactus\Util\AppConfiguration;
 use Cactus\Util\ClientRequest;
 
 try {
+
+    $songPlayer = SongPlayer::Instance();
+    $songPlayer->playRandom();
 
     $request = ClientRequest::Instance();
     $config = AppConfiguration::Instance();
