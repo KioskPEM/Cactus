@@ -49,13 +49,6 @@ class SongPlayer
         $command = $song["command"];
         $process = proc_open($command, $descriptor, $pipes);
         $processStatus = proc_get_status($process);
-        var_dump($processStatus);
-
-        // Read the responses if you want to look at them
-        $stdout = fread($pipes[1], 1024);
-        var_dump($stdout);
-        $stderr = fread($pipes[2], 1024);
-        var_dump($stderr);
 
         if (!$processStatus["running"])
             return false;
