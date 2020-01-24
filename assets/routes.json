@@ -48,10 +48,10 @@
   },
 
   "song-player": {
-    "path": "/songs/:action{play|stop}/:song{\\*|\\d+}",
+    "path": "/songs/:action{play|stop}",
     "endpoint": "Cactus\\Endpoint\\SongPlayerEndpoint"
   },
-  "easter-egg.blind-test": {
-    "path": "/easter-egg/blind-test"
+  "easter-egg.song-player": {
+    "path": "/easter-egg/song-player"
   }
 }

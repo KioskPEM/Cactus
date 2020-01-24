@@ -48,11 +48,9 @@
       }
     },
     "easter-egg": {
-      "blind-test": {
-        "name": "Blind Test",
-        "play_song": "Jouer une musique",
-        "song_playing": "...",
-        "answer": "C'était "
+      "song-player": {
+        "name": "Jukebox",
+        "play_song": "Jouer une musique"
       }
     }
   }

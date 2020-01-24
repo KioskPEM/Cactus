@@ -20,11 +20,7 @@ class SongPlayerEndpoint implements IRouteEndpoint
         $action = $parameters["action"];
         switch ($action) {
             case "play":
-                $song = $parameters["song"];
-                if ($song === "*")
-                    $songPlayer->playRandom();
-                else
-                    $songPlayer->playAt($song);
+                $songPlayer->playRandom();
                 break;
             case "stop":
                 $songPlayer->stop();
