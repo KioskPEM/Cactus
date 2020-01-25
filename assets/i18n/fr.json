@@ -32,7 +32,7 @@
       }
     },
     "admin": {
-      "admin-index": {
+      "index": {
         "name": "Administration",
         "actions": {
           "clear_cache": "Vider le cache",
