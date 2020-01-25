@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
-use Cactus\EasterEgg\SongPlayer;
+use Cactus\EasterEgg\Jukebox;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\Router;
@@ -18,8 +18,8 @@ try {
     $request = ClientRequest::Instance();
     $config = AppConfiguration::Instance();
 
-    $songPlayer = SongPlayer::Instance();
-    $songPlayer->stop();
+    $jukebox = Jukebox::Instance();
+    $jukebox->stop();
 
     $router = new Router();
     $rootUrl = $config->get("url.root");
@@ -69,15 +69,47 @@ try {
 
 } catch (Throwable $e) {
 
-    $songPlayer->playAt(0);
+    $jukebox->playIndexed(0);
 
     $httpCode = $e->getCode();
     if (!HttpCode::isHttpCode($httpCode))
         $httpCode = HttpCode::SERVER_ERROR;
 
-    http_response_code(HttpCode::SERVER_ERROR);
-    $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
-    $exceptionDetails = ini_get("display_errors") ? html_entity_decode(nl2br($e)) : null;
-    echo str_replace("\${route.exception.details}", $exceptionDetails, $fallback);
+    http_response_code($httpCode);
+
+    $exceptionDetails = "Error " . $e->getCode() . ": " . $e->getMessage() . "<br>";
+    $exceptionDetails .= "-> File: " . $e->getFile() . "<br>";
+    $exceptionDetails .= "-> Line: " . $e->getLine() . "<br><br>";
+    $exceptionDetails .= "-> Trace: " . "<br>";
+
+    $trace = $e->getTrace();
+    foreach ($trace as $entry) {
+        $exceptionDetails .= $entry["class"] . $entry["type"] . $entry["function"] . '(';
+
+        $args = $entry["args"];
+        $argCount = count($args);
+        for ($i = 0; $i < $argCount; $i++) {
+            $exceptionDetails .= var_export($args[$i], true);
+            if ($i + 1 < $argCount)
+                $exceptionDetails .= ", ";
+        }
+
+        $exceptionDetails .= ") @ line " . $entry["line"];
+    }
+
+    try {
+
+        $parameters = [];
+        $route = $router->resolveRoute("error", "GET", $parameters);
+        $parameters['exception']['details'] = $exceptionDetails;
+        echo $route->call($parameters);
+
+    } catch (Throwable $_) {
+
+        $fallback = file_get_contents(VIEWS_PATH . "fallback.html");
+        echo str_replace("\${route.exception.details}", $exceptionDetails, $fallback);
+
+    }
+
 
 }

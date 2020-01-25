@@ -8,7 +8,7 @@
 </ul>
 <script type="application/javascript">
     function playSong(button) {
-        fetch("@{song-player|action=play}").catch(reason => {
+        fetch("@{jukebox|action=play}").catch(reason => {
             button.text = reason;
         }).then(result => {
             return result.json();

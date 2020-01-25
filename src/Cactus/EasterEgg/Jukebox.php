@@ -6,7 +6,7 @@ namespace Cactus\EasterEgg;
 
 use Cactus\Database\CsvDatabase;
 
-class SongPlayer
+class Jukebox
 {
     private array $songs;
 
@@ -15,11 +15,11 @@ class SongPlayer
         $this->loadSongs();
     }
 
-    public static function Instance(): SongPlayer
+    public static function Instance(): Jukebox
     {
         static $inst = null;
         if ($inst === null)
-            $inst = new SongPlayer();
+            $inst = new Jukebox();
         return $inst;
     }
 
@@ -38,16 +38,19 @@ class SongPlayer
 
     public function playRandom(): bool
     {
-        $song = array_rand($this->songs);
-        return $this->play($this->songs[$song]);
+        $index = array_rand($this->songs);
+        return $this->playIndexed($index);
     }
 
-    public function playAt(int $song): bool
+    public function playIndexed(int $index): bool
     {
-        return $this->play($this->songs[$song]);
+        $song = $this->songs[$index];
+        $name = $song["name"];
+        $command = $song["command"];
+        return $this->play($name, $command);
     }
 
-    private function play(array $song): bool
+    public function play(string $name, string $command)
     {
         $this->stop();
 
@@ -56,7 +59,6 @@ class SongPlayer
             1 => ["pipe", "w"],
             2 => ["pipe", "w"]
         ];
-        $command = $song["command"];
         $process = proc_open("exec " . $command, $descriptor, $pipes);
         $processStatus = proc_get_status($process);
 
@@ -64,7 +66,7 @@ class SongPlayer
             return false;
 
         $_SESSION["song"] = [
-            "name" => $song["name"],
+            "name" => $name,
             "pid" => $processStatus["pid"]
         ];
         return true;

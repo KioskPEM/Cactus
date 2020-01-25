@@ -3,6 +3,10 @@
     "path": "/welcome"
   },
 
+  "error": {
+    "path": "/error"
+  },
+
   "admin.index": {
     "path": "/admin"
   },
@@ -47,9 +51,9 @@
     "endpoint": "Cactus\\Endpoint\\SignUpEndpoint"
   },
 
-  "song-player": {
-    "path": "/songs/:action{play|stop}",
-    "endpoint": "Cactus\\Endpoint\\SongPlayerEndpoint"
+  "jukebox": {
+    "path": "/jukebox/:action{play|stop}",
+    "endpoint": "Cactus\\Endpoint\\JukeboxEndpoint"
   },
   "easter-egg.jukebox": {
     "path": "/easter-egg/jukebox"

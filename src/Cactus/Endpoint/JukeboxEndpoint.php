@@ -2,20 +2,20 @@
 
 namespace Cactus\Endpoint;
 
-use Cactus\EasterEgg\SongPlayer;
+use Cactus\EasterEgg\Jukebox;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
 
-class SongPlayerEndpoint implements IRouteEndpoint
+class JukeboxEndpoint implements IRouteEndpoint
 {
     /**
      * @inheritDoc
      */
     public function handle(Route $route, array $parameters): string
     {
-        $songPlayer = SongPlayer::Instance();
+        $songPlayer = Jukebox::Instance();
 
         $action = $parameters["action"];
         switch ($action) {
