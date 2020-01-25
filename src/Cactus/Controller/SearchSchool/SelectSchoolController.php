@@ -91,6 +91,7 @@ class SelectSchoolController implements ITemplateController
         $pageCount = ceil($schoolCount / self::SCHOOL_PER_PAGES);
         for ($i = 0; $i < $pageCount; $i++) {
 
+            $page = $i + 1;
             $url = $context->buildUrl("GET", "search-school.school", [
                 "region" => $regionCode,
                 "department" => $departmentCode,
@@ -98,10 +99,10 @@ class SelectSchoolController implements ITemplateController
                 "page" => $i
             ]);
 
-            if($selectedPage == $i)
-                $output .= "<li class='pagination-list-item'><a class=\"button selected\" href=\"$url\">$i</a></li>";
+            if ($selectedPage == $i)
+                $output .= "<li class='pagination-list-item'><a class=\"button selected\" href=\"$url\">$page</a></li>";
             else
-                $output .= "<li class='pagination-list-item'><a class=\"button\" href=\"$url\">$i</a></li>";
+                $output .= "<li class='pagination-list-item'><a class=\"button\" href=\"$url\">$page</a></li>";
         }
 
         return $output;
