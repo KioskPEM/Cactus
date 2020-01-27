@@ -55,6 +55,10 @@
     "path": "/jukebox/:action{play|stop}",
     "endpoint": "Cactus\\Endpoint\\JukeboxEndpoint"
   },
+
+  "easter-egg.index": {
+    "path": "/easter-egg"
+  },
   "easter-egg.jukebox": {
     "path": "/easter-egg/jukebox"
   }
