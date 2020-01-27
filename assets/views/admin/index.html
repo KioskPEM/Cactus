@@ -11,8 +11,3 @@
             %{page.actions.print_ticket}</a>
     </li>
 </ul>
-<script type="application/javascript">
-    let backBtn = document.getElementById("app-back-btn");
-    let homeBtn = document.getElementById("app-home-btn");
-    backBtn.href = homeBtn.href = "@{admin_action|action=restart}";
-</script>
