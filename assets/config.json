@@ -6,6 +6,7 @@
   },
   "home-page": "welcome",
   "printer": {
-    "port": "COM1"
+    "connector": "Mike42\\Escpos\\PrintConnectors\\FilePrintConnector",
+    "port": "/dev/ttyS2"
   }
 }

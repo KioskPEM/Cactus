@@ -23,8 +23,9 @@ class PrinterEndpoint implements IRouteEndpoint
     {
         $config = AppConfiguration::Instance();
 
+        $connectorClass = $config->get("printer.connector");
         $port = $config->get("printer.port");
-        $connector = new FilePrintConnector($port);
+        $connector = new $connectorClass($port);
         $printer = new Printer($connector);
 
         $printer->initialize();
