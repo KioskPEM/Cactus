@@ -37,6 +37,7 @@ class SignUpEndpoint implements IRouteEndpoint
         $printer = new Printer($connector);
         $printer->initialize();
         $userTicker->printTicket($printer);
+        $printer->cut(Printer::CUT_PARTIAL);
         $printer->close();
     }
 }
