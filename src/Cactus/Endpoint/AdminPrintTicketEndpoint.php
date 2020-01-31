@@ -40,7 +40,7 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
 
         $this->addCode($printer, self::ADMIN_ACCESS_LINE, "SENDNUDES");
         $this->addCode($printer, self::UPDATE_LINE, "FORCEUPDT");
-        $this->addCode($printer, self::ADMIN_ACCESS_LINE, "EQSTEREGG");
+        $this->addCode($printer, self::EASTER_EGG_ACCESS_LINE, "EQSTEREGG");
 
         $printer->cut(Printer::CUT_PARTIAL);
         $printer->close();
