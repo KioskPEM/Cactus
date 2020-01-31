@@ -55,5 +55,8 @@
   },
   "easter-egg.jukebox": {
     "path": "/easter-egg/jukebox"
+  },
+  "easter-egg.dino": {
+    "path": "/easter-egg/dino"
   }
 }
