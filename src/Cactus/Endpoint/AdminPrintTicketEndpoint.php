@@ -51,6 +51,7 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
 
     private function addCode(Printer $printer, string $text, string $content)
     {
+        $printer->feed(2);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
         $printer->text($text);
         $printer->setJustification(Printer::JUSTIFY_CENTER);
