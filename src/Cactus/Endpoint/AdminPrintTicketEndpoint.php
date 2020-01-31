@@ -34,7 +34,6 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
         $printer->setTextSize(2, 2);
         $printer->text(self::HEADER_LINE);
 
-        $printer->feed(4);
         $printer->setTextSize(1, 1);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
 
