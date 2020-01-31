@@ -2,7 +2,6 @@
   "welcome": {
     "path": "/welcome"
   },
-
   "error": {
     "path": "/error"
   },
@@ -13,18 +12,13 @@
   "admin.update": {
     "path": "/admin/update"
   },
-  "admin_action": {
+  "admin.action": {
     "path": "/admin/:action{[a-z_]+}",
     "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
   },
-
-  "printer_print": {
-    "path": "/printer/print/:id{[A-Z0-9]+}",
-    "endpoint": "Cactus\\Endpoint\\PrintTicketEndpoint"
-  },
-  "printer_action": {
-    "path": "/printer/:action{[a-z]+}",
-    "endpoint": "Cactus\\Endpoint\\PrinterEndpoint"
+  "admin.ticket": {
+    "path": "/admin/ticket",
+    "endpoint": "Cactus\\Endpoint\\AdminPrintTicketEndpoint"
   },
 
   "search-school.region": {

@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Cactus\Endpoint;
 
 
@@ -7,14 +8,17 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
 use Cactus\Util\AppConfiguration;
-use Exception;
 use Mike42\Escpos\Printer;
 
-class PrintTicketEndpoint implements IRouteEndpoint
+class AdminPrintTicketEndpoint implements IRouteEndpoint
 {
+    private const HEADER_LINE = "Maintenance";
+    private const ADMIN_ACCESS_LINE = "Accès administration";
+    private const UPDATE_LINE = "Mise à jour forcée";
+    private const EASTER_EGG_ACCESS_LINE = "Accès ...";
+
     /**
      * @inheritDoc
-     * @throws Exception
      */
     public function handle(Route $route, array $parameters): string
     {
@@ -27,34 +31,29 @@ class PrintTicketEndpoint implements IRouteEndpoint
         $printer->initialize();
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
-
-        $printer->setTextSize(4, 4);
-        $printer->text("Lycée");
-        $printer->feed();
         $printer->setTextSize(2, 2);
-        $printer->text("Pierre Emile Martin");
+        $printer->text(self::HEADER_LINE);
 
         $printer->feed(4);
-
-        $firstName = $parameters["first_name"] ?? "John";
-        $lastName = $parameters["last_name"] ?? "Doe";
-
         $printer->setTextSize(1, 1);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
-        $printer->text("Bienvenue, ");
-        $printer->text($firstName);
-        $printer->text(" ");
-        $printer->text($lastName);
-        $printer->feed(2);
 
-        $id = $parameters["id"] ?? "0123456789";
-        $printer->setJustification(Printer::JUSTIFY_CENTER);
-        $printer->barcode($id, Printer::BARCODE_CODE39);
+        $this->addCode($printer, self::ADMIN_ACCESS_LINE, "SENDNUDES");
+        $this->addCode($printer, self::UPDATE_LINE, "FORCEUPDT");
+        $this->addCode($printer, self::ADMIN_ACCESS_LINE, "EQSTEREGG");
 
         $printer->cut(Printer::CUT_PARTIAL);
         $printer->close();
 
         http_response_code(HttpCode::SUCCESS_NO_CONTENT);
         return "";
+    }
+
+    private function addCode(Printer $printer, string $text, string $content)
+    {
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
+        $printer->text($text);
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->barcode($content, Printer::BARCODE_CODE39);
     }
 }
