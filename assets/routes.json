@@ -12,13 +12,13 @@
   "admin.update": {
     "path": "/admin/update"
   },
-  "admin.action": {
-    "path": "/admin/:action{[a-z_]+}",
-    "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
-  },
   "admin.ticket": {
     "path": "/admin/ticket",
     "endpoint": "Cactus\\Endpoint\\AdminPrintTicketEndpoint"
+  },
+  "admin.action": {
+    "path": "/admin/action/:action{[a-z_]+}",
+    "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
   },
 
   "search-school.region": {
