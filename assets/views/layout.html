@@ -21,11 +21,6 @@
     <script type="application/javascript" src="${url.static}/js/keyboard.js"></script>
 </head>
 <body onload="Cactus.init()">
-
-<input type="hidden" id="admin-page" value="@{admin.index}">
-<input type="hidden" id="update-page" value="@{admin.update}">
-<input type="hidden" id="easter-egg-page" value="@{easter-egg.index}">
-
 <div id="loading-panel" style="display: none">
     <ul class="ripple-loader">
         <li></li>
@@ -33,12 +28,20 @@
     </ul>
 </div>
 <header id="app-header">
-    <a id="app-back-btn" href="javascript:history.back()"><span class="mdi mdi-arrow-left-thick"></span></a>
+    <a id="app-back-btn" href="javascript:Cactus.back()"><span class="mdi mdi-arrow-left-thick"></span></a>
     <h1 id="app-title">%{page.name}</h1>
-    <a id="app-home-btn" href="@{${home-page}}"><span class="mdi mdi-home"></span></a>
+    <a id="app-home-btn" href="javascript:Cactus.home()"><span class="mdi mdi-home"></span></a>
 </header>
 <section id="app-content">
     ${page.content}
 </section>
+
+<script>
+    const HOME_PAGE = "@{${home-page}}";
+    const ADMIN_PAGE = "@{admin.index}";
+    const UPDATE_PAGE = "@{admin.update}";
+    const EASTER_EGG_PAGE = "@{easter-egg.index}";
+</script>
+
 </body>
 </html>

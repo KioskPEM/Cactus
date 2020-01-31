@@ -13,9 +13,14 @@ const Cactus = {
         CheatCode.init()
     },
     home: function () {
-        let welcomeBtn = document.getElementById("app-home-btn");
-        if (welcomeBtn !== null)
-            welcomeBtn.click();
+        window.location.href = HOME_PAGE;
+    },
+    back: function () {
+        let parentPage = document.getElementById("parent-page");
+        if (parentPage != null)
+            window.location.href = parentPage.value;
+        else
+            this.home();
     },
     showLoadingPanel: function () {
         let loadingPanel = document.getElementById("loading-panel");

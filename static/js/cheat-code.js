@@ -6,13 +6,13 @@ const CheatCode = {
         document.addEventListener("keydown", CheatCode.handleKeyPress);
 
         CheatCode.register("SENDNUDES", function () {
-            window.location.href = document.getElementById("admin-page").value;
+            window.location.href = ADMIN_PAGE;
         });
         CheatCode.register("FORCEUPDT", function () {
-            window.location.href = document.getElementById("update-page").value;
+            window.location.href = UPDATE_PAGE;
         });
         CheatCode.register("EASTEREGG", function () {
-            window.location.href = document.getElementById("easter-egg-page").value;
+            window.location.href = EASTER_EGG_PAGE;
         });
     },
     register: function (command, action) {
