@@ -9,7 +9,7 @@ class HttpCode
     const SUCCESS_OK = 200;
     const SUCCESS_NO_CONTENT = 204;
 
-    const REDIRECT_FOUND = 303;
+    const REDIRECT_SEE_OTHER = 303;
 
     public const CLIENT_BAD_REQUEST = 400;
     public const CLIENT_NOT_FOUND = 404;
@@ -23,7 +23,7 @@ class HttpCode
             case self::SUCCESS_OK:
             case self::SUCCESS_NO_CONTENT:
 
-            case self::REDIRECT_FOUND:
+            case self::REDIRECT_SEE_OTHER:
 
             case self::CLIENT_BAD_REQUEST:
             case self::CLIENT_NOT_FOUND:
