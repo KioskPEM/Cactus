@@ -12,7 +12,7 @@
   },
   "home-page": "welcome",
   "printer": {
-    "connector": "Mike42\\Escpos\\PrintConnectors\\FilePrintConnector",
-    "port": "/dev/ttyS2"
+    "connector": "Mike42\\Escpos\\PrintConnectors\\DummyPrintConnector",
+    "port": ""
   }
 }
