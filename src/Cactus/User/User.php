@@ -6,19 +6,19 @@ namespace Cactus\User;
 
 class User
 {
-    private int $uniqueId;
+    private string $uniqueId;
     private string $firstName;
     private string $lastName;
     private string $schoolId;
 
     /**
      * User constructor.
-     * @param int $uniqueId
+     * @param string $uniqueId
      * @param string $firstName
      * @param string $lastName
      * @param string $schoolId
      */
-    public function __construct(int $uniqueId, string $firstName, string $lastName, string $schoolId)
+    public function __construct(string $uniqueId, string $firstName, string $lastName, string $schoolId)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -27,9 +27,9 @@ class User
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getUniqueId(): int
+    public function getUniqueId(): string
     {
         return $this->uniqueId;
     }

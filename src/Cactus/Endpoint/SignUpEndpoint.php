@@ -2,17 +2,22 @@
 
 namespace Cactus\Endpoint;
 
+use Cactus\Http\HttpCode;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
+use Cactus\User\Exception\UserException;
 use Cactus\User\User;
+use Cactus\User\UserManager;
 use Cactus\User\UserTicket;
 use Cactus\Util\AppConfiguration;
+use Cactus\Util\ClientRequest;
 use Mike42\Escpos\Printer;
 
 class SignUpEndpoint implements IRouteEndpoint
 {
     /**
      * @inheritDoc
+     * @throws UserException
      */
     public function handle(Route $route, array $parameters): string
     {
@@ -20,10 +25,21 @@ class SignUpEndpoint implements IRouteEndpoint
         $lastName = strtoupper($_POST['last-name']);
         $schoolId = $_POST['school-id'];
 
-        $user = new User(0, $firstName, $lastName, $schoolId);
+        $userManager = UserManager::Instance();
+        $user = $userManager->createUser($firstName, $lastName, $schoolId);
         $this->printTicket($user);
 
-        return "Bienvenue " . $firstName . ' ' . $lastName . ', élève de ' . $schoolId;
+        $config = AppConfiguration::Instance();
+        $request = ClientRequest::Instance();
+
+        $format = $config->get("url.format");
+        $lang = $request->getLang();
+        $router = $route->getRouter();
+        $path = $router->buildUrl("GET", "search-school.region", $parameters);
+        $homePage = sprintf($format, $lang, $path);
+
+        header("Location: " . $homePage, true, HttpCode::REDIRECT_SEE_OTHER);
+        return "";
     }
 
     private function printTicket(User $user)
