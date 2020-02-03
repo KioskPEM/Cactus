@@ -1,8 +1,14 @@
 {
   "url": {
-    "format":  "http://127.0.0.1:8080/public/index.php?lang=%s&path=%s",
+    "format": "http://127.0.0.1:8080/public/index.php?lang=%s&path=%s",
     "root": "http://127.0.0.1:8080/public",
     "static": "http://127.0.0.1:8080/static"
+  },
+  "database": {
+    "host": "",
+    "name": "",
+    "user": "",
+    "pass": ""
   },
   "home-page": "welcome",
   "printer": {
