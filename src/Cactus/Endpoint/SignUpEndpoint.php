@@ -35,7 +35,7 @@ class SignUpEndpoint implements IRouteEndpoint
         $format = $config->get("url.format");
         $lang = $request->getLang();
         $router = $route->getRouter();
-        $path = $router->buildUrl("GET", "search-school.region", $parameters);
+        $path = $router->buildUrl("GET", "sign-up.thanks", $parameters);
         $homePage = sprintf($format, $lang, $path);
 
         header("Location: " . $homePage, true, HttpCode::REDIRECT_SEE_OTHER);

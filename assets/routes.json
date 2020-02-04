@@ -36,8 +36,11 @@
     "controller": "Cactus\\Controller\\SearchSchool\\SelectSchoolController"
   },
 
-  "sign-up": {
+  "sign-up.register": {
     "path": "/sign-up/:school_id{\\d{7}[A-Z]}"
+  },
+  "sign-up.thanks": {
+    "path": "/sign-up/thanks"
   },
   "sign-up.finalize": {
     "method": "POST",

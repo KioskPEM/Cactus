@@ -23,12 +23,19 @@
       }
     },
     "sign-up": {
-      "name": "Inscription",
-      "help": "{sign-up.help}",
-      "form": {
-        "first_name": "Prénom",
-        "last_name": "Nom",
-        "submit": "S'inscrire"
+      "register" : {
+        "name": "Inscription",
+        "help": "{sign-up.help}",
+        "form": {
+          "first_name": "Prénom",
+          "last_name": "Nom",
+          "submit": "S'inscrire"
+        }
+      },
+      "thanks": {
+        "name" : "Merci !",
+        "thanks": "Inscription terminée",
+        "home_page": "Retourner à l'accueil"
       }
     },
     "admin": {

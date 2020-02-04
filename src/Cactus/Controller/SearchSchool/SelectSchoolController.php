@@ -60,7 +60,7 @@ class SelectSchoolController implements ITemplateController
         for ($i = 0; $i < self::SCHOOL_PER_PAGES && (($offset + $i) < $schoolCount); $i++) {
             $school = $this->schools[$offset + $i];
 
-            $url = $context->buildUrl("GET", "sign-up", [
+            $url = $context->buildUrl("GET", "sign-up.register", [
                 "school_id" => $school[self::SCHOOL_ID]
             ]);
             $schoolName = $school[self::SCHOOL_NAME];
