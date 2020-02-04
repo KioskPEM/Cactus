@@ -10,7 +10,7 @@ const Cactus = {
             document.addEventListener(name, Cactus.resetIdleDelay, true);
         });
 
-        CheatCode.init()
+        Barcode.init()
     },
     home: function () {
         window.location.href = HOME_PAGE;
