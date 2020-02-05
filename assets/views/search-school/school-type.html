@@ -1,3 +1,4 @@
+<input type="hidden" id="parent-page" value="@{search-school.department|region=${route.region}}">
 <ul class="grid-list grid-flow-row full-size">
     <li class="grid-list-item">
         <a class="button" href="@{search-school.school|region=${route.region},department=${route.department},school_type=college,page=0}">%{page.types.college}</a>
