@@ -2,6 +2,12 @@
     svg#error__img path {
         fill: var(--light-color-alt);
     }
+    code#stacktrace{
+        text-align: left;
+        padding: 5px 10px;
+        background-color: var(--dark-color);
+        border: 2px solid var(--light-color);
+    }
 </style>
 <svg id="error__img" viewBox="0 0 612 585" preserveAspectRatio>
     <path d="M447.94,459.4l7.72-22.87c2.02,0.48,4.05,0.72,6.06,0.72c10.97,0,21.23-6.93,24.93-17.89
@@ -110,4 +116,6 @@
 	C307.58,353.77,305.02,351.2,305.02,348.04z M305.02,370.64c0-3.17,2.57-5.73,5.73-5.73c3.17,0,5.73,2.57,5.73,5.73
 	c0,3.17-2.57,5.73-5.73,5.73C307.58,376.38,305.02,373.81,305.02,370.64z"/>
 </svg>
+<code id="stacktrace">
 ${route.exception.details}
+</code>

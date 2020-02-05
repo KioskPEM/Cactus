@@ -4,6 +4,12 @@
       "name": "Bienvenue",
       "help": "Veuillez sélectionner une option ci-dessous"
     },
+
+    "error": {
+      "name": "Erreur",
+      "help": "Une erreur est survenue"
+    },
+
     "search-school": {
       "region": {
         "name": "Séléctionnez votre region"
@@ -22,6 +28,7 @@
         "name": "Séléctionnez votre établissement"
       }
     },
+
     "sign-up": {
       "register" : {
         "name": "Inscription",
@@ -38,6 +45,7 @@
         "home_page": "Retourner à l'accueil"
       }
     },
+
     "admin": {
       "index": {
         "name": "Administration",
@@ -54,6 +62,7 @@
         "updating": "La mise à jour de Cactus est en cours. Veuillez patienter..."
       }
     },
+
     "easter-egg": {
       "index": {
         "name": "Easter-Egg"
