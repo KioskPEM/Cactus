@@ -2,9 +2,12 @@ const Cactus = {
     idleDelay: 300,
     init: function () {
 
-        /*let links = document.getElementsByTagName("A");
-        for(let i = 0; i < links.length; i++)
-            links[i].addEventListener("click", Cactus.showLoadingPanel);*/
+        let links = document.getElementsByTagName("A");
+        for (let i = 0; i < links.length; i++) {
+            let link = links[i];
+            if (link.href)
+                link.addEventListener("click", Cactus.showLoadingPanel);
+        }
 
         ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
             document.addEventListener(name, Cactus.resetIdleDelay, true);

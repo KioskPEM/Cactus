@@ -8,6 +8,7 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
 use Cactus\Util\AppConfiguration;
+use Cactus\Util\UrlBuilder;
 use Mike42\Escpos\Printer;
 
 class AdminPrintTicketEndpoint implements IRouteEndpoint
@@ -44,7 +45,10 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
         $printer->cut(Printer::CUT_PARTIAL);
         $printer->close();
 
-        http_response_code(HttpCode::SUCCESS_NO_CONTENT);
+        $router = $route->getRouter();
+        $urlBuilder = UrlBuilder::Instance();
+        $adminPage = $urlBuilder->build($router, "admin.index", $parameters);
+        header("Location: " . $adminPage, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
 

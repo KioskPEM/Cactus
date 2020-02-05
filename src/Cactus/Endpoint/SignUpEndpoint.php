@@ -10,7 +10,7 @@ use Cactus\User\User;
 use Cactus\User\UserManager;
 use Cactus\User\UserTicket;
 use Cactus\Util\AppConfiguration;
-use Cactus\Util\ClientRequest;
+use Cactus\Util\UrlBuilder;
 use Mike42\Escpos\Printer;
 
 class SignUpEndpoint implements IRouteEndpoint
@@ -29,15 +29,9 @@ class SignUpEndpoint implements IRouteEndpoint
         $user = $userManager->createUser($firstName, $lastName, $schoolId);
         $this->printTicket($user);
 
-        $config = AppConfiguration::Instance();
-        $request = ClientRequest::Instance();
-
-        $format = $config->get("url.format");
-        $lang = $request->getLang();
         $router = $route->getRouter();
-        $path = $router->buildUrl("GET", "sign-up.thanks", $parameters);
-        $homePage = sprintf($format, $lang, $path);
-
+        $urlBuilder = UrlBuilder::Instance();
+        $homePage = $urlBuilder->build($router, "sign-up.thanks", $parameters);
         header("Location: " . $homePage, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
