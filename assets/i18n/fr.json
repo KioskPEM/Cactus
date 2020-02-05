@@ -55,6 +55,9 @@
       }
     },
     "easter-egg": {
+      "index": {
+        "name": "Easter-Egg"
+      },
       "jukebox": {
         "name": "Jukebox",
         "play_song": "Jouer une musique"
