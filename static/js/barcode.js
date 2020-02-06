@@ -1,36 +1,59 @@
 const Barcode = {
     init: function () {
         Barcode.commands = [];
-        Barcode.buffer = '';
+        Barcode.input = document.getElementById("barcode-input");
+        Barcode.input.addEventListener("change", Barcode.handleKeyPress);
+        Barcode.input.select();
 
-        document.addEventListener("keydown", Barcode.handleKeyPress);
+        let inputs = document.getElementsByTagName("INPUT");
+        for (let i = 0; i < inputs.length; i++) {
+            let input = inputs[i];
+            input.addEventListener("focus", e => {
+                clearTimeout(Barcode.timeout);
+                Barcode.selectedInput = e.target;
+            });
+            input.addEventListener("focusout", e => {
+                Barcode.timeout = setTimeout(e => {
+                    Barcode.input.select();
+                }, 50);
+            });
+        }
 
-        Barcode.register("SENDNUDES", function () {
+        Barcode.register(/^SENDNUDES$/, function () {
             window.location.href = ADMIN_PAGE;
         });
-        Barcode.register("FORCEUPDT", function () {
+        Barcode.register(/^FORCEUPDT$/, function () {
             window.location.href = UPDATE_PAGE;
         });
-        Barcode.register("EASTEREGG", function () {
+        Barcode.register(/^EASTEREGG$/, function () {
             window.location.href = EASTER_EGG_PAGE;
+        });
+        Barcode.register(/^USER(\d+)$/, function (matches) {
+            console.log("Bienvenue utilisateur", matches[1]);
         });
     },
     register: function (command, action) {
-        Barcode.commands[command] = action;
+        Barcode.commands.push({
+            regex: command,
+            action: action
+        });
     },
     handleKeyPress(e) {
-        if (e.key === "Enter") {
-            let cmd = Barcode.commands[Barcode.buffer];
-            if (cmd === undefined) {
-                console.error("Unknown command", Barcode.buffer);
-                Barcode.buffer = "";
+        let target = e.target;
+        let input = target.value;
+        target.value = "";
+
+        let commands = Barcode.commands;
+        for (let command of commands) {
+            let matches = command.regex.exec(input);
+            if (matches != null) {
+                console.log("Executing command", input);
+                command.action(matches);
                 return;
             }
-            console.log("Executing command", Barcode.buffer);
-            Barcode.buffer = "";
-            cmd();
-        } else if (/^[A-Z0-9]$/.test(e.key))
-            Barcode.buffer += e.key;
+        }
+
+        console.error("Unknown command", input);
     }
 
 };
