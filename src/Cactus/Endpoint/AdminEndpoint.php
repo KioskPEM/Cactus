@@ -6,6 +6,7 @@ use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\IRouteEndpoint;
 use Cactus\Routing\Route;
+use Cactus\Util\AppConfiguration;
 use Cactus\Util\UrlBuilder;
 
 class AdminEndpoint implements IRouteEndpoint
@@ -30,6 +31,16 @@ class AdminEndpoint implements IRouteEndpoint
                 break;
             case "clear_cache":
                 session_destroy();
+                break;
+            case "set_presentation_mode":
+                $config = AppConfiguration::Instance();
+                $config->set("home-page", "welcome");
+                $config->save();
+                break;
+            case "set_sign_up_mode":
+                $config = AppConfiguration::Instance();
+                $config->set("home-page", "search-school.region");
+                $config->save();
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);

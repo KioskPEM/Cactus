@@ -53,7 +53,8 @@
           "clear_cache": "Vider le cache",
           "update": "Mettre à jour",
           "print_ticket": "Imprimer un ticket",
-          "generate_error": "Générer une erreur"
+          "presentation_mode": "Mode présentation",
+          "sign-up_mode": "Mode inscription"
         }
       },
       "update": {
