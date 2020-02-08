@@ -20,14 +20,18 @@ class SelectSchoolController implements ITemplateController
 
     private array $schools;
 
-    private function ensureSchools($regionCode, $departmentCode, $schoolType): array
+    /**
+     * @inheritDoc
+     */
+    function onRender(RenderContext $context): void
     {
-        if (isset($this->schools))
-            return $this->schools;
-
+        $schoolType = $context->param("route.school_type");
         $schoolDatabase = new CsvDatabase($schoolType, ';');
         $schoolDatabase->open();
-        $this->schools = $schoolDatabase->get(function ($entry) use ($departmentCode, $regionCode) {
+
+        $regionCode = $context->param("route.region");
+        $departmentCode = $context->param("route.department");
+        $this->schools = $schoolDatabase->get(function ($entry) use ($regionCode, $departmentCode) {
             return $entry[self::REGION_CODE] === $regionCode && $entry[self::DEPARTMENT_CODE] === $departmentCode;
         });
         $schoolDatabase->close();
@@ -35,8 +39,6 @@ class SelectSchoolController implements ITemplateController
         usort($this->schools, function ($a, $b) {
             return $a[self::SCHOOL_NAME] <=> $b[self::SCHOOL_NAME];
         });
-
-        return $this->schools;
     }
 
     /**
@@ -46,12 +48,6 @@ class SelectSchoolController implements ITemplateController
      */
     public function get_schools(RenderContext $context): string
     {
-        $regionCode = $context->param("route.region");
-        $departmentCode = $context->param("route.department");
-        $schoolType = $context->param("route.school_type");
-
-        $this->ensureSchools($regionCode, $departmentCode, $schoolType);
-
         $output = "";
 
         $page = intval($context->param("route.page"));
@@ -77,15 +73,13 @@ class SelectSchoolController implements ITemplateController
      */
     public function get_pagination(RenderContext $context): string
     {
-        $regionCode = $context->param("route.region");
-        $departmentCode = $context->param("route.department");
-        $schoolType = $context->param("route.school_type");
-
-        $this->ensureSchools($regionCode, $departmentCode, $schoolType);
-
         $output = "";
 
         $schoolCount = count($this->schools);
+
+        $regionCode = $context->param("route.region");
+        $departmentCode = $context->param("route.department");
+        $schoolType = $context->param("route.school_type");
 
         $selectedPage = $context->param("route.page");
         $pageCount = ceil($schoolCount / self::SCHOOL_PER_PAGES);

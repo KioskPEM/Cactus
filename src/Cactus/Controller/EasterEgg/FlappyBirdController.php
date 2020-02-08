@@ -16,6 +16,6 @@ class FlappyBirdController implements ITemplateController
     function onRender(RenderContext $context): void
     {
         $jukebox = Jukebox::Instance();
-        $jukebox->playIndexed(7);
+        $jukebox->playIndexed(6);
     }
 }

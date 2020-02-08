@@ -16,6 +16,13 @@ class SelectDepartmentController implements ITemplateController
     private const REGION_CODE = "code_region";
 
     /**
+     * @inheritDoc
+     */
+    function onRender(RenderContext $context): void
+    {
+    }
+
+    /**
      * @param RenderContext $context
      * @return string
      * @throws RouteNotFoundException
