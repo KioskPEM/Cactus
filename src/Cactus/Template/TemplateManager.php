@@ -60,6 +60,10 @@ class TemplateManager implements IRouteEndpoint
      */
     public function render(string $name, RenderContext $context, Template $template): string
     {
+        $controller = $template->getController();
+        if (isset($controller))
+            $controller->onRender($context);
+
         $content = $template->getContent();
         foreach ($this->renderPasses as $renderPass) {
             /* @var $renderPass IRenderPass */

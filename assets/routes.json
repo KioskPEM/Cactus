@@ -48,6 +48,10 @@
     "path": "/jukebox/:action{play|stop}",
     "endpoint": "Cactus\\Endpoint\\JukeboxEndpoint"
   },
+  "jukebox.play": {
+    "path": "/jukebox/:action{play}/:id{\\d+}",
+    "endpoint": "Cactus\\Endpoint\\JukeboxEndpoint"
+  },
   "easter-egg.index": {
     "path": "/easter-egg"
   },
@@ -55,9 +59,10 @@
     "path": "/easter-egg/jukebox"
   },
   "easter-egg.flappy-bird": {
-    "path": "/easter-egg/flappy-bird"
+    "path": "/easter-egg/flappy-bird",
+    "controller": "Cactus\\Controller\\EasterEgg\\FlappyBirdController"
   },
   "easter-egg.generic.death": {
-    "path": "/easter-egg/:game{[a-z-]+}/death"
+    "path": "/easter-egg/:game{flappy-bird}/death"
   }
 }
