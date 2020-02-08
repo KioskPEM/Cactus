@@ -81,21 +81,7 @@ try {
     $exceptionDetails .= "-> File: " . $e->getFile() . "<br>";
     $exceptionDetails .= "-> Line: " . $e->getLine() . "<br><br>";
     $exceptionDetails .= "-> Trace: " . "<br>";
-
-    $trace = $e->getTrace();
-    foreach ($trace as $entry) {
-        $exceptionDetails .= $entry["class"] . $entry["type"] . $entry["function"] . '(';
-
-        $args = $entry["args"];
-        $argCount = count($args);
-        for ($i = 0; $i < $argCount; $i++) {
-            $exceptionDetails .= var_export($args[$i], true);
-            if ($i + 1 < $argCount)
-                $exceptionDetails .= ", ";
-        }
-
-        $exceptionDetails .= ") @ line " . $entry["line"];
-    }
+    $exceptionDetails .= nl2br(htmlentities($e->getTraceAsString()));
 
     try {
 
