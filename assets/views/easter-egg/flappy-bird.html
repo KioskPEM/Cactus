@@ -1,0 +1,24 @@
+<input type="hidden" id="parent-page" value="@{easter-egg.index}">
+<canvas id="game-canvas" style="object-fit: contain; flex-grow: 1"></canvas>
+<script src="${url.static}/games/js/game.js"></script>
+<script src="${url.static}/games/js/flappy-bird.js"></script>
+<script>
+    const CAT_URL = "${url.static}/games/img/flappy-bird/cat.png";
+    const PIPE_URL = "${url.static}/games/img/flappy-bird/pipe.png";
+    const DEATH_PAGE = "@{easter-egg.generic.death|game=flappy-bird}";
+
+    let canvas = document.getElementById("game-canvas");
+    const game = new Game(canvas);
+
+    let cat = new Cat(canvas.width * 0.1, canvas.height / 2, CAT_URL);
+    game.addObject(cat);
+
+    let pipeSpawner = new PipeSpawner(2, PIPE_URL, 100);
+    game.addObject(pipeSpawner);
+
+    canvas.addEventListener("mousedown", () => {
+        cat.jumped = true;
+    });
+
+    game.run();
+</script>
