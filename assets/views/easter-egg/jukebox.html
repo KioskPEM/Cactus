@@ -1,12 +1,10 @@
 <input type="hidden" id="parent-page" value="@{easter-egg.index}">
-<ul class="grid-list full-size">
-    <li class="grid-list-item">
-        <a class="button" onclick="playSong(this);">
-            <i class="mdi mdi mdi-play"></i>
-            %{page.play_song}
-        </a>
-    </li>
-</ul>
+<div class="grid-container full-size">
+    <a class="grid-item btn" onclick="playSong(this);">
+        <i class="mdi mdi mdi-play"></i>
+        %{page.play_song}
+    </a>
+</div>
 <script type="application/javascript">
     function playSong(button) {
         fetch("@{jukebox|action=play}").catch(reason => {

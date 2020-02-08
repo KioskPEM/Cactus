@@ -1,7 +1,7 @@
 <input type="hidden" id="parent-page" value="@{search-school.school-type|region=${route.region},department=${route.department}}">
-<ul class="grid-list grid-2x full-size">
+<div class="grid-container grid-2w full-size">
     #{get_schools}
-</ul>
+</div>
 <ul class="pagination-list">
     #{get_pagination}
 </ul>

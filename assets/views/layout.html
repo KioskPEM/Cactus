@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="${url.static}/css/theme.css"/>
     <link rel="stylesheet" href="${url.static}/css/style.css"/>
     <link rel="stylesheet" href="${url.static}/css/header.css"/>
-    <link rel="stylesheet" href="${url.static}/css/grid-list.css"/>
+    <link rel="stylesheet" href="${url.static}/css/button.css"/>
+    <link rel="stylesheet" href="${url.static}/css/layout.css"/>
     <link rel="stylesheet" href="${url.static}/css/pagination.css"/>
     <link rel="stylesheet" href="${url.static}/css/keyboard.css"/>
     <link rel="stylesheet" href="${url.static}/css/loading-panel.css"/>
@@ -29,9 +30,13 @@
     </ul>
 </div>
 <header id="app-header">
-    <a id="app-back-btn" href="javascript:Cactus.back()"><span class="mdi mdi-arrow-left-thick"></span></a>
+    <a id="app-back-btn" href="javascript:Cactus.back()">
+        <i class="mdi mdi-arrow-left-thick"></i>
+    </a>
     <h1 id="app-title">%{page.name}</h1>
-    <a id="app-home-btn" href="javascript:Cactus.home()"><span class="mdi mdi-home"></span></a>
+    <a id="app-home-btn" href="javascript:Cactus.home()">
+        <i class="mdi mdi-home"></i>
+    </a>
 </header>
 <section id="app-content">
     ${page.content}

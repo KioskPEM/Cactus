@@ -12,7 +12,7 @@ ul.pagination-list li.pagination-list-item {
     margin: 5px;
 }
 
-ul.pagination-list li.pagination-list-item a.button {
+ul.pagination-list li.pagination-list-item a.btn {
     display: flex;
     justify-content: center;
     align-items: center;

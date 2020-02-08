@@ -1,32 +1,22 @@
-<ul class="grid-list full-size grid-2x">
-    <li class="grid-list-item">
-        <a class="button" href="@{admin.action|action=clear_cache}">
-            <i class="mdi mdi-cached"></i>
-            <span>%{page.actions.clear_cache}</span>
-        </a>
-    </li>
-    <li class="grid-list-item">
-        <a class="button" href="@{admin.update}">
-            <i class="mdi mdi-download"></i>
-            <span>%{page.actions.update}</span>
-        </a>
-    </li>
-    <li class="grid-list-item">
-        <a class="button" href="@{admin.ticket}">
-            <i class="mdi mdi-printer"></i>
-            <span>%{page.actions.print_ticket}</span>
-        </a>
-    </li>
-    <li class="grid-list-item">
-        <a class="button" href="@{admin.action|action=set_presentation_mode}">
-            <i class="mdi mdi-home"></i>
-            <span>%{page.actions.presentation_mode}</span>
-        </a>
-    </li>
-    <li class="grid-list-item">
-        <a class="button" href="@{admin.action|action=set_sign_up_mode}">
-            <i class="mdi mdi-account"></i>
-            <span>%{page.actions.sign-up_mode}</span>
-        </a>
-    </li>
-</ul>
+<div class="grid-container grid-2w full-size">
+    <a class="grid-item btn" href="@{admin.action|action=clear_cache}">
+        <i class="mdi mdi-cached"></i>
+        <span>%{page.actions.clear_cache}</span>
+    </a>
+    <a class="grid-item btn" href="@{admin.update}">
+        <i class="mdi mdi-download"></i>
+        <span>%{page.actions.update}</span>
+    </a>
+    <a class="grid-item btn" href="@{admin.ticket}">
+        <i class="mdi mdi-printer"></i>
+        <span>%{page.actions.print_ticket}</span>
+    </a>
+    <a class="grid-item btn" href="@{admin.action|action=set_presentation_mode}">
+        <i class="mdi mdi-home"></i>
+        <span>%{page.actions.presentation_mode}</span>
+    </a>
+    <a class="grid-item btn" href="@{admin.action|action=set_sign_up_mode}">
+        <i class="mdi mdi-account"></i>
+        <span>%{page.actions.sign-up_mode}</span>
+    </a>
+</div>

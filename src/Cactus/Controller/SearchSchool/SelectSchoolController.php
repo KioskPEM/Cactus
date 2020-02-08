@@ -64,7 +64,7 @@ class SelectSchoolController implements ITemplateController
                 "school_id" => $school[self::SCHOOL_ID]
             ]);
             $schoolName = $school[self::SCHOOL_NAME];
-            $output .= "<li class=\"grid-list-item\"><a class=\"button\" href=\"$url\">$schoolName</a></li>";
+            $output .= "<a class=\"grid-item btn\" href=\"$url\">$schoolName</a>";
         }
 
         return $output;

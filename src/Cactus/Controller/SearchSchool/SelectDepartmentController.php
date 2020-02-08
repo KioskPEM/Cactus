@@ -40,7 +40,7 @@ class SelectDepartmentController implements ITemplateController
                 "region" => $regionCode,
                 "department" => $departmentCode,
             ]);
-            $output .= "<li class=\"grid-list-item\"><a class=\"button\" href=\"$url\">$departmentName</a></li>";
+            $output .= "<a class=\"grid-item btn\" href=\"$url\">$departmentName</a>";
         }
         return $output;
     }
