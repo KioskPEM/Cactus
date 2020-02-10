@@ -50,6 +50,9 @@
     "path": "/user/:user_id{\\d+}",
     "controller": "Cactus\\Controller\\User\\UserProfileController"
   },
+  "user.scan": {
+    "path": "/user/scan"
+  },
 
   "search-school.region": {
     "path": "/search-school/region"
