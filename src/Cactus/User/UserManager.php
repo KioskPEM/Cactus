@@ -49,7 +49,7 @@ class UserManager
      * @return User
      * @throws UserException
      */
-    public function loginUser(string $userId)
+    public function loginUser(int $userId)
     {
         $database = Database::Instance();
         $statement = $database->prepare("SELECT * FROM `kiosk-pem`.users WHERE id = :user_id");

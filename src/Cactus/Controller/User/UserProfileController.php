@@ -15,6 +15,7 @@ class UserProfileController implements ITemplateController
 
     /**
      * @inheritDoc
+     * @throws \Cactus\User\Exception\UserException
      */
     function onRender(RenderContext $context): void
     {
