@@ -2,8 +2,20 @@ const Barcode = {
     init: function () {
         Barcode.commands = [];
         Barcode.input = document.getElementById("barcode-input");
-        Barcode.input.addEventListener("change", Barcode.handleKeyPress);
+        Barcode.input.addEventListener("change", Barcode.handleInput);
         Barcode.input.select();
+
+        Barcode.mapping = [];
+        Barcode.mapping["&"] = "1";
+        Barcode.mapping["é"] = "2";
+        Barcode.mapping["\""] = "3";
+        Barcode.mapping["'"] = "4";
+        Barcode.mapping["("] = "5";
+        Barcode.mapping["-"] = "6";
+        Barcode.mapping["è"] = "7";
+        Barcode.mapping["_"] = "8";
+        Barcode.mapping["ç"] = "9";
+        Barcode.mapping["à"] = "0";
 
         let inputs = document.getElementsByTagName("INPUT");
         for (let i = 0; i < inputs.length; i++) {
@@ -38,9 +50,16 @@ const Barcode = {
             action: action
         });
     },
-    handleKeyPress(e) {
+    handleInput(e) {
         let target = e.target;
+
         let input = target.value;
+        let mapping = Barcode.mapping;
+        for (let key in mapping) {
+            if (mapping.hasOwnProperty(key))
+                input = input.replace(key, mapping[key]);
+        }
+
         target.value = "";
 
         let commands = Barcode.commands;
