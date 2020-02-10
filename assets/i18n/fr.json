@@ -17,7 +17,7 @@
         "name": "Bienvenue",
         "sign_up": {
           "name": "Inscrivez-vous",
-          "desc": "Lorem Ispum"
+          "desc": "Pour recevoir votre ticket"
         },
         "scan": {
           "name": "Scannez",
@@ -26,7 +26,7 @@
       },
       "register": {
         "name": "Inscription",
-        "help": "{sign-up.help}",
+        "help": "Renseignez les informations ci-dessous",
         "form": {
           "first_name": "Prénom",
           "last_name": "Nom",
@@ -63,7 +63,6 @@
       "index": {
         "name": "Administration",
         "actions": {
-          "clear_cache": "Vider le cache",
           "update": "Mettre à jour",
           "print_ticket": "Imprimer un ticket",
           "presentation_mode": "Mode présentation",

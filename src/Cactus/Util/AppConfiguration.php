@@ -38,6 +38,11 @@ class AppConfiguration
         $this->config = array_merge($this->config, $config);
     }
 
+    public function delete(string $path)
+    {
+        ArrayPath::delete($this->config, $path);
+    }
+
     public function set(string $path, $value)
     {
         ArrayPath::set($this->config, $path, $value);

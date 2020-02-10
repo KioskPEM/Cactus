@@ -5,6 +5,7 @@ namespace Cactus\EasterEgg;
 
 
 use Cactus\Database\CsvDatabase;
+use Cactus\Util\AppConfiguration;
 
 class Jukebox
 {
@@ -25,7 +26,8 @@ class Jukebox
 
     public function getCurrentSong(): string
     {
-        return $_SESSION["song"]["name"] ?? false;
+        $config = AppConfiguration::Instance();
+        return $config->get("song.name");
     }
 
     private function loadSongs()
@@ -65,10 +67,10 @@ class Jukebox
         if (!$processStatus["running"])
             return false;
 
-        $_SESSION["song"] = [
-            "name" => $name,
-            "pid" => $processStatus["pid"]
-        ];
+        $config = AppConfiguration::Instance();
+        $config->set("song.name", $name);
+        $config->set("song.pid", $processStatus["pid"]);
+        $config->save();
         return true;
     }
 
@@ -77,8 +79,10 @@ class Jukebox
         if (!array_key_exists("song", $_SESSION))
             return;
 
-        $process = $_SESSION["song"]["pid"];
+        $config = AppConfiguration::Instance();
+        $process = $config->get("song.pid");
         shell_exec("kill $process");
-        unset($_SESSION["song"]);
+        $config->delete("song");
+        $config->save();
     }
 }

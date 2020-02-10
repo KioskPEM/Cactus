@@ -4,9 +4,6 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 //
 
-session_name("Cactus");
-session_start();
-
 define("ROOT", dirname(__DIR__) . DIRECTORY_SEPARATOR);
 define("SOURCE_PATH", ROOT . "src" . DIRECTORY_SEPARATOR);
 define("STATIC_PATH", ROOT . "static" . DIRECTORY_SEPARATOR);
@@ -24,7 +21,7 @@ spl_autoload_register(function ($className) {
     }
     $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . ".php";
 
-    if(file_exists($fileName))
+    if (file_exists($fileName))
         require_once $fileName;
     else
         throw new Exception("Class not found " . $className);

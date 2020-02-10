@@ -29,9 +29,6 @@ class AdminEndpoint implements IRouteEndpoint
                 shell_exec(self::EXIT_CMD);
                 shell_exec(self::START_CMD);
                 break;
-            case "clear_cache":
-                session_destroy();
-                break;
             case "set_presentation_mode":
                 $config = AppConfiguration::Instance();
                 $config->set("home-page", "presentation.index");
