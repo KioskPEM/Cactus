@@ -93,6 +93,9 @@
       },
       "flappy-bird": {
         "name": "Flappy Bird"
+      },
+      "pacman": {
+        "name": "PacMan"
       }
     }
   }

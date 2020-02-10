@@ -83,6 +83,9 @@
     "path": "/easter-egg/flappy-bird",
     "controller": "Cactus\\Controller\\EasterEgg\\FlappyBirdController"
   },
+  "easter-egg.pacman": {
+    "path": "/easter-egg/pacman"
+  },
   "easter-egg.generic.death": {
     "path": "/easter-egg/:game{flappy-bird}/death"
   }

@@ -1,5 +1,11 @@
+<style>
+    canvas#game-canvas {
+        object-fit: contain;
+        flex-grow: 1;
+    }
+</style>
 <input type="hidden" id="parent-page" value="@{easter-egg.index}">
-<canvas id="game-canvas" style="object-fit: contain; flex-grow: 1"></canvas>
+<canvas id="game-canvas"></canvas>
 <script src="${url.static}/games/js/game.js"></script>
 <script src="${url.static}/games/js/flappy-bird.js"></script>
 <script>

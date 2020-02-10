@@ -76,16 +76,19 @@ class SpriteObject extends GameObject {
 
 class SpriteSheetObject extends SpriteObject {
 
-    constructor(name, x, y, texture, columns, rows, speed) {
+    constructor(name, x, y, texture, columns, rows, speed, offset, length) {
         super(name, x, y, texture);
 
         this.columns = columns;
         this.rows = rows;
         this.speed = speed;
 
-        this.time = 0;
-        this.frame = 0;
+        this.offset = offset != null ? offset : 0;
+        this.length = length != null ? length : (columns * rows);
         this.maxFrames = columns * rows;
+
+        this.time = 0;
+        this.index = 0;
     }
 
     render(ctx, deltaTime) {
@@ -94,12 +97,14 @@ class SpriteSheetObject extends SpriteObject {
             this.time += deltaTime;
             if (this.time >= this.speed) {
                 this.time = 0;
-                this.frame++;
-                this.frame %= this.maxFrames;
+
+                this.index++;
+                this.index %= this.length;
             }
 
-            let column = this.frame % this.columns;
-            let row = Math.floor(this.frame / this.columns);
+            let frame = (this.offset + this.index) % this.maxFrames;
+            let column = frame % this.columns;
+            let row = Math.floor(frame / this.columns);
 
             this.width = this.sprite.width / this.columns;
             this.height = this.sprite.height / this.rows;
@@ -128,6 +133,8 @@ class Game {
         this.context = canvas.getContext("2d", {
             alpha: false
         });
+        this.context.imageSmoothingEnabled = false;
+
         this.running = false;
         this.ready = false;
 
