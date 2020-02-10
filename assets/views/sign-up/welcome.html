@@ -2,15 +2,21 @@
 <div class="grid-container grid-2w full-size">
     <section class="column">
         <header>
-            <h2>%{page.actions.sign_up}</h2>
+            <h2>%{page.sign_up.name}</h2>
+            <p>%{page.sign_up.desc}</p>
         </header>
-        <a class="btn btn-expand" href="@{search-school.region}">%{page.actions.sign_up}</a>
+        <a class="btn btn-expand" href="@{search-school.region}">
+            <i class="mdi mdi-login"></i>
+        </a>
     </section>
     <section class="column">
         <header>
-            <h2>%{page.actions.sign_up}</h2>
+            <h2>%{page.scan.name}</h2>
+            <p>%{page.scan.desc}</p>
         </header>
-        <a class="btn btn-expand" href="">%{page.actions.sign_up}</a>
+        <a class="btn btn-expand" href="@{search-school.region}">
+            <i class="mdi mdi-barcode-scan"></i>
+        </a>
     </section>
 </div>
 <style>
@@ -21,10 +27,19 @@
     }
 
     section.column header {
-        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+
+        padding: 20px 0;
     }
 
-    section.column a.btn {
-        flex-grow: 1;
+    section.column header h2, p {
+        margin: 0;
+    }
+
+    section.column a.btn i.mdi {
+        font-size: 250px;
     }
 </style>

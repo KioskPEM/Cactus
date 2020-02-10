@@ -16,8 +16,13 @@
       "welcome": {
         "name": "Bienvenue",
         "welcome": "Inscrivez-vous",
-        "actions": {
-          "sign_up": "S'inscrire"
+        "sign_up": {
+          "name": "Inscrivez-vous",
+          "desc": "Lorem Ispum"
+        },
+        "scan": {
+          "name": "Scannez",
+          "desc": "Votre ticket"
         }
       },
       "register": {
