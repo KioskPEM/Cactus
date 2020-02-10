@@ -18,9 +18,9 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
     private const UPDATE_LINE = "Mise à jour forcée";
     private const EASTER_EGG_ACCESS_LINE = "Accès ...";
 
-    private const GO_TO_ADMIN_PASS = "SEND-NUDES";
-    private const GO_TO_UPDATE_PASS = "FORCE-UPDATE";
-    private const GO_TO_EASTER_EGG_PASS = "EASTER-EGG";
+    private const GO_TO_ADMIN_PASS = "SENDNUDES";
+    private const GO_TO_UPDATE_PASS = "FORCEUPDATE";
+    private const GO_TO_EASTER_EGG_PASS = "EASTEREGG";
 
     /**
      * @inheritDoc
