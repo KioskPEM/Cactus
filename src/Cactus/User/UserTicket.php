@@ -47,7 +47,7 @@ class UserTicket
         $printer->feed(2);
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
-        $barCodeContent = "USER" . $uniqueId;
+        $barCodeContent = "USER-" . $uniqueId;
         $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
     }
 }

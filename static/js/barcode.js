@@ -19,16 +19,16 @@ const Barcode = {
             });
         }
 
-        Barcode.register(/^SENDNUDES$/, function () {
+        Barcode.register(/^SEND-NUDES$/, function () {
             window.location.href = ADMIN_PAGE;
         });
-        Barcode.register(/^FORCEUPDT$/, function () {
+        Barcode.register(/^FORCE-UPDATE$/, function () {
             window.location.href = UPDATE_PAGE;
         });
-        Barcode.register(/^EASTEREGG$/, function () {
+        Barcode.register(/^EASTER-EGG$/, function () {
             window.location.href = EASTER_EGG_PAGE;
         });
-        Barcode.register(/^USER(\d+)$/, function (matches) {
+        Barcode.register(/^USER-(\d+)$/, function (matches) {
             HTTP.doPost(
                 LOGIN_PAGE,
                 {
