@@ -4,5 +4,5 @@
     --dark-color: #37474F;
     --dark-color-alt: #CFD8DC;
 
-    --page-background: transparent;/*url("../img/background.jpg");*/
+    --page-background: url("../img/background.jpg");
 }
