@@ -11,6 +11,8 @@ class User
     private string $lastName;
     private string $schoolId;
 
+    private bool $placement;
+
     /**
      * User constructor.
      * @param string $uniqueId
@@ -24,6 +26,22 @@ class User
         $this->lastName = $lastName;
         $this->schoolId = $schoolId;
         $this->uniqueId = $uniqueId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAskingForPlacement(): bool
+    {
+        return $this->placement;
+    }
+
+    /**
+     * @param bool $placement
+     */
+    public function setPlacement(bool $placement): void
+    {
+        $this->placement = $placement;
     }
 
     /**

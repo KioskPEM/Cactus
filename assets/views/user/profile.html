@@ -1,2 +1,5 @@
 <h1>${route.user_id}</h1>
 <p>#{get_first_name} #{get_last_name}</p>
+<div class="grid-container grid-2w full-size">
+    <a class="btn btn-expand" href="@{user.edit|user_id=${route.user_id},action=set_placement}">%{page.actions.}</a>
+</div>

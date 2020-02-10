@@ -28,14 +28,6 @@ const Barcode = {
         Barcode.register(/^EASTEREGG$/, function () {
             window.location.href = EASTER_EGG_PAGE;
         });
-        Barcode.register(/^USER-(\d+)$/, function (matches) {
-            HTTP.doPost(
-                LOGIN_PAGE,
-                {
-                    id: matches[1]
-                }
-            );
-        });
     },
     register: function (command, action) {
         Barcode.commands.push({

@@ -42,8 +42,12 @@
     "path": "/user/sign-up",
     "endpoint": "Cactus\\Endpoint\\User\\SignUpEndpoint"
   },
+  "user.edit": {
+    "path": "/user/:user_id{\\d+}/:action{[a-z_]+}",
+    "endpoint": "Cactus\\Endpoint\\User\\UserEndpoint"
+  },
   "user.profile": {
-    "path": "/user/profile/:user_id{\\d+}",
+    "path": "/user/:user_id{\\d+}",
     "controller": "Cactus\\Controller\\User\\UserProfileController"
   },
 

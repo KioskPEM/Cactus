@@ -1,0 +1,11 @@
+<h1>%{page.help}</h1>
+<script>
+    Barcode.register(/^USER-(\d+)$/, function (matches) {
+        HTTP.doPost(
+            "@{user.login}",
+            {
+                id: matches[1]
+            }
+        );
+    });
+</script>

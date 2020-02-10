@@ -69,4 +69,20 @@ class UserManager
             $result["school_id"]
         );
     }
+
+    /**
+     * @param User $user
+     * @return void
+     * @throws UserException
+     */
+    public function updateUser(User $user)
+    {
+        $database = Database::Instance();
+        $statement = $database->prepare("UPDATE users SET placement = :placement where id = :user_id");
+        $statement->bindValue(":user_id", $user->getUniqueId(), PDO::PARAM_INT);
+        $statement->bindValue(":placement", $user->isAskingForPlacement(), PDO::PARAM_BOOL);
+
+        if (!$statement->execute())
+            throw new UserException("Unable to update user " . $user);
+    }
 }

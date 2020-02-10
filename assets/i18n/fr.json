@@ -12,6 +12,8 @@
       }
     },
 
+
+
     "sign-up": {
       "index": {
         "name": "Bienvenue",
@@ -20,8 +22,8 @@
           "desc": "Pour recevoir votre ticket"
         },
         "scan": {
-          "name": "Scannez",
-          "desc": "Votre ticket"
+          "name": "Scannez votre ticket",
+          "desc": "Pour participer au mini-stage"
         }
       },
       "register": {
