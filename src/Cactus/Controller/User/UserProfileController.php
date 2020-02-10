@@ -6,6 +6,7 @@ namespace Cactus\Controller\User;
 
 use Cactus\Template\Controller\ITemplateController;
 use Cactus\Template\Render\RenderContext;
+use Cactus\User\Exception\UserException;
 use Cactus\User\User;
 use Cactus\User\UserManager;
 
@@ -15,13 +16,13 @@ class UserProfileController implements ITemplateController
 
     /**
      * @inheritDoc
-     * @throws \Cactus\User\Exception\UserException
+     * @throws UserException
      */
     function onRender(RenderContext $context): void
     {
-        $userId = intval($context->param("user_id"));
+        $userId = intval($context->param("route.user_id"));
         $userManager = UserManager::Instance();
-        $userManager->loginUser($userId);
+        $this->user = $userManager->loginUser($userId);
     }
 
     function get_first_name(): string

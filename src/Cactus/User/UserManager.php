@@ -52,7 +52,7 @@ class UserManager
     public function loginUser(int $userId)
     {
         $database = Database::Instance();
-        $statement = $database->prepare("SELECT * FROM `kiosk-pem`.users WHERE id = :user_id");
+        $statement = $database->prepare("SELECT * FROM `kiosk-pem`.users WHERE users.id = :user_id");
         $statement->bindValue(":user_id", $userId, PDO::PARAM_INT);
 
         if (!$statement->execute())
