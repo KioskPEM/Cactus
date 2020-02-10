@@ -29,7 +29,12 @@ const Barcode = {
             window.location.href = EASTER_EGG_PAGE;
         });
         Barcode.register(/^USER(\d+)$/, function (matches) {
-            alert("Bienvenue utilisateur", matches[1]);
+            HTTP.doPost(
+                LOGIN_PAGE,
+                {
+                    id: matches[1]
+                }
+            );
         });
     },
     register: function (command, action) {
