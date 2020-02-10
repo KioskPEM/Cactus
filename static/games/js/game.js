@@ -54,7 +54,7 @@ class SpriteObject extends GameObject {
         this.ready = false;
         this.sprite = new Image();
         this.sprite.onload = this.onImageLoaded.bind(this);
-        this.sprite.src = texture ?? name;
+        this.sprite.src = texture != null ? texture : name;
     }
 
     onImageLoaded() {
