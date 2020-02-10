@@ -76,11 +76,11 @@ class Jukebox
 
     public function stop()
     {
-        if (!array_key_exists("song", $_SESSION))
-            return;
-
         $config = AppConfiguration::Instance();
         $process = $config->get("song.pid");
+        if ($process === false)
+            return;
+
         shell_exec("kill $process");
         $config->delete("song");
         $config->save();
