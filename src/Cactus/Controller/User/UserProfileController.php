@@ -19,7 +19,7 @@ class UserProfileController implements ITemplateController
      */
     function onRender(RenderContext $context): void
     {
-        $userId = $context->param("user_id");
+        $userId = intval($context->param("user_id"));
         $userManager = UserManager::Instance();
         $userManager->loginUser($userId);
     }
