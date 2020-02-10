@@ -21,3 +21,14 @@
 .btn.i.mdi {
     font-size: 2em;
 }
+
+.btn.btn-expand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+    padding: 15px 15px;
+    width: 100%;
+    height: 100%;
+}

@@ -1,13 +1,41 @@
 {
   "pages": {
-    "welcome": {
-      "name": "Bienvenue",
-      "help": "Veuillez sélectionner une option ci-dessous"
-    },
     "error": {
       "name": "Erreur",
       "help": "Une erreur est survenue"
     },
+
+    "presentation": {
+      "welcome": {
+        "name": "Bienvenue",
+        "help": "Veuillez sélectionner une option ci-dessous"
+      }
+    },
+
+    "sign-up": {
+      "welcome": {
+        "name": "Bienvenue",
+        "welcome": "Inscrivez-vous",
+        "actions": {
+          "sign_up": "S'inscrire"
+        }
+      },
+      "register": {
+        "name": "Inscription",
+        "help": "{sign-up.help}",
+        "form": {
+          "first_name": "Prénom",
+          "last_name": "Nom",
+          "submit": "S'inscrire"
+        }
+      },
+      "thanks": {
+        "name": "Merci !",
+        "thanks": "Inscription terminée",
+        "home_page": "Retourner à l'accueil"
+      }
+    },
+
     "search-school": {
       "region": {
         "name": "Séléctionnez votre region"
@@ -26,22 +54,7 @@
         "name": "Séléctionnez votre établissement"
       }
     },
-    "sign-up": {
-      "register": {
-        "name": "Inscription",
-        "help": "{sign-up.help}",
-        "form": {
-          "first_name": "Prénom",
-          "last_name": "Nom",
-          "submit": "S'inscrire"
-        }
-      },
-      "thanks": {
-        "name": "Merci !",
-        "thanks": "Inscription terminée",
-        "home_page": "Retourner à l'accueil"
-      }
-    },
+
     "admin": {
       "index": {
         "name": "Administration",

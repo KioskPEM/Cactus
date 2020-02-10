@@ -60,7 +60,7 @@ class SelectSchoolController implements ITemplateController
                 "school_id" => $school[self::SCHOOL_ID]
             ]);
             $schoolName = $school[self::SCHOOL_NAME];
-            $output .= "<a class=\"grid-item btn\" href=\"$url\">$schoolName</a>";
+            $output .= "<a class=\"btn btn-expand\" href=\"$url\">$schoolName</a>";
         }
 
         return $output;
@@ -94,9 +94,9 @@ class SelectSchoolController implements ITemplateController
             ]);
 
             if ($selectedPage == $i)
-                $output .= "<li class='pagination-list-item'><a class=\"button selected\" href=\"$url\">$page</a></li>";
+                $output .= "<li class='pagination-list-item'><a class=\"btn selected\" href=\"$url\">$page</a></li>";
             else
-                $output .= "<li class='pagination-list-item'><a class=\"button\" href=\"$url\">$page</a></li>";
+                $output .= "<li class='pagination-list-item'><a class=\"btn\" href=\"$url\">$page</a></li>";
         }
 
         return $output;

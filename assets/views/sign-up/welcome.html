@@ -1,0 +1,30 @@
+<img src="${url.static}/img/logo.png" style="object-fit: contain"/>
+<div class="grid-container grid-2w full-size">
+    <section class="column">
+        <header>
+            <h2>%{page.actions.sign_up}</h2>
+        </header>
+        <a class="btn btn-expand" href="@{search-school.region}">%{page.actions.sign_up}</a>
+    </section>
+    <section class="column">
+        <header>
+            <h2>%{page.actions.sign_up}</h2>
+        </header>
+        <a class="btn btn-expand" href="">%{page.actions.sign_up}</a>
+    </section>
+</div>
+<style>
+    section.column {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+    }
+
+    section.column header {
+        height: 100px;
+    }
+
+    section.column a.btn {
+        flex-grow: 1;
+    }
+</style>

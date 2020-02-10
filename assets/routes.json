@@ -1,10 +1,8 @@
 {
-  "welcome": {
-    "path": "/welcome"
-  },
   "error": {
     "path": "/error"
   },
+
   "admin.index": {
     "path": "/admin"
   },
@@ -19,6 +17,26 @@
     "path": "/admin/action/:action{[a-z_]+}",
     "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
   },
+
+  "presentation.welcome": {
+    "path": "/presentation"
+  },
+
+  "sign-up.welcome": {
+    "path": "/sign-up"
+  },
+  "sign-up.register": {
+    "path": "/sign-up/:school_id{\\d{7}[A-Z]}"
+  },
+  "sign-up.thanks": {
+    "path": "/sign-up/thanks"
+  },
+  "sign-up.finalize": {
+    "method": "POST",
+    "path": "/sign-up",
+    "endpoint": "Cactus\\Endpoint\\SignUpEndpoint"
+  },
+
   "search-school.region": {
     "path": "/search-school/region"
   },
@@ -33,23 +51,9 @@
     "path": "/search-school/region/:region{\\d{2}}/department/:department{[A-D0-9]{2}}/school/:school_type{college|high_school}/:page{\\d+}",
     "controller": "Cactus\\Controller\\SearchSchool\\SelectSchoolController"
   },
-  "sign-up.register": {
-    "path": "/sign-up/:school_id{\\d{7}[A-Z]}"
-  },
-  "sign-up.thanks": {
-    "path": "/sign-up/thanks"
-  },
-  "sign-up.finalize": {
-    "method": "POST",
-    "path": "/sign-up",
-    "endpoint": "Cactus\\Endpoint\\SignUpEndpoint"
-  },
+
   "jukebox": {
     "path": "/jukebox/:action{play|stop}",
-    "endpoint": "Cactus\\Endpoint\\JukeboxEndpoint"
-  },
-  "jukebox.play": {
-    "path": "/jukebox/:action{play}/:id{\\d+}",
     "endpoint": "Cactus\\Endpoint\\JukeboxEndpoint"
   },
   "easter-egg.index": {

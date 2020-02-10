@@ -1,9 +1,9 @@
 <input type="hidden" id="parent-page" value="@{search-school.department|region=${route.region}}">
 <div class="grid-container grid-flow-row full-size">
-    <a class="grid-item btn" href="@{search-school.school|region=${route.region},department=${route.department},school_type=college,page=0}">
+    <a class="btn btn-expand" href="@{search-school.school|region=${route.region},department=${route.department},school_type=college,page=0}">
         %{page.types.college}
     </a>
-    <a class="grid-item btn" href="@{search-school.school|region=${route.region},department=${route.department},school_type=high_school,page=0}">
+    <a class="btn btn-expand" href="@{search-school.school|region=${route.region},department=${route.department},school_type=high_school,page=0}">
         %{page.types.high_school}
     </a>
 </div>

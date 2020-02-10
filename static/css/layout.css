@@ -12,17 +12,3 @@
 .grid-container.grid-3w {
     grid-template-columns: repeat(3, 1fr);
 }
-
-.grid-container .grid-item.grid-fullscreen {
-    flex-grow: 1;
-}
-.grid-container .grid-item.btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-flow: column;
-
-    padding: 15px 15px;
-    width: 100%;
-    height: 100%;
-}
