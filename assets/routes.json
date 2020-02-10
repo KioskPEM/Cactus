@@ -18,11 +18,11 @@
     "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
   },
 
-  "presentation.welcome": {
+  "presentation.index": {
     "path": "/presentation"
   },
 
-  "sign-up.welcome": {
+  "sign-up.index": {
     "path": "/sign-up"
   },
   "sign-up.register": {
@@ -31,10 +31,19 @@
   "sign-up.thanks": {
     "path": "/sign-up/thanks"
   },
-  "sign-up.finalize": {
+
+  "user.login": {
     "method": "POST",
-    "path": "/sign-up",
-    "endpoint": "Cactus\\Endpoint\\SignUpEndpoint"
+    "path": "/user/login",
+    "endpoint": "Cactus\\Endpoint\\User\\LoginEndpoint"
+  },
+  "user.sign-up": {
+    "method": "POST",
+    "path": "/user/sign-up",
+    "endpoint": "Cactus\\Endpoint\\User\\SignUpEndpoint"
+  },
+  "user.profile": {
+    "path": "/user/profile/:id{\\d+}"
   },
 
   "search-school.region": {

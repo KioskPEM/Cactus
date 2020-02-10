@@ -34,12 +34,12 @@ class AdminEndpoint implements IRouteEndpoint
                 break;
             case "set_presentation_mode":
                 $config = AppConfiguration::Instance();
-                $config->set("home-page", "presentation.welcome");
+                $config->set("home-page", "presentation.index");
                 $config->save();
                 break;
             case "set_sign_up_mode":
                 $config = AppConfiguration::Instance();
-                $config->set("home-page", "sign-up.welcome");
+                $config->set("home-page", "sign-up.index");
                 $config->save();
                 break;
             default:

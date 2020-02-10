@@ -5,18 +5,6 @@ const Barcode = {
         Barcode.input.addEventListener("change", Barcode.handleInput);
         Barcode.input.select();
 
-        Barcode.mapping = [];
-        Barcode.mapping["&"] = "1";
-        Barcode.mapping["é"] = "2";
-        Barcode.mapping["\""] = "3";
-        Barcode.mapping["'"] = "4";
-        Barcode.mapping["("] = "5";
-        Barcode.mapping["-"] = "6";
-        Barcode.mapping["è"] = "7";
-        Barcode.mapping["_"] = "8";
-        Barcode.mapping["ç"] = "9";
-        Barcode.mapping["à"] = "0";
-
         let inputs = document.getElementsByTagName("INPUT");
         for (let i = 0; i < inputs.length; i++) {
             let input = inputs[i];
@@ -41,7 +29,7 @@ const Barcode = {
             window.location.href = EASTER_EGG_PAGE;
         });
         Barcode.register(/^USER(\d+)$/, function (matches) {
-            console.log("Bienvenue utilisateur", matches[1]);
+            alert("Bienvenue utilisateur", matches[1]);
         });
     },
     register: function (command, action) {
@@ -52,14 +40,7 @@ const Barcode = {
     },
     handleInput(e) {
         let target = e.target;
-
         let input = target.value;
-        let mapping = Barcode.mapping;
-        for (let key in mapping) {
-            if (mapping.hasOwnProperty(key))
-                input = input.replace(key, mapping[key]);
-        }
-
         target.value = "";
 
         let commands = Barcode.commands;

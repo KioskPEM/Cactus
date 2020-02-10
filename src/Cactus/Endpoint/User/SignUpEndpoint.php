@@ -1,6 +1,6 @@
 <?php
 
-namespace Cactus\Endpoint;
+namespace Cactus\Endpoint\User;
 
 use Cactus\Http\HttpCode;
 use Cactus\Routing\IRouteEndpoint;

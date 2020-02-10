@@ -1,5 +1,5 @@
 <p>%{page.help}</p>
-<form action="@{sign-up.finalize}" method="post">
+<form action="@{user.sign-up}" method="post">
     <input type="hidden" name="school-id" value="${route.school_id}" minlength="8" maxlength="8">
     <label for="first-name">%{page.form.first_name}</label>
     <input id="first-name" class="use-keyboard-input" name="first-name" type="text" required maxlength="255">

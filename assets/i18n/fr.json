@@ -6,16 +6,15 @@
     },
 
     "presentation": {
-      "welcome": {
+      "index": {
         "name": "Bienvenue",
         "help": "Veuillez sélectionner une option ci-dessous"
       }
     },
 
     "sign-up": {
-      "welcome": {
+      "index": {
         "name": "Bienvenue",
-        "welcome": "Inscrivez-vous",
         "sign_up": {
           "name": "Inscrivez-vous",
           "desc": "Lorem Ispum"
