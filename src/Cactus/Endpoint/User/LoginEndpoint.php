@@ -21,7 +21,7 @@ class LoginEndpoint implements IRouteEndpoint
         $router = $route->getRouter();
         $urlBuilder = UrlBuilder::Instance();
         $url = $urlBuilder->build($router, "user.profile", [
-            "id" => $id
+            "user_id" => $id
         ]);
         header("Location: " . $url, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
