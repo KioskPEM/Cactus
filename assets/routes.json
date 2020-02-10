@@ -43,7 +43,8 @@
     "endpoint": "Cactus\\Endpoint\\User\\SignUpEndpoint"
   },
   "user.profile": {
-    "path": "/user/profile/:id{\\d+}"
+    "path": "/user/profile/:user_id{\\d+}",
+    "controller": "Cactus\\Controller\\User\\UserProfileController"
   },
 
   "search-school.region": {

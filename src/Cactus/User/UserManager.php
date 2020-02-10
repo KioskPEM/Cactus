@@ -6,6 +6,7 @@ namespace Cactus\User;
 
 use Cactus\Database\Database;
 use Cactus\User\Exception\UserException;
+use PDO;
 
 class UserManager
 {
@@ -41,5 +42,31 @@ class UserManager
 
         $id = $database->lastInsertId();
         return new User($id, $firstName, $lastName, $schoolId);
+    }
+
+    /**
+     * @param string $userId
+     * @return User
+     * @throws UserException
+     */
+    public function loginUser(string $userId)
+    {
+        $database = Database::Instance();
+        $statement = $database->prepare("SELECT * FROM `kiosk-pem`.users WHERE id = :user_id");
+        $statement->bindValue(":user_id", $userId, PDO::PARAM_INT);
+
+        if (!$statement->execute())
+            throw new UserException("Unable to get the user with id " . $userId);
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if ($result === false)
+            throw new UserException("Unable to get the user data");
+
+        return new User(
+            $result["id"],
+            $result["first_name"],
+            $result["last_name"],
+            $result["school_id"]
+        );
     }
 }
