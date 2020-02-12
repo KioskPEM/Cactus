@@ -1,6 +1,6 @@
 const Barcode = {
+    commands: [],
     init: function () {
-        Barcode.commands = [];
         Barcode.input = document.getElementById("barcode-input");
         Barcode.input.addEventListener("change", Barcode.handleInput);
         Barcode.input.select();
