@@ -83,6 +83,6 @@ class UserManager
         $statement->bindValue(":placement", $user->isAskingForPlacement(), PDO::PARAM_BOOL);
 
         if (!$statement->execute())
-            throw new UserException("Unable to update user " . $user);
+            throw new UserException("Unable to update user " . $user->getUniqueId());
     }
 }

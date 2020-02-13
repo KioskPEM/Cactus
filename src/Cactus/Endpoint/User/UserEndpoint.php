@@ -34,9 +34,11 @@ class UserEndpoint implements IRouteEndpoint
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }
 
+        $userManager->updateUser($user);
+
         $router = $route->getRouter();
         $urlBuilder = UrlBuilder::Instance();
-        $adminPage = $urlBuilder->build($router, "admin.index", $parameters);
+        $adminPage = $urlBuilder->build($router, "sign-up.index", $parameters);
         header("Location: " . $adminPage, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
