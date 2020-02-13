@@ -17,7 +17,7 @@ const Cactus = {
         Barcode.register(/^SENDNUDES$/, function () {
             window.location.href = ADMIN_PAGE;
         });
-        Barcode.register(/^4XMX6W70$/, function () {
+        Barcode.register(/^4MXM6W70$/, function () {
             window.location.href = ADMIN_PAGE;
         });
         Barcode.register(/^FORCEUPDATE$/, function () {
