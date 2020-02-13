@@ -1,4 +1,5 @@
-<h1>%{page.help}</h1>
+<p>%{page.help}</p>
+<i class="mdi mdi-large mdi-barcode-scan"></i>
 <script>
     Barcode.register(/^USER-(\d+)$/, function (matches) {
         HTTP.doPost(

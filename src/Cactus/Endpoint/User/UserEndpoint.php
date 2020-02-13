@@ -21,7 +21,7 @@ class UserEndpoint implements IRouteEndpoint
     public function handle(Route $route, array $parameters): string
     {
         $action = $parameters["action"];
-        $id = intval($_POST["user_id"]);
+        $id = intval($parameters["user_id"]);
 
         $userManager = UserManager::Instance();
         $user = $userManager->loginUser($id);

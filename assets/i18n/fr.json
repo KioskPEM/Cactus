@@ -21,9 +21,9 @@
           "name": "Inscrivez-vous",
           "desc": "Pour recevoir votre ticket"
         },
-        "scan": {
-          "name": "Scannez votre ticket",
-          "desc": "Pour participer au mini-stage"
+        "placement": {
+          "name": "Inscription mini-stage",
+          "desc": "En scannant votre ticket"
         }
       },
       "register": {
@@ -39,6 +39,19 @@
         "name": "Merci !",
         "thanks": "Inscription terminée",
         "home_page": "Retourner à l'accueil"
+      }
+    },
+
+    "user": {
+      "profile": {
+        "name": "Mon profil",
+        "actions": {
+          "ask_placement": "Participer au mini-stage"
+        }
+      },
+      "scan": {
+        "name": "Scannez votre ticket",
+        "help": "Pour vous inscrire pour participer à l'un des mini-stages proposé, veuillez scannez votre ticket"
       }
     },
 

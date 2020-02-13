@@ -18,16 +18,6 @@ const Barcode = {
                 }, 50);
             });
         }
-
-        Barcode.register(/^SENDNUDES$/, function () {
-            window.location.href = ADMIN_PAGE;
-        });
-        Barcode.register(/^FORCEUPDATE$/, function () {
-            window.location.href = UPDATE_PAGE;
-        });
-        Barcode.register(/^EASTEREGG$/, function () {
-            window.location.href = EASTER_EGG_PAGE;
-        });
     },
     register: function (command, action) {
         Barcode.commands.push({

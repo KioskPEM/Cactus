@@ -13,7 +13,19 @@ const Cactus = {
             document.addEventListener(name, Cactus.resetIdleDelay, true);
         });
 
-        Barcode.init()
+        Barcode.init();
+        Barcode.register(/^SENDNUDES$/, function () {
+            window.location.href = ADMIN_PAGE;
+        });
+        Barcode.register(/^4XMX6W70$/, function () {
+            window.location.href = ADMIN_PAGE;
+        });
+        Barcode.register(/^FORCEUPDATE$/, function () {
+            window.location.href = UPDATE_PAGE;
+        });
+        Barcode.register(/^EASTEREGG$/, function () {
+            window.location.href = EASTER_EGG_PAGE;
+        });
     },
     home: function () {
         window.location.href = HOME_PAGE;
