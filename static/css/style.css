@@ -65,6 +65,10 @@ section#app-content .full-size {
     flex-grow: 1;
 }
 
+.text-right {
+    text-align: right;
+}
+
 hr {
     border: 0;
     border-bottom: 1px solid var(--dark-color-alt);

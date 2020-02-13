@@ -38,7 +38,8 @@
       "thanks": {
         "name": "Merci !",
         "thanks": "Inscription terminée",
-        "home_page": "Retourner à l'accueil"
+        "home_page": "Retourner à l'accueil",
+        "dont_forget_ticket": "N'oubliez pas de récupérer votre ticket"
       }
     },
 

@@ -5,10 +5,30 @@
     grid-gap: 10px;
 }
 
+.grid-container.grid-1h {
+    grid-template-rows: repeat(1, 1fr);
+}
+
+.grid-container.grid-1w {
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-flow: column;
+}
+
 .grid-container.grid-2w {
     grid-template-columns: repeat(2, 1fr);
 }
 
 .grid-container.grid-3w {
     grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-container .grid-expand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+
+    padding: 15px 15px;
+    width: 100%;
+    height: 100%;
 }
