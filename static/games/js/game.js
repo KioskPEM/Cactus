@@ -174,10 +174,7 @@ class Game {
             }
 
         } else {
-
-            this.context.fillText("LOADING...", this.canvas.width / 2, this.canvas.height / 2);
             this.updateState();
-
         }
 
         if (this.running)
