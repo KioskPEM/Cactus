@@ -42,9 +42,11 @@ body {
 }
 
 section#app-content {
+    grid-area: content;
+
     display: flex;
     flex-direction: column;
-    grid-area: content;
+    justify-content: center;
 
     height: calc(100vh - var(--header-size));
 
@@ -78,6 +80,4 @@ hr {
 a {
     color: var(--dark-color);
     cursor: pointer;
-
-    -webkit-user-drag: none;
 }
