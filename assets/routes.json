@@ -86,6 +86,9 @@
   "easter-egg.pacman": {
     "path": "/easter-egg/pacman"
   },
+  "easter-egg.bubulator": {
+    "path": "/easter-egg/bubulator"
+  },
   "easter-egg.generic.death": {
     "path": "/easter-egg/:game{flappy-bird}/death"
   }

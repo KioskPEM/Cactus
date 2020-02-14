@@ -1,0 +1,32 @@
+<style>
+    canvas#game-canvas {
+        object-fit: contain;
+        flex-grow: 1;
+    }
+</style>
+<input type="hidden" id="parent-page" value="@{easter-egg.index}">
+<canvas id="game-canvas"></canvas>
+<script src="${url.static}/games/js/game.js"></script>
+<script src="${url.static}/games/js/bubulator.js"></script>
+<script>
+    const BLACK_BUBBLE = "${url.static}/games/img/bubulator/bubble/black.png";
+    const BLUE_BUBBLE = "${url.static}/games/img/bubulator/bubble/blue.png";
+    const PURPLE_BUBBLE = "${url.static}/games/img/bubulator/bubble/purple.png";
+    const RED_BUBBLE = "${url.static}/games/img/bubulator/bubble/red.png";
+    const YELLOW_BUBBLE = "${url.static}/games/img/bubulator/bubble/yellow.png";
+
+    let canvas = document.getElementById("game-canvas");
+    const game = new Game(canvas);
+
+    let cat = new Bubble(canvas.width * 0.1, canvas.height / 2, PURPLE_BUBBLE);
+    game.addObject(cat);
+
+    let pipeSpawner = new PipeSpawner(2, BLACK_BUBBLE, 100);
+    game.addObject(pipeSpawner);
+
+    canvas.addEventListener("mousedown", () => {
+        cat.jumped = true;
+    });
+
+    game.run();
+</script>

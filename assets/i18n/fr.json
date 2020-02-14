@@ -110,6 +110,9 @@
       },
       "pacman": {
         "name": "PacMan"
+      },
+      "bubulator": {
+        "name": "Bubulator"
       }
     }
   }

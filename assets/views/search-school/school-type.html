@@ -1,9 +1,11 @@
 <input type="hidden" id="parent-page" value="@{search-school.department|region=${route.region}}">
-<div class="grid-container grid-flow-row full-size">
+<div class="grid-container grid-2w full-size">
     <a class="btn btn-expand" href="@{search-school.school|region=${route.region},department=${route.department},school_type=college,page=0}">
-        %{page.types.college}
+        <h2>%{page.types.college}</h2>
+        <i class="mdi mdi-large mdi-home-variant-outline"></i>
     </a>
     <a class="btn btn-expand" href="@{search-school.school|region=${route.region},department=${route.department},school_type=high_school,page=0}">
-        %{page.types.high_school}
+        <h2>%{page.types.high_school}</h2>
+        <i class="mdi mdi-large mdi-home-city-outline"></i>
     </a>
 </div>
