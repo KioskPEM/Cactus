@@ -22,6 +22,7 @@ html, body {
 
     overflow: hidden;
     user-select: none;
+    --webkit-user-select: none;
 
     user-drag: none;
     -moz-user-select: none;
