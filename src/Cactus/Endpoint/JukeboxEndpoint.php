@@ -3,6 +3,7 @@
 namespace Cactus\Endpoint;
 
 use Cactus\EasterEgg\Jukebox;
+use Cactus\Exception\FileException;
 use Cactus\Http\HttpCode;
 use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\IRouteEndpoint;
@@ -12,6 +13,7 @@ class JukeboxEndpoint implements IRouteEndpoint
 {
     /**
      * @inheritDoc
+     * @throws FileException
      */
     public function handle(Route $route, array $parameters): string
     {

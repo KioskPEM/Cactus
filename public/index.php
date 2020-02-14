@@ -3,7 +3,6 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATO
 
 use Cactus\EasterEgg\Jukebox;
 use Cactus\Http\HttpCode;
-use Cactus\Routing\Exception\RouteException;
 use Cactus\Routing\Router;
 use Cactus\Template\Render\Pass\EchoPass;
 use Cactus\Template\Render\Pass\HandlerPass;
@@ -12,6 +11,7 @@ use Cactus\Template\Render\Pass\UrlPass;
 use Cactus\Template\TemplateManager;
 use Cactus\Util\AppConfiguration;
 use Cactus\Util\ClientRequest;
+use Cactus\Util\JsonFile;
 
 try {
 
@@ -39,11 +39,7 @@ try {
 
     $templateEngine->registerTemplate("layout");
 
-    $routesContent = file_get_contents(ASSET_PATH . "routes.json");
-    if ($routesContent === false)
-        throw new RouteException("Missing routes.json");
-
-    $routes = json_decode($routesContent, true, 512, JSON_THROW_ON_ERROR);
+    $routes = JsonFile::read(ASSET_PATH . "routes.json");
     foreach ($routes as $name => $entry) {
         $method = $entry["method"] ?? "GET";
         $path = $entry["path"];
@@ -69,7 +65,7 @@ try {
 
 } catch (Throwable $e) {
 
-    $jukebox->playIndexed(0);
+    $jukebox->play(0);
 
     $httpCode = $e->getCode();
     if (!HttpCode::isHttpCode($httpCode))

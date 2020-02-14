@@ -5,17 +5,29 @@ namespace Cactus\EasterEgg;
 
 
 use Cactus\Database\CsvDatabase;
-use Cactus\Util\AppConfiguration;
+use Cactus\Exception\FileException;
+use Cactus\Util\JsonFile;
 
 class Jukebox
 {
-    private array $songs;
+    private const SONG_PATH = ASSET_PATH . "jukebox.json";
 
+    private array $songs;
+    private array $currentSong;
+
+    /**
+     * Jukebox constructor.
+     * @throws FileException
+     */
     private function __construct()
     {
         $this->loadSongs();
     }
 
+    /**
+     * @return Jukebox
+     * @throws FileException
+     */
     public static function Instance(): Jukebox
     {
         static $inst = null;
@@ -26,35 +38,44 @@ class Jukebox
 
     public function getCurrentSong(): string
     {
-        $config = AppConfiguration::Instance();
-        return $config->get("song.name");
+        if (isset($this->currentSong)) {
+            $songId = $this->currentSong["id"];
+            $song = $this->songs[$songId];
+            return $song["name"];
+        }
+        return false;
     }
 
+    /**
+     * @throws FileException
+     */
     private function loadSongs()
     {
         $songDatabase = new CsvDatabase("songs");
         $songDatabase->open();
         $this->songs = $songDatabase->get();
         $songDatabase->close();
+
+        if (is_file(self::SONG_PATH)) {
+            $this->currentSong = JsonFile::read(self::SONG_PATH);
+        }
     }
 
     public function playRandom(): bool
     {
         $index = array_rand($this->songs);
-        return $this->playIndexed($index);
+        return $this->play($index);
     }
 
-    public function playIndexed(int $index): bool
-    {
-        $song = $this->songs[$index];
-        $name = $song["name"];
-        $command = $song["command"];
-        return $this->play($name, $command);
-    }
-
-    public function play(string $name, string $command)
+    public function play(int $index): bool
     {
         $this->stop();
+
+        if (!array_key_exists($index, $this->songs))
+            return false;
+
+        $song = $this->songs[$index];
+        $command = $song["command"];
 
         $descriptor = [
             0 => ["pipe", "r"],
@@ -67,22 +88,22 @@ class Jukebox
         if (!$processStatus["running"])
             return false;
 
-        $config = AppConfiguration::Instance();
-        $config->set("song.name", $name);
-        $config->set("song.pid", $processStatus["pid"]);
-        $config->save();
-        return true;
+        $pid = $processStatus["pid"];
+        $this->currentSong = [
+            "id" => $index,
+            "pid" => $pid
+        ];
+        return JsonFile::write(self::SONG_PATH, $this->currentSong);
     }
 
     public function stop()
     {
-        $config = AppConfiguration::Instance();
-        $process = $config->get("song.pid");
-        if ($process === false)
-            return;
+        if (isset($this->currentSong)) {
+            $pid = $this->currentSong["pid"];
+            shell_exec("kill $pid");
 
-        shell_exec("kill $process");
-        $config->delete("song");
-        $config->save();
+            unlink(self::SONG_PATH);
+            unset($this->currentSong);
+        }
     }
 }

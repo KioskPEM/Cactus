@@ -56,24 +56,18 @@ class AppConfiguration
 
     public function save(): bool
     {
-        $content = json_encode($this->config, JSON_PRETTY_PRINT, 512);
-        if ($content === false)
-            return false;
-        return file_put_contents(self::CONFIG_PATH, $content);
+        return JsonFile::write(self::CONFIG_PATH, $this->config);
     }
 
     public function reload(): bool
     {
-        $content = file_get_contents(self::CONFIG_PATH);
-        if ($content === false)
-            return false;
+        $config = JsonFile::read(self::CONFIG_PATH);
+        if ($config) {
+            $this->config = $config;
+            return true;
+        }
 
-        $config = json_decode($content, true, 512);
-        if ($config === null)
-            return false;
-
-        $this->config = $config;
-        return true;
+        return false;
     }
 
     /**
