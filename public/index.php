@@ -28,6 +28,7 @@ try {
             "root" => $rootUrl,
             "static" => $config->get("url.static")
         ],
+        "theme" => $config->get("theme"),
         "home-page" => $config->get("home-page")
     ]);
 
