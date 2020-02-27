@@ -9,6 +9,10 @@
     grid-template-rows: repeat(1, 1fr);
 }
 
+.grid-container.grid-2h {
+    grid-template-rows: repeat(2, 1fr);
+}
+
 .grid-container.grid-1w {
     grid-template-columns: repeat(1, 1fr);
     grid-auto-flow: column;

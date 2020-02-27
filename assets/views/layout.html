@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="${url.static}/css/button.css"/>
     <link rel="stylesheet" href="${url.static}/css/layout.css"/>
     <link rel="stylesheet" href="${url.static}/css/pagination.css"/>
-    <link rel="stylesheet" href="${url.static}/css/keyboard.css"/>
     <link rel="stylesheet" href="${url.static}/css/loading-panel.css"/>
     <link rel="stylesheet" href="${url.static}/css/form.css"/>
     <link rel="stylesheet" href="${url.static}/css/mdi.css"/>
@@ -20,7 +19,6 @@
     <script type="application/javascript" src="${url.static}/js/app.js"></script>
     <script type="application/javascript" src="${url.static}/js/http.js"></script>
     <script type="application/javascript" src="${url.static}/js/barcode.js"></script>
-    <script type="application/javascript" src="${url.static}/js/keyboard.js"></script>
 </head>
 <body onload="Cactus.init()">
 <input type="text" id="barcode-input" style="position: fixed; top:100%;">
@@ -42,13 +40,11 @@
 <section id="app-content">
     ${page.content}
 </section>
-
 <script>
     const HOME_PAGE = "@{${home-page}}";
     const ADMIN_PAGE = "@{admin.index}";
     const UPDATE_PAGE = "@{admin.update}";
     const EASTER_EGG_PAGE = "@{easter-egg.index}";
 </script>
-
 </body>
 </html>

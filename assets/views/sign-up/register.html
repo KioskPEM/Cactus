@@ -1,9 +1,73 @@
-<p>%{page.help}</p>
-<form action="@{user.sign-up}" method="post">
+<form action="@{user.sign-up}" method="post" id="sign-up-form">
+    <p>%{page.help}</p>
     <input type="hidden" name="school-id" value="${route.school_id}" minlength="8" maxlength="8">
     <label for="first-name">%{page.form.first_name}</label>
     <input id="first-name" class="use-keyboard-input" name="first-name" type="text" required maxlength="255">
     <label for="last-name">%{page.form.last_name}</label>
     <input id="last-name" class="use-keyboard-input" name="last-name" type="text" required maxlength="255">
-    <input type="submit" value="%{page.form.submit}">
 </form>
+<div class="keyboard full-size">
+    <a class="keyboard__key btn btn-expand">A</a>
+    <a class="keyboard__key btn btn-expand">Z</a>
+    <a class="keyboard__key btn btn-expand">E</a>
+    <a class="keyboard__key btn btn-expand">R</a>
+    <a class="keyboard__key btn btn-expand">T</a>
+    <a class="keyboard__key btn btn-expand">Y</a>
+    <a class="keyboard__key btn btn-expand">U</a>
+    <a class="keyboard__key btn btn-expand">I</a>
+    <a class="keyboard__key btn btn-expand">O</a>
+    <a class="keyboard__key btn btn-expand">P</a>
+    <a class="keyboard__key btn btn-expand">Q</a>
+    <a class="keyboard__key btn btn-expand">S</a>
+    <a class="keyboard__key btn btn-expand">D</a>
+    <a class="keyboard__key btn btn-expand">F</a>
+    <a class="keyboard__key btn btn-expand">G</a>
+    <a class="keyboard__key btn btn-expand">H</a>
+    <a class="keyboard__key btn btn-expand">J</a>
+    <a class="keyboard__key btn btn-expand">K</a>
+    <a class="keyboard__key btn btn-expand">L</a>
+    <a class="keyboard__key btn btn-expand">M</a>
+    <a class="keyboard__key btn btn-expand">W</a>
+    <a class="keyboard__key btn btn-expand">X</a>
+    <a class="keyboard__key btn btn-expand">C</a>
+    <a class="keyboard__key btn btn-expand">V</a>
+    <a class="keyboard__key btn btn-expand">B</a>
+    <a class="keyboard__key btn btn-expand">N</a>
+    <a class="btn btn-expand" style="grid-column: 7 / 9;" onclick="eraseInput()"><i class="mdi mdi-arrow-left"></i></a>
+    <a class="btn btn-expand" style="grid-column: 9 / 11;" onclick="submitForm()"><i class="mdi mdi-check"></i></a>
+</div>
+<style>
+    .keyboard {
+        display: grid;
+        grid-auto-flow: dense;
+        grid-template: none;
+        grid-template-columns: repeat(10, 1fr);
+        grid-gap: 10px;
+        padding: 50px 0;
+    }
+</style>
+<script>
+    let selectedInput;
+
+    document.querySelectorAll(".use-keyboard-input").forEach(input => {
+        input.addEventListener("focus", e => {
+            selectedInput = e.target;
+        });
+    });
+    document.querySelectorAll(".keyboard__key").forEach(input => {
+        input.addEventListener("click", e => {
+            let key = e.target;
+            selectedInput.value += key.textContent;
+        });
+    });
+
+    function eraseInput() {
+        let val = selectedInput.value;
+        selectedInput.value = val.substring(0, val.length - 1);
+    }
+
+    function submitForm() {
+        let form = document.getElementById("sign-up-form");
+        form.submit();
+    }
+</script>
