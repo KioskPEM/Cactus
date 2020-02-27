@@ -1,23 +1,8 @@
 const Barcode = {
+    buffer: "",
     commands: [],
     init: function () {
-        Barcode.input = document.getElementById("barcode-input");
-        Barcode.input.addEventListener("change", Barcode.handleInput);
-        Barcode.input.select();
-
-        let inputs = document.getElementsByTagName("INPUT");
-        for (let i = 0; i < inputs.length; i++) {
-            let input = inputs[i];
-            input.addEventListener("focus", e => {
-                clearTimeout(Barcode.timeout);
-                Barcode.selectedInput = e.target;
-            });
-            input.addEventListener("focusout", e => {
-                Barcode.timeout = setTimeout(e => {
-                    Barcode.input.select();
-                }, 50);
-            });
-        }
+        document.addEventListener("keydown", Barcode.handleKeyPress);
     },
     register: function (command, action) {
         Barcode.commands.push({
@@ -25,11 +10,14 @@ const Barcode = {
             action: action
         });
     },
-    handleInput(e) {
-        let target = e.target;
-        let input = target.value;
-        target.value = "";
-
+    handleKeyPress(e) {
+        if (e.key === "Enter") {
+            Barcode.executeCommand(Barcode.buffer);
+            Barcode.buffer = "";
+        } else if (/^[A-Z0-9\\-]$/.test(e.key))
+            Barcode.buffer += e.key;
+    },
+    executeCommand(input) {
         let commands = Barcode.commands;
         for (let command of commands) {
             let matches = command.regex.exec(input);
