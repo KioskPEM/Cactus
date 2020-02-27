@@ -1,5 +1,15 @@
-<p>%{page.help}</p>
-<i class="mdi mdi-large mdi-barcode-scan"></i>
+<div class="grid-container text-center margin-10px">
+    <div class="grid-row">
+        <div class="grid-column">
+            <p class="text-center">%{page.help}</p>
+        </div>
+    </div>
+    <div class="grid-row grid-align-center">
+        <div class="grid-column">
+            <i class="mdi mdi-size-large mdi-barcode-scan"></i>
+        </div>
+    </div>
+</div>
 <script>
     Barcode.register(/^USER-(\d+)$/, function (matches) {
         HTTP.doPost(

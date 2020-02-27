@@ -1,28 +1,23 @@
 header#app-header {
-    background-color: var(--light-color-alt);
-
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
     align-content: center;
     align-items: center;
 
-    padding: 15px 20px;
-}
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
 
-header#app-header {
-    height: var(--header-size);
-
-    grid-area: header;
-
-    justify-content: space-between;
-    border-bottom: 1px solid var(--dark-color-alt);
-}
-
-header#app-header a {
-    font-size: 2.5em;
+    padding: 10px 15px;
 }
 
 header#app-header h1#app-title {
     font-weight: normal;
     margin: 0;
+}
+
+header#app-header a {
+    color: var(--secondary-color);
+}
+header#app-header a:active {
+    color: var(--primary-color-light);
 }

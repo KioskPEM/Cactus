@@ -1,65 +1,90 @@
-<form action="@{user.sign-up}" method="post" id="sign-up-form">
-    <p>%{page.help}</p>
-    <input type="hidden" name="school-id" value="${route.school_id}" minlength="8" maxlength="8">
-    <label for="first-name">%{page.form.first_name}</label>
-    <input id="first-name" class="use-keyboard-input" name="first-name" type="text" required maxlength="255">
-    <label for="last-name">%{page.form.last_name}</label>
-    <input id="last-name" class="use-keyboard-input" name="last-name" type="text" required maxlength="255">
-</form>
-<div class="keyboard full-size">
-    <a class="keyboard__key btn btn-expand">A</a>
-    <a class="keyboard__key btn btn-expand">Z</a>
-    <a class="keyboard__key btn btn-expand">E</a>
-    <a class="keyboard__key btn btn-expand">R</a>
-    <a class="keyboard__key btn btn-expand">T</a>
-    <a class="keyboard__key btn btn-expand">Y</a>
-    <a class="keyboard__key btn btn-expand">U</a>
-    <a class="keyboard__key btn btn-expand">I</a>
-    <a class="keyboard__key btn btn-expand">O</a>
-    <a class="keyboard__key btn btn-expand">P</a>
-    <a class="keyboard__key btn btn-expand">Q</a>
-    <a class="keyboard__key btn btn-expand">S</a>
-    <a class="keyboard__key btn btn-expand">D</a>
-    <a class="keyboard__key btn btn-expand">F</a>
-    <a class="keyboard__key btn btn-expand">G</a>
-    <a class="keyboard__key btn btn-expand">H</a>
-    <a class="keyboard__key btn btn-expand">J</a>
-    <a class="keyboard__key btn btn-expand">K</a>
-    <a class="keyboard__key btn btn-expand">L</a>
-    <a class="keyboard__key btn btn-expand">M</a>
-    <a class="keyboard__key btn btn-expand">W</a>
-    <a class="keyboard__key btn btn-expand">X</a>
-    <a class="keyboard__key btn btn-expand">C</a>
-    <a class="keyboard__key btn btn-expand">V</a>
-    <a class="keyboard__key btn btn-expand">B</a>
-    <a class="keyboard__key btn btn-expand">N</a>
-    <a class="btn btn-expand" style="grid-column: 7 / 9;" onclick="eraseInput()"><i class="mdi mdi-arrow-left"></i></a>
-    <a class="btn btn-expand" style="grid-column: 9 / 11;" onclick="submitForm()"><i class="mdi mdi-check"></i></a>
+<div class="grid-row">
+
+    <div class="grid-container container-small">
+
+        <div class="grid-row">
+            <p class="text-center flex-grow flex-center">%{page.help}</p>
+        </div>
+
+        <div class="grid-row">
+            <form id="sign-up-form" class="flex-grow" action="@{user.sign-up}" method="post">
+                <input type="hidden" name="school-id" value="${route.school_id}" minlength="8" maxlength="8">
+
+                <div class="grid-row">
+                    <div class="grid-column flex-center flex-grow-0">
+                        <label class="flex-center text-right margin-20px"
+                               for="first-name">%{page.form.first_name}</label>
+                        <label class="flex-center text-right margin-20px" for="last-name">%{page.form.last_name}</label>
+                    </div>
+                    <div class="grid-column">
+                        <input class="flex-grow flex-center use-virtual-keyboard" id="first-name" name="first-name" type="text" required
+                               maxlength="255">
+                        <input class="flex-grow flex-center use-virtual-keyboard" id="last-name" name="last-name" type="text" required
+                               maxlength="255">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
 </div>
-<style>
-    .keyboard {
-        display: grid;
-        grid-auto-flow: dense;
-        grid-template: none;
-        grid-template-columns: repeat(10, 1fr);
-        grid-gap: 10px;
-        padding: 50px 0;
-    }
-</style>
+
+<div class="grid-row">
+
+    <div class="grid-container">
+        <div class="grid-row">
+            <a class="btn btn-large" onclick="writeChar('A')">A</a>
+            <a class="btn btn-large" onclick="writeChar('Z')">Z</a>
+            <a class="btn btn-large" onclick="writeChar('E')">E</a>
+            <a class="btn btn-large" onclick="writeChar('R')">R</a>
+            <a class="btn btn-large" onclick="writeChar('T')">T</a>
+            <a class="btn btn-large" onclick="writeChar('Y')">Y</a>
+            <a class="btn btn-large" onclick="writeChar('U')">U</a>
+            <a class="btn btn-large" onclick="writeChar('I')">I</a>
+            <a class="btn btn-large" onclick="writeChar('O')">O</a>
+            <a class="btn btn-large" onclick="writeChar('P')">P</a>
+        </div>
+        <div class="grid-row">
+            <a class="btn btn-large" onclick="writeChar('Q')">Q</a>
+            <a class="btn btn-large" onclick="writeChar('S')">S</a>
+            <a class="btn btn-large" onclick="writeChar('D')">D</a>
+            <a class="btn btn-large" onclick="writeChar('F')">F</a>
+            <a class="btn btn-large" onclick="writeChar('G')">G</a>
+            <a class="btn btn-large" onclick="writeChar('H')">H</a>
+            <a class="btn btn-large" onclick="writeChar('J')">J</a>
+            <a class="btn btn-large" onclick="writeChar('K')">K</a>
+            <a class="btn btn-large" onclick="writeChar('L')">L</a>
+            <a class="btn btn-large" onclick="writeChar('M')">M</a>
+        </div>
+        <div class="grid-row">
+            <a class="btn btn-large" onclick="writeChar('.')">.</a>
+            <a class="btn btn-large" onclick="writeChar('-')">-</a>
+            <a class="btn btn-large" onclick="writeChar('W')">W</a>
+            <a class="btn btn-large" onclick="writeChar('X')">X</a>
+            <a class="btn btn-large" onclick="writeChar('C')">C</a>
+            <a class="btn btn-large" onclick="writeChar('V')">V</a>
+            <a class="btn btn-large" onclick="writeChar('B')">B</a>
+            <a class="btn btn-large" onclick="writeChar('N')">N</a>
+            <a class="btn btn-large" onclick="eraseInput()"><i class="mdi mdi-keyboard-backspace"></i></a>
+            <a class="btn btn-large" onclick="submitForm()"><i class="mdi mdi-check"></i></a>
+        </div>
+    </div>
+
+</div>
 <script>
     let selectedInput;
 
-    document.querySelectorAll(".use-keyboard-input").forEach(input => {
+    document.querySelectorAll(".use-virtual-keyboard").forEach(input => {
         input.addEventListener("focus", e => {
             selectedInput = e.target;
         });
     });
-    document.querySelectorAll(".keyboard__key").forEach(input => {
-        input.addEventListener("click", e => {
-            let key = e.target;
-            selectedInput.value += key.textContent;
-        });
-    });
+
+    function writeChar(c) {
+        if (selectedInput !== undefined)
+            selectedInput.value += c;
+    }
 
     function eraseInput() {
         let val = selectedInput.value;

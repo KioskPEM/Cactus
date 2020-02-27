@@ -1,0 +1,22 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.grid-column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 0;
+    flex-grow: 1;
+}
+
+.grid-row {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+
+    justify-content: space-between;
+    justify-items: center;
+    align-content: center;
+}

@@ -47,7 +47,7 @@ class SelectDepartmentController implements ITemplateController
                 "region" => $regionCode,
                 "department" => $departmentCode,
             ]);
-            $output .= "<a class=\"btn btn-expand\" href=\"$url\">$departmentName</a>";
+            $output .= "<a class=\"btn btn-large margin-5px\" href=\"$url\">$departmentName</a>";
         }
         return $output;
     }

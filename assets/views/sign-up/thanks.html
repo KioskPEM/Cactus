@@ -1,51 +1,23 @@
-<div class="grid-container grid-1h full-size">
-    <section class="column full-size">
+<div class="grid-container">
+
+    <div class="grid-column">
         <header>
             <h2>%{page.thanks}</h2>
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor suscipit, dictum metus vel, placerat diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus, sodales in semper ac, accumsan eget libero. Etiam ornare tempus facilisis. Suspendisse laoreet aliquam nulla non vestibulum. In eu placerat metus, et viverra est. Nullam id aliquet turpis. Nam viverra est nunc, sit amet bibendum mauris convallis id. Vestibulum congue sed lorem at porttitor. Nam est ante, pretium eget hendrerit ac, aliquet non lorem. Fusce dictum fermentum fringilla. Nullam non justo euismod nisl eleifend eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus, massa condimentum vestibulum dignissim, leo augue congue augue, sed congue purus ipsum et sapien. Aenean vestibulum, tellus vel imperdiet interdum, urna orci tempor magna, nec facilisis mauris tellus consectetur nulla.
             </p>
         </header>
-    </section>
-    <section class="column">
+    </div>
+    <div class="grid-column">
         <h2>Redirection dans 5 secondes...</h2>
         <progress value="0.5" style="width: 100%;"></progress>
-    </section>
-    <section class="grid-container grid-1w">
+    </div>
+
+    <div class="grid-row">
         <header class="full-size" id="ticket-reminder">
             <h2>%{page.dont_forget_ticket}</h2>
         </header>
-        <i class="mdi mdi-arrow-bottom-right mdi-large"></i>
-    </section>
+        <i class="mdi mdi-arrow-bottom-right mdi-size-large"></i>
+    </div>
+
 </div>
-<style>
-    header#ticket-reminder {
-        display: flex;
-        justify-content: center;
-        align-items: end;
-        flex-flow: column;
-
-        padding: 15px 15px;
-        width: 100%;
-        height: 100%;
-    }
-
-    section.column {
-        display: flex;
-        flex-flow: column;
-        height: 100%;
-    }
-
-    section.column header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-flow: column;
-
-        padding: 20px 0;
-    }
-
-    section.column header h2, p {
-        margin: 0;
-    }
-</style>

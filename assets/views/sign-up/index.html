@@ -1,41 +1,29 @@
-<img src="${url.static}/img/logo.png" draggable="false" style="object-fit: contain"/>
-<div class="grid-container grid-2w full-size">
-    <section class="column">
-        <header>
-            <h2>%{page.sign_up.name}</h2>
-            <p>%{page.sign_up.desc}</p>
-        </header>
-        <a class="btn btn-expand" href="@{search-school.region}">
-            <i class="mdi mdi-large mdi-account-plus"></i>
-        </a>
-    </section>
-    <section class="column">
-        <header>
-            <h2>%{page.placement.name}</h2>
-            <p>%{page.placement.desc}</p>
-        </header>
-        <a class="btn btn-expand" href="@{user.scan}">
-            <i class="mdi mdi-large mdi-file-document-edit-outline"></i>
-        </a>
-    </section>
+<img class="keep-ratio" draggable="false" src="${url.static}/img/logo.png" alt="Logo PEM">
+
+<hr>
+
+<div class="grid-container text-center margin-10px">
+    <div class="grid-row">
+
+        <section class="grid-column">
+            <header>
+                <h2>%{page.sign_up.name}</h2>
+                <p>%{page.sign_up.desc}</p>
+            </header>
+            <a class="btn btn-large margin-10px" href="@{search-school.region}">
+                <i class="mdi mdi-size-large mdi-account-plus"></i>
+            </a>
+        </section>
+
+        <section class="grid-column">
+            <header>
+                <h2>%{page.placement.name}</h2>
+                <p>%{page.placement.desc}</p>
+            </header>
+            <a class="btn btn-large margin-10px" href="@{user.scan}">
+                <i class="mdi mdi-size-large mdi-file-document-edit-outline"></i>
+            </a>
+        </section>
+
+    </div>
 </div>
-<style>
-    section.column {
-        display: flex;
-        flex-flow: column;
-        height: 100%;
-    }
-
-    section.column header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-flow: column;
-
-        padding: 20px 0;
-    }
-
-    section.column header h2, p {
-        margin: 0;
-    }
-</style>

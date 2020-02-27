@@ -1,43 +1,46 @@
 <!DOCTYPE html>
-<html lang="${page.lang}">
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>%{page.name}</title>
 
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="${url.static}/css/theme.css"/>
-    <link rel="stylesheet" href="${url.static}/css/style.css"/>
-    <link rel="stylesheet" href="${url.static}/css/header.css"/>
-    <link rel="stylesheet" href="${url.static}/css/button.css"/>
-    <link rel="stylesheet" href="${url.static}/css/layout.css"/>
-    <link rel="stylesheet" href="${url.static}/css/pagination.css"/>
-    <link rel="stylesheet" href="${url.static}/css/loading-panel.css"/>
-    <link rel="stylesheet" href="${url.static}/css/form.css"/>
-    <link rel="stylesheet" href="${url.static}/css/mdi.css"/>
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/layout.css">
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/header.css">
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/mdi.css">
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/utilities.css">
+
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/button.css">
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/grid.css">
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/form.css">
 
     <script type="application/javascript" src="${url.static}/js/app.js"></script>
     <script type="application/javascript" src="${url.static}/js/http.js"></script>
     <script type="application/javascript" src="${url.static}/js/barcode.js"></script>
+
+    <style>
+        :root {
+            --primary-color: #3f51b5;
+            --primary-color-light: #5c6bc0;
+            --primary-color-dark: #1a237e;
+
+            --secondary-color: #FAFAFA;
+            --secondary-color-dark: #C7C7C7;
+        }
+    </style>
 </head>
-<body onload="Cactus.init()">
-<input type="text" id="barcode-input" style="position: fixed; top:100%;">
-<div id="loading-panel" style="display: none">
-    <ul class="ripple-loader">
-        <li></li>
-        <li></li>
-    </ul>
-</div>
+<body class="grid-container" onload="Cactus.init()">
 <header id="app-header">
     <a id="app-back-btn" href="javascript:Cactus.back()">
-        <i class="mdi mdi-arrow-left-thick"></i>
+        <i class="mdi mdi-arrow-left-thick mdi-size-medium"></i>
     </a>
     <h1 id="app-title">%{page.name}</h1>
     <a id="app-home-btn" href="javascript:Cactus.home()">
-        <i class="mdi mdi-home"></i>
+        <i class="mdi mdi-home mdi-size-medium"></i>
     </a>
 </header>
-<section id="app-content">
+<section class="grid-container" id="app-container">
     ${page.content}
 </section>
 <script>

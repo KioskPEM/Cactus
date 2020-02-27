@@ -1,7 +1,10 @@
 <input type="hidden" id="parent-page" value="@{search-school.school-type|region=${route.region},department=${route.department}}">
-<div class="grid-container grid-2w full-size">
+<div class="grid-container text-center margin-10px">
     #{get_schools}
 </div>
-<ul class="pagination-list">
-    #{get_pagination}
-</ul>
+
+<div class="grid-container text-center" style="flex-grow: 0;justify-items: self-start">
+    <div class="grid-row">
+        #{get_pagination}
+    </div>
+</div>

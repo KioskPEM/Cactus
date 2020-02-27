@@ -1,18 +1,22 @@
-<div class="grid-container grid-2w full-size">
-    <a class="btn btn-expand" href="@{admin.update}">
-        <i class="mdi mdi-download"></i>
-        <span>%{page.actions.update}</span>
-    </a>
-    <a class="btn btn-expand" href="@{admin.ticket}">
-        <i class="mdi mdi-printer"></i>
-        <span>%{page.actions.print_ticket}</span>
-    </a>
-    <a class="btn btn-expand" href="@{admin.action|action=set_presentation_mode}">
-        <i class="mdi mdi-home"></i>
-        <span>%{page.actions.presentation_mode}</span>
-    </a>
-    <a class="btn btn-expand" href="@{admin.action|action=set_sign_up_mode}">
-        <i class="mdi mdi-account"></i>
-        <span>%{page.actions.sign-up_mode}</span>
-    </a>
+<div class="grid-container text-center margin-10px">
+    <div class="grid-row">
+        <a class="btn btn-large margin-10px" href="@{admin.update}">
+            <i class="btn-icon mdi mdi-download"></i>
+            <span>%{page.actions.update}</span>
+        </a>
+        <a class="btn btn-large margin-10px" href="@{admin.ticket}">
+            <i class="btn-icon mdi mdi-printer"></i>
+            <span>%{page.actions.print_ticket}</span>
+        </a>
+    </div>
+    <div class="grid-row">
+        <a class="btn btn-large margin-10px" href="@{admin.action|action=set_presentation_mode}">
+            <i class="btn-icon mdi mdi-home"></i>
+            <span>%{page.actions.presentation_mode}</span>
+        </a>
+        <a class="btn btn-large margin-10px" href="@{admin.action|action=set_sign_up_mode}">
+            <i class="btn-icon mdi mdi-account"></i>
+            <span>%{page.actions.sign-up_mode}</span>
+        </a>
+    </div>
 </div>
