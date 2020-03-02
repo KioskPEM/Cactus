@@ -4,10 +4,14 @@
 <div class="grid-container text-center margin-10px">
     <div class="grid-row">
         <section class="grid-column">
-            <p>%{page.info}</p>
+            <p class="text-left">%{page.info.header}</p>
+            <ul class="text-left">
+                <li>%{page.info.entry_1}</li>
+            </ul>
+            <p class="text-underline">%{page.warning}</p>
         </section>
         <section class="grid-column">
-            <a class="btn btn-large margin-20px" href="@{user.scan}">
+            <a class="btn btn-large margin-20px" href="@{user.edit|user_id=${route.user_id},action=set_placement}">
                 <h2>%{page.actions.ask_placement}</h2>
                 <i class="mdi mdi-size-large mdi-file-document-edit-outline"></i>
             </a>

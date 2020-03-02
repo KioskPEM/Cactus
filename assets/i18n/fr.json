@@ -47,9 +47,13 @@
     "user": {
       "profile": {
         "name": "Mon profil",
-        "info" : "",
+        "info": {
+          "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activitées :",
+          "entry_1": "Manipulation de matériel"
+        },
+        "warning" : "L'inscription au mini-stage est à titre indicatif, vous serez recontactez par l'établissebement pour officialiser la demande",
         "actions": {
-          "ask_placement": "Participer au mini-stage"
+          "ask_placement": "Participer à un mini-stage"
         }
       },
       "scan": {

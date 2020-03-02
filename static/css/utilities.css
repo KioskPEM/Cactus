@@ -38,6 +38,9 @@
 .text-right {
     text-align: right !important;
 }
+.text-underline {
+    text-decoration: underline;
+}
 
 /*
  * Flex-related rules
