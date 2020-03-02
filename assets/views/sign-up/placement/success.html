@@ -1,0 +1,37 @@
+<div class="grid-container">
+    <div class="grid-column">
+        <header class="text-center">
+            <h2>%{page.header}</h2>
+            <p>%{page.desc}</p>
+            <p>%{page.warning}</p>
+        </header>
+    </div>
+    <div class="grid-column container-small">
+        <h2>%{page.redirect_timer}</h2>
+        <progress value="0" id="progress-bar"></progress>
+    </div>
+</div>
+<script>
+    let timer = 10;
+    let progressBar = document.getElementById("progress-bar");
+    let timeLeft = document.getElementById("time-left");
+
+    let lastTime = 0;
+
+    function tick(time) {
+        timer -= (time - lastTime) / 1_000;
+        lastTime = time;
+
+        if(timer <= 0) {
+            Cactus.home();
+            return;
+        }
+
+        timeLeft.innerText = Math.ceil(timer).toString(10);
+        progressBar.value = timer / 10;
+
+        window.requestAnimationFrame(tick);
+    }
+
+    tick(0);
+</script>

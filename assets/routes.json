@@ -28,8 +28,14 @@
   "sign-up.register": {
     "path": "/sign-up/:school_id{\\d{7}[A-Z]}"
   },
-  "sign-up.thanks": {
-    "path": "/sign-up/thanks"
+  "sign-up.success": {
+    "path": "/sign-up/success"
+  },
+  "sign-up.placement.scan": {
+    "path": "/sign-up/placement/scan"
+  },
+  "sign-up.placement.success": {
+    "path": "/sign-up/placement/success"
   },
 
   "user.login": {
@@ -45,13 +51,6 @@
   "user.edit": {
     "path": "/user/:user_id{\\d+}/:action{[a-z_]+}",
     "endpoint": "Cactus\\Endpoint\\User\\UserEndpoint"
-  },
-  "user.profile": {
-    "path": "/user/:user_id{\\d+}",
-    "controller": "Cactus\\Controller\\User\\UserProfileController"
-  },
-  "user.scan": {
-    "path": "/user/scan"
   },
 
   "search-school.region": {

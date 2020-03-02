@@ -35,30 +35,34 @@
           "submit": "S'inscrire"
         }
       },
-      "thanks": {
+      "success": {
         "name": "Merci !",
-        "thanks": "Inscription terminée",
-        "home_page": "Retourner à l'accueil",
+        "registration_done": "Inscription terminée",
         "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes...",
         "dont_forget_ticket": "N'oubliez pas de récupérer votre ticket"
-      }
-    },
-
-    "user": {
-      "profile": {
-        "name": "Mon profil",
-        "info": {
-          "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activitées :",
-          "entry_1": "Manipulation de matériel"
-        },
-        "warning" : "L'inscription au mini-stage est à titre indicatif, vous serez recontactez par l'établissebement pour officialiser la demande",
-        "actions": {
-          "ask_placement": "Participer à un mini-stage"
-        }
       },
-      "scan": {
-        "name": "Scannez votre ticket",
-        "help": "Pour vous inscrire pour participer à l'un des mini-stages proposé, veuillez scannez votre ticket"
+      "placement": {
+        "scan": {
+          "name": "Scannez votre ticket",
+          "info": {
+            "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activitées :",
+            "entry_1": "Configuration de téléphonie IP",
+            "entry_2": "Manipulation de l'éléctonique embarqués",
+            "entry_3": "ELECTRICITE"
+          },
+          "warning": "L'inscription au mini-stage est à titre indicatif, vous serez recontactez par l'établissebement pour officialiser la demande",
+          "still_ok": "Si vous êtes intéréssé, ",
+          "actions": {
+            "ask_placement": "Participer à un mini-stage"
+          }
+        },
+        "success": {
+          "name": "Merci !",
+          "header": "Inscription terminée",
+          "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à l'un des mini-stages proposés",
+          "warning": "Vous serez recontacté par l'établissement pour officialiser la demande",
+          "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
+        }
       }
     },
 
