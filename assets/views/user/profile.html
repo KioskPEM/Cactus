@@ -1,5 +1,16 @@
-<h1>${route.user_id}</h1>
-<p>#{get_first_name} #{get_last_name}</p>
-<div class="grid-container grid-3w">
-    <a class="btn btn-expand" href="@{user.edit|user_id=${route.user_id},action=set_placement}">%{page.actions.ask_placement}</a>
+<img class="keep-ratio" draggable="false" src="${url.static}/img/logo.png" alt="Logo PEM">
+
+<h2 class="text-center">#{get_first_name} #{get_last_name}</h2>
+<div class="grid-container text-center margin-10px">
+    <div class="grid-row">
+        <section class="grid-column">
+            <p>%{page.info}</p>
+        </section>
+        <section class="grid-column">
+            <a class="btn btn-large margin-20px" href="@{user.scan}">
+                <h2>%{page.actions.ask_placement}</h2>
+                <i class="mdi mdi-size-large mdi-file-document-edit-outline"></i>
+            </a>
+        </section>
+    </div>
 </div>

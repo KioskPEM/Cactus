@@ -39,6 +39,7 @@
         "name": "Merci !",
         "thanks": "Inscription terminée",
         "home_page": "Retourner à l'accueil",
+        "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes...",
         "dont_forget_ticket": "N'oubliez pas de récupérer votre ticket"
       }
     },
@@ -46,6 +47,7 @@
     "user": {
       "profile": {
         "name": "Mon profil",
+        "info" : "",
         "actions": {
           "ask_placement": "Participer au mini-stage"
         }
