@@ -23,6 +23,9 @@
 .margin-20px {
     margin: 20px !important;
 }
+.margin-50px {
+    margin: 50px !important;
+}
 
 /**
  * Text related rules
@@ -40,6 +43,9 @@
 }
 .text-underline {
     text-decoration: underline !important;
+}
+.text-italic {
+    font-style: italic !important;
 }
 
 /*

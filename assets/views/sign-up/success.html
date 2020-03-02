@@ -1,22 +1,15 @@
 <div class="grid-container">
-
     <div class="grid-column content-center">
         <header class="text-center">
+            <i class="mdi mdi-check-bold mdi-size-medium"></i>
             <h2>%{page.header}</h2>
-            <p>%{page.desc}</p>
+            <p class="text-italic">%{page.dont_forget_ticket}</p>
         </header>
     </div>
-    <div class="grid-column content-center container-small flex-no-grow">
+    <div class="grid-column content-center flex-no-grow margin-50px">
         <h2>%{page.redirect_timer}</h2>
         <progress value="0" id="progress-bar"></progress>
     </div>
-    <div class="grid-column content-center flex-no-grow">
-        <div class="grid-row content-center">
-            <h2 class="text-right flex-center">%{page.dont_forget_ticket}</h2>
-            <i class="mdi mdi-arrow-bottom-right mdi-size-large"></i>
-        </div>
-    </div>
-
 </div>
 <script>
     let timer = 10;

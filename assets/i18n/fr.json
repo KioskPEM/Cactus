@@ -38,9 +38,8 @@
       "success": {
         "name": "Merci !",
         "header": "Inscription terminée",
-        "desc": "grgeh",
-        "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes...",
-        "dont_forget_ticket": "N'oubliez pas de récupérer votre ticket"
+        "dont_forget_ticket": "N'oubliez pas de récupérer votre ticket",
+        "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
       },
       "placement": {
         "scan": {
@@ -60,8 +59,8 @@
         "success": {
           "name": "Merci !",
           "header": "Inscription terminée",
-          "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à l'un des mini-stages proposés",
-          "warning": "Vous serez recontacté par l'établissement pour officialiser la demande",
+          "desc": "Vous êtes maintenant dans la file d'attente pour participer à l'un des mini-stages proposés",
+          "warning": "N'oubliez pas, ceci reste une inscription à titre indicatif, vous serez contacté par l'établissement pour officialiser l'inscription",
           "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
         }
       }

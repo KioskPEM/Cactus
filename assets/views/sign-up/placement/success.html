@@ -1,12 +1,13 @@
 <div class="grid-container">
-    <div class="grid-column content-center">
+    <div class="grid-column content-center container-small">
         <header class="text-center">
+            <i class="mdi mdi-check-bold mdi-size-medium"></i>
             <h2>%{page.header}</h2>
             <p>%{page.desc}</p>
-            <p>%{page.warning}</p>
+            <p class="text-italic">%{page.warning}</p>
         </header>
     </div>
-    <div class="grid-column content-center container-small">
+    <div class="grid-column content-center flex-no-grow margin-50px">
         <h2>%{page.redirect_timer}</h2>
         <progress value="0" id="progress-bar"></progress>
     </div>
