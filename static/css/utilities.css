@@ -6,7 +6,7 @@
 }
 
 .invisible {
-    opacity: 0;
+    opacity: 0 !important;
 }
 
 /*
@@ -39,13 +39,13 @@
     text-align: right !important;
 }
 .text-underline {
-    text-decoration: underline;
+    text-decoration: underline !important;
 }
 
 /*
  * Flex-related rules
  */
-.flex-grow-0 {
+.flex-no-grow {
     flex-grow: 0 !important;
 }
 
@@ -56,4 +56,8 @@
 .flex-center {
     justify-self: center !important;
     align-self: center !important;
+}
+
+.content-center {
+    justify-content: center !important;
 }

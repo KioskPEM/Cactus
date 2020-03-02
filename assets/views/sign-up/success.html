@@ -1,23 +1,20 @@
 <div class="grid-container">
 
-    <div class="grid-column">
-        <header>
-            <h2>%{page.registration_done}</h2>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non dolor suscipit, dictum metus vel, placerat diam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ante lectus, sodales in semper ac, accumsan eget libero. Etiam ornare tempus facilisis. Suspendisse laoreet aliquam nulla non vestibulum. In eu placerat metus, et viverra est. Nullam id aliquet turpis. Nam viverra est nunc, sit amet bibendum mauris convallis id. Vestibulum congue sed lorem at porttitor. Nam est ante, pretium eget hendrerit ac, aliquet non lorem. Fusce dictum fermentum fringilla. Nullam non justo euismod nisl eleifend eleifend. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur maximus, massa condimentum vestibulum dignissim, leo augue congue augue, sed congue purus ipsum et sapien. Aenean vestibulum, tellus vel imperdiet interdum, urna orci tempor magna, nec facilisis mauris tellus consectetur nulla.
-            </p>
+    <div class="grid-column content-center">
+        <header class="text-center">
+            <h2>%{page.header}</h2>
+            <p>%{page.desc}</p>
         </header>
     </div>
-    <div class="grid-column container-small">
+    <div class="grid-column content-center container-small flex-no-grow">
         <h2>%{page.redirect_timer}</h2>
         <progress value="0" id="progress-bar"></progress>
     </div>
-
-    <div class="grid-row">
-        <header class="full-size" id="ticket-reminder">
-            <h2>%{page.dont_forget_ticket}</h2>
-        </header>
-        <i class="mdi mdi-arrow-bottom-right mdi-size-large"></i>
+    <div class="grid-column content-center flex-no-grow">
+        <div class="grid-row content-center">
+            <h2 class="text-right flex-center">%{page.dont_forget_ticket}</h2>
+            <i class="mdi mdi-arrow-bottom-right mdi-size-large"></i>
+        </div>
     </div>
 
 </div>
@@ -32,7 +29,7 @@
         timer -= (time - lastTime) / 1_000;
         lastTime = time;
 
-        if(timer <= 0) {
+        if (timer <= 0) {
             Cactus.home();
             return;
         }
@@ -43,5 +40,5 @@
         window.requestAnimationFrame(tick);
     }
 
-    tick(0);
+    //tick(0);
 </script>
