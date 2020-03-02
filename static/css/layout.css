@@ -25,6 +25,7 @@ body {
     background-color: var(--secondary-color);
 
     overflow: hidden;
+    user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
 }
