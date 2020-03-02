@@ -38,7 +38,7 @@ class UserEndpoint implements IRouteEndpoint
 
         $router = $route->getRouter();
         $urlBuilder = UrlBuilder::Instance();
-        $adminPage = $urlBuilder->build($router, "sign-up.index", $parameters);
+        $adminPage = $urlBuilder->build($router, "sign-up.placement.success", $parameters);
         header("Location: " . $adminPage, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
