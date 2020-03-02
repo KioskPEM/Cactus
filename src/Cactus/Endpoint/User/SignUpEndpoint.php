@@ -31,7 +31,7 @@ class SignUpEndpoint implements IRouteEndpoint
 
         $router = $route->getRouter();
         $urlBuilder = UrlBuilder::Instance();
-        $homePage = $urlBuilder->build($router, "sign-up.thanks", $parameters);
+        $homePage = $urlBuilder->build($router, "sign-up.success", $parameters);
         header("Location: " . $homePage, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
