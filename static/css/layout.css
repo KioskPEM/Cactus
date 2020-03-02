@@ -41,6 +41,10 @@ hr {
     border-bottom: 1px solid var(--secondary-color-dark);
 }
 
+progress {
+    width: 100%;
+}
+
 .container-small {
     width: 75%;
     max-width: 75%;
