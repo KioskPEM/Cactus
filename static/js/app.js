@@ -38,9 +38,9 @@ const Cactus = {
             this.home();
     },
     showLoadingPanel: function () {
-        let loadingPanel = document.getElementById("loading-panel");
+        let loadingPanel = document.getElementById("app-loader-container");
         if (loadingPanel !== null)
-            loadingPanel.style.display = "flex";
+            loadingPanel.style.display = "block";
     },
     resetIdleDelay: function () {
         if (Cactus.idleTimeoutId)

@@ -8,6 +8,7 @@
 
     <link type="text/css" rel="stylesheet" href="${url.static}/css/layout.css">
     <link type="text/css" rel="stylesheet" href="${url.static}/css/header.css">
+    <link type="text/css" rel="stylesheet" href="${url.static}/css/loader.css">
     <link type="text/css" rel="stylesheet" href="${url.static}/css/mdi.css">
     <link type="text/css" rel="stylesheet" href="${url.static}/css/utilities.css">
 
@@ -31,6 +32,13 @@
     </style>
 </head>
 <body class="grid-container" onload="Cactus.init()">
+<div id="app-loader-container" style="display: none;">
+    <div class="app-loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+    </div>
+</div>
 <header id="app-header">
     <a id="app-back-btn" href="javascript:Cactus.back()">
         <i class="mdi mdi-arrow-left-thick mdi-size-medium"></i>
