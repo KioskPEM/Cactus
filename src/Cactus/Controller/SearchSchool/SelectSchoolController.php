@@ -108,7 +108,7 @@ class SelectSchoolController implements ITemplateController
             ]);
             $output .= "<a class=\"btn\" href=\"$previousPage\"><i class='mdi mdi-arrow-left mdi-size-medium'></i></a>";
         } else
-            $output .= "<span></span>";
+            $output .= "<a class=\"btn invisible\" href=\"#\"><i class='mdi mdi-arrow-left mdi-size-medium'></i></a>";
 
         $output .= "<p>Page $currentPage / $pageCount</p>";
 
@@ -119,9 +119,9 @@ class SelectSchoolController implements ITemplateController
                 "school_type" => $schoolType,
                 "page" => $currentPage + 1
             ]);
-            $output .= "<a class=\"btn\" href=\"$nextPage\"><i class='mdi mdi mdi-arrow-right mdi-size-medium'></i></a>";
+            $output .= "<a class=\"btn\" href=\"$nextPage\"><i class='mdi mdi-arrow-right mdi-size-medium'></i></a>";
         } else
-            $output .= "<span></span>";
+            $output .= "<a class=\"btn invisible\" href=\"#\"><i class='mdi mdi-arrow-right mdi-size-medium'></i></a>";
 
         return $output;
     }

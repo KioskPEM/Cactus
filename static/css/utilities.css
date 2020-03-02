@@ -1,22 +1,31 @@
 /*
- * Misc styles
+ * Misc rules
  */
 .keep-ratio {
     object-fit: contain !important;
 }
 
+.invisible {
+    opacity: 0;
+}
+
+/*
+ * Margin-related rules
+ */
 .margin-5px {
     margin: 5px !important;
 }
+
 .margin-10px {
     margin: 10px !important;
 }
+
 .margin-20px {
     margin: 20px !important;
 }
 
 /**
- * Text related styles
+ * Text related rules
  */
 .text-left {
     text-align: left !important;
@@ -31,11 +40,12 @@
 }
 
 /*
- * Flex related styles
+ * Flex-related rules
  */
 .flex-grow-0 {
     flex-grow: 0 !important;
 }
+
 .flex-grow {
     flex-grow: 1 !important;
 }
