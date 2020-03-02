@@ -1,25 +1,26 @@
 {
-    "url": {
-        "format": "http:\/\/127.0.0.1:8080\/public\/index.php?lang=%s&path=%s",
-        "root": "http:\/\/127.0.0.1:8080\/public",
-        "static": "http:\/\/127.0.0.1:8080\/static"
-    },
-    "theme": {
-        "primary-color": "#3F51B5",
-        "primary-color-light": "#5C6BC0",
-        "primary-color-dark": "#1A237E",
-        "secondary-color": "#FAFAFA",
-        "secondary-color-dark": "#C7C7C7"
-    },
-    "database": {
-        "host": "",
-        "name": "",
-        "user": "",
-        "pass": ""
-    },
-    "home-page": "sign-up.index",
-    "printer": {
-        "connector": "Mike42\\Escpos\\PrintConnectors\\DummyPrintConnector",
-        "port": ""
-    }
+  "url": {
+    "format": "http:\/\/127.0.0.1:8080\/public\/index.php?lang=%s&path=%s",
+    "root": "http:\/\/127.0.0.1:8080\/public",
+    "static": "http:\/\/127.0.0.1:8080\/static"
+  },
+  "theme": {
+    "primary-color": "#3F51B5",
+    "primary-color-light": "#5C6BC0",
+    "primary-color-dark": "#1A237E",
+    "secondary-color": "#FAFAFA",
+    "secondary-color-dark": "#C7C7C7"
+  },
+  "database": {
+    "host": "",
+    "name": "",
+    "user": "",
+    "pass": ""
+  },
+  "home-page": "sign-up.index",
+  "update-endpoint": "https://github.com/TheWhoosher/Cactus/archive/master.zip",
+  "printer": {
+    "connector": "Mike42\\Escpos\\PrintConnectors\\DummyPrintConnector",
+    "port": ""
+  }
 }
