@@ -59,8 +59,8 @@ class SelectSchoolController implements ITemplateController
         $schoolIndex = 0;
         foreach ($schools as $school) {
 
-            if($schoolIndex % 2 == 0) {
-                if($schoolIndex > 0)
+            if ($schoolIndex % 2 == 0) {
+                if ($schoolIndex > 0)
                     $output .= "</div>";
                 $output .= "<div class='grid-row'>";
             }
@@ -92,8 +92,12 @@ class SelectSchoolController implements ITemplateController
         $departmentCode = $context->param("route.department");
         $schoolType = $context->param("route.school_type");
 
+        $pageCount = $this->schools->getPageCount();
+
         $hasPreviousPage = $currentPage > 1;
-        $hasNextPage = $currentPage < $this->schools->getPageCount();;
+        $hasNextPage = $currentPage < $pageCount;
+
+        $output = "";
 
         if ($hasPreviousPage) {
             $previousPage = $context->buildUrl("GET", "search-school.school", [
@@ -102,8 +106,11 @@ class SelectSchoolController implements ITemplateController
                 "school_type" => $schoolType,
                 "page" => $currentPage - 1
             ]);
+            $output .= "<a class=\"btn\" href=\"$previousPage\"><i class='mdi mdi-arrow-left mdi-size-medium'></i></a>";
         } else
-            $previousPage = "#";
+            $output .= "<span></span>";
+
+        $output .= "<p>Page $currentPage / $pageCount</p>";
 
         if ($hasNextPage) {
             $nextPage = $context->buildUrl("GET", "search-school.school", [
@@ -112,13 +119,10 @@ class SelectSchoolController implements ITemplateController
                 "school_type" => $schoolType,
                 "page" => $currentPage + 1
             ]);
+            $output .= "<a class=\"btn\" href=\"$nextPage\"><i class='mdi mdi mdi-arrow-right mdi-size-medium'></i></a>";
         } else
-            $nextPage = "#";
+            $output .= "<span></span>";
 
-
-        $output = "";
-        $output .= "<a class=\"btn\" href=\"$previousPage\"><i class='mdi mdi-arrow-left mdi-size-medium'></i></a>";
-        $output .= "<a class=\"btn\" href=\"$nextPage\"><i class='mdi mdi mdi-arrow-right mdi-size-medium'></i></a>";
         return $output;
     }
 }
