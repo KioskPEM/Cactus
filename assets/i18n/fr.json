@@ -22,7 +22,7 @@
           "desc": "Pour recevoir votre ticket"
         },
         "placement": {
-          "name": "Inscription mini-stage",
+          "name": "Préinscription mini-stage",
           "desc": "En scannant votre ticket"
         }
       },
@@ -43,24 +43,24 @@
       },
       "placement": {
         "scan": {
-          "name": "Scannez votre ticket",
+          "name": "Mini-stage",
           "info": {
-            "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activitées :",
-            "entry_1": "Configuration de téléphonie IP",
-            "entry_2": "Manipulation de l'éléctonique embarqués",
-            "entry_3": "ELECTRICITE"
+            "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers de diverses activitées :",
+            "entry_1": "Activité 1",
+            "entry_2": "Activité 2",
+            "entry_3": "Activité ..."
           },
-          "warning": "L'inscription au mini-stage est à titre indicatif, vous serez recontactez par l'établissebement pour officialiser la demande",
-          "still_ok": "Si vous êtes intéréssé, ",
+          "warning": "L'inscription au mini-stage est à titre indicatif, vous serez contactez ultérieurement par l'établissement pour officialiser la demande",
+          "help": "Pour confirmer l'inscription, scannez votre ticket",
           "actions": {
-            "ask_placement": "Participer à un mini-stage"
+            "ask_placement": "Préinscription mini-stage"
           }
         },
         "success": {
           "name": "Merci !",
           "header": "Inscription terminée",
-          "desc": "Vous êtes maintenant dans la file d'attente pour participer à l'un des mini-stages proposés",
-          "warning": "N'oubliez pas, ceci reste une inscription à titre indicatif, vous serez contacté par l'établissement pour officialiser l'inscription",
+          "desc": "Vous êtes maintenant préinscrit pour participer à un mini-stage",
+          "warning": "N'oubliez pas, ceci n'est pas une inscription officielle",
           "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
         }
       }
