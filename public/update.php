@@ -3,8 +3,6 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATO
 
 use Cactus\Util\AppConfiguration;
 
-const APP_URL = "https://github.com/TheWhoosher/Cactus/archive/master.zip";
-
 function clean()
 {
     global $extractedFolder;
@@ -79,10 +77,12 @@ if (file_exists($archivePath)) {
     unlink($archivePath);
 }
 
+$config = AppConfiguration::Instance();
+
 /** @var false|resource $ch */
 $curlHandler = curl_init();
 curl_setopt_array($curlHandler, [
-    CURLOPT_URL => APP_URL,
+    CURLOPT_URL => $config->get("update-endpoint"),
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_BINARYTRANSFER => true,
     CURLOPT_FOLLOWLOCATION => true,
@@ -117,12 +117,9 @@ if (!$zipArchive->extractTo($tmpDir)) {
 /** @var string $extractedFolder */
 $extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
 
-$config = AppConfiguration::Instance();
-
-
 // load the current config
 /** @var array $savedConfig */
-$savedConfig = $config->getConfig();;
+$savedConfig = $config->getConfig();
 
 // move all the extracted files to the production directory
 $extractedFiles = scandir($extractedFolder);
