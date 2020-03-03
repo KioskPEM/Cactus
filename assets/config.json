@@ -12,10 +12,10 @@
     "secondary-color-dark": "#C7C7C7"
   },
   "database": {
-    "host": "",
-    "name": "",
-    "user": "",
-    "pass": ""
+    "host": "192.168.2.230",
+    "name": "kiosk-pem",
+    "user": "kiosk-user",
+    "pass": "Ai956kYhG"
   },
   "home-page": "sign-up.index",
   "update-endpoint": "https://github.com/TheWhoosher/Cactus/archive/master.zip",
