@@ -29,6 +29,9 @@ class AdminEndpoint implements IRouteEndpoint
                 $config->set("home-page", "sign-up.index");
                 $config->save();
                 break;
+            case "set_slideshow_mode":
+                header("Location: https://drive.google.com/file/d/1_i9u8hEeFmCYvRE7fRR-QBDYYzZzrCGj/view?usp=sharing", true, HttpCode::REDIRECT_SEE_OTHER);
+                return "";
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }

@@ -67,3 +67,6 @@
 .content-center {
     justify-content: center !important;
 }
+.content-spread {
+    justify-content: space-between !important;
+}

@@ -4,16 +4,12 @@
       "name": "Erreur",
       "help": "Une erreur est survenue"
     },
-
     "presentation": {
       "index": {
         "name": "Bienvenue",
         "help": "Veuillez sélectionner une option ci-dessous"
       }
     },
-
-
-
     "sign-up": {
       "index": {
         "name": "Bienvenue",
@@ -46,9 +42,9 @@
           "name": "Mini-stage",
           "info": {
             "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers de diverses activitées :",
-            "entry_1": "Activité 1",
-            "entry_2": "Activité 2",
-            "entry_3": "Activité ..."
+            "entry_1": "Téléphonie",
+            "entry_2": "Montage Arduino",
+            "entry_3": "Virtualisation de système d'exploitation"
           },
           "warning": "L'inscription au mini-stage est à titre indicatif, vous serez contactez ultérieurement par l'établissement pour officialiser la demande",
           "help": "Pour confirmer l'inscription, scannez votre ticket",
@@ -65,7 +61,6 @@
         }
       }
     },
-
     "search-school": {
       "region": {
         "name": "Séléctionnez votre region"
@@ -84,7 +79,6 @@
         "name": "Séléctionnez votre établissement"
       }
     },
-
     "admin": {
       "index": {
         "name": "Administration",
