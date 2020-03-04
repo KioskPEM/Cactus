@@ -59,6 +59,9 @@ class I18nManager
             return $key;
 
         if (is_array($value)) {
+            if (count($value) == 1)
+                return $value[0];
+
             $temp = '';
             foreach ($value as $entry)
                 $temp .= $entry . $lineDelimiter;

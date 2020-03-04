@@ -62,18 +62,18 @@ class UserTicket
         $printer->text($welcomeText);
         $printer->feed(2);
 
-        $ticketText = $i18nManager->translate($lang, "ticket.text", '\n');
+        $ticketText = $i18nManager->translate($lang, "ticket.text");
         $printer->text($ticketText);
         $printer->feed(2);
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
         $barCodeContent = "USER-" . $uniqueId;
-        $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);;
+        $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
         $printer->feed(2);
 
         $printer->setTextSize(2, 2);
-        $haveFuntext = $i18nManager->translate($lang, "ticket.have_fun");
-        $printer->text($haveFuntext);
+        $haveFunText = $i18nManager->translate($lang, "ticket.have_fun");
+        $printer->text($haveFunText);
     }
 }
