@@ -4,14 +4,12 @@
 namespace Cactus\User;
 
 
+use Cactus\I18n\I18nManager;
+use Cactus\Util\ClientRequest;
 use Mike42\Escpos\Printer;
 
 class UserTicket
 {
-    private const HEADER_LINE_1 = "Lycée";
-    private const HEADER_LINE_2 = "Pierre Emile Martin";
-    private const WELCOME_LINE = "Bienvenue %s %s, ";
-
     private User $user;
 
     /**
@@ -26,13 +24,19 @@ class UserTicket
 
     public function printTicket(Printer $printer)
     {
+        $i18nManager = I18nManager::Instance();
+        $clientRequest = ClientRequest::Instance();
+        $lang = $clientRequest->getLang();
+
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
         $printer->setTextSize(4, 4);
-        $printer->text(self::HEADER_LINE_1);
+        $headerLine1 = $i18nManager->translate($lang, "ticket.header_1");
+        $printer->text($headerLine1);
         $printer->feed();
         $printer->setTextSize(2, 2);
-        $printer->text(self::HEADER_LINE_2);
+        $headerLine2 = $i18nManager->translate($lang, "ticket.header_2");
+        $printer->text($headerLine2);
 
         $printer->feed(4);
 
@@ -42,7 +46,8 @@ class UserTicket
 
         $printer->setTextSize(1, 1);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
-        $welcomeText = sprintf(self::WELCOME_LINE, $firstName, $lastName);
+        $welcomeText = $i18nManager->translate($lang, "ticket.welcome");
+        $welcomeText = sprintf($welcomeText, $firstName, $lastName);
         $printer->text($welcomeText);
         $printer->feed(2);
 

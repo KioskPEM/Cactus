@@ -22,14 +22,12 @@ class TemplateManager implements IRouteEndpoint
 
     private array $params;
 
-    private I18nManager $i18nManager;
     private array $templates;
     private array $renderPasses;
 
     public function __construct(array $params)
     {
         $this->params = $params;
-        $this->i18nManager = new I18nManager();
         $this->templates = [];
         $this->renderPasses = [];
     }
@@ -87,12 +85,14 @@ class TemplateManager implements IRouteEndpoint
         $template = $this->load($templateName);
 
         $lang = $request->getLang();
-        $i18n = $this->i18nManager->load($lang);
+
+        $i18nManager = I18nManager::Instance();
+        $i18n = $i18nManager->load($lang);
 
         // set-up the render context
         $context = new RenderContext(
             $route->getRouter(),
-            $i18n,
+            $lang,
             $this->params
         );
         $context->append([

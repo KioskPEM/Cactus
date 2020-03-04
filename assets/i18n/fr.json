@@ -121,5 +121,10 @@
         "name": "Bubulator"
       }
     }
+  },
+  "ticket": {
+    "header_1": "Lycée",
+    "header_2": "Pierre Emile Martin",
+    "welcome": "Bienvenue %s %s,"
   }
 }

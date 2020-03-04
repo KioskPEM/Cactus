@@ -4,10 +4,23 @@ namespace Cactus\I18n;
 
 
 use Cactus\I18n\Exception\LanguageNotFoundException;
+use Cactus\Util\ArrayPath;
 
 class I18nManager
 {
     private array $languages = [];
+
+    private function __construct()
+    {
+    }
+
+    public static function Instance(): I18nManager
+    {
+        static $inst = null;
+        if ($inst === null)
+            $inst = new I18nManager();
+        return $inst;
+    }
 
     private function resolvePath(string $lang): string
     {
@@ -30,6 +43,29 @@ class I18nManager
 
         $content = file_get_contents($path);
         return $this->languages[$lang] = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+    }
+
+    public function translate(string $lang, string $key)
+    {
+        try {
+            $data = $this->load($lang);
+        } catch (LanguageNotFoundException $e) {
+            return $key;
+        }
+
+        $value = ArrayPath::get($data, $key);
+
+        if (!$value)
+            return $key;
+
+        if (is_array($value)) {
+            $temp = '';
+            foreach ($value as $entry)
+                $temp .= $entry . '<br>';
+            $value = $temp;
+        }
+
+        return $value;
     }
 
 }

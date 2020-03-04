@@ -3,6 +3,7 @@
 
 namespace Cactus\Template\Render;
 
+use Cactus\I18n\I18nManager;
 use Cactus\Routing\IRouteBuilder;
 use Cactus\Util\AppConfiguration;
 use Cactus\Util\ArrayPath;
@@ -11,7 +12,7 @@ use Cactus\Util\ClientRequest;
 class RenderContext implements IRouteBuilder
 {
     private IRouteBuilder $routeBuilder;
-    private array $i18n;
+    private string $lang;
     private array $params;
 
     /**
@@ -20,10 +21,10 @@ class RenderContext implements IRouteBuilder
      * @param array $i18n
      * @param array $params
      */
-    public function __construct(IRouteBuilder $routeBuilder, array $i18n, array $params = [])
+    public function __construct(IRouteBuilder $routeBuilder, string $lang, array $params = [])
     {
         $this->routeBuilder = $routeBuilder;
-        $this->i18n = $i18n;
+        $this->lang = $lang;
         $this->params = $params;
     }
 
@@ -58,18 +59,7 @@ class RenderContext implements IRouteBuilder
 
     public function translate(string $key): string
     {
-        $value = ArrayPath::get($this->i18n, $key);
-
-        if (!$value)
-            return $key;
-
-        if (is_array($value)) {
-            $temp = '';
-            foreach ($value as $entry)
-                $temp .= $entry . '<br>';
-            $value = $temp;
-        }
-
-        return $value;
+        $i18nManager = I18nManager::Instance();
+        return $i18nManager->translate($this->lang, $key);
     }
 }
