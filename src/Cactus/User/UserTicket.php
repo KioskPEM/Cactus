@@ -40,7 +40,7 @@ class UserTicket
             $printer->feed();
         }
 
-        $printer->setTextSize(4, 4);
+        $printer->setTextSize(3, 3);
         $headerLine1 = $i18nManager->translate($lang, "ticket.header_1");
         $printer->text($headerLine1);
         $printer->feed();
