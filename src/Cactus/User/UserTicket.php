@@ -32,7 +32,7 @@ class UserTicket
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
         try {
-            $logo = EscposImage::load(STATIC_PATH . "img" . DIRECTORY_SEPARATOR . "logo.png");
+            $logo = EscposImage::load(ASSET_PATH . "img" . DIRECTORY_SEPARATOR . "school.png");
             $printer->bitImage($logo);
             $printer->feed();
         } catch (\Exception $e) {
@@ -67,7 +67,13 @@ class UserTicket
         $printer->feed(2);
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
+
         $barCodeContent = "USER-" . $uniqueId;
-        $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
+        $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);;
+        $printer->feed(2);
+
+        $printer->setTextSize(2, 2);
+        $haveFuntext = $i18nManager->translate($lang, "ticket.have_fun");
+        $printer->text($haveFuntext);
     }
 }
