@@ -46,9 +46,14 @@ class UserTicket
 
         $printer->setTextSize(1, 1);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
+
         $welcomeText = $i18nManager->translate($lang, "ticket.welcome");
         $welcomeText = sprintf($welcomeText, $firstName, $lastName);
         $printer->text($welcomeText);
+        $printer->feed(2);
+
+        $ticketText = $i18nManager->translate($lang, "ticket.text");
+        $printer->text($ticketText);
         $printer->feed(2);
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);

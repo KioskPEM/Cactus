@@ -45,7 +45,7 @@ class I18nManager
         return $this->languages[$lang] = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
     }
 
-    public function translate(string $lang, string $key)
+    public function translate(string $lang, string $key, string $lineDelimiter = "<br>")
     {
         try {
             $data = $this->load($lang);
@@ -61,7 +61,7 @@ class I18nManager
         if (is_array($value)) {
             $temp = '';
             foreach ($value as $entry)
-                $temp .= $entry . '<br>';
+                $temp .= $entry . $lineDelimiter;
             $value = $temp;
         }
 
