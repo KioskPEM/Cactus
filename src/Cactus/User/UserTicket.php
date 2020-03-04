@@ -68,12 +68,12 @@ class UserTicket
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
-        $barCodeContent = "USER-" . $uniqueId;
-        $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
-        $printer->feed(2);
-
         $printer->setTextSize(2, 2);
         $haveFunText = $i18nManager->translate($lang, "ticket.have_fun");
         $printer->text($haveFunText);
+        $printer->feed(4);
+
+        $barCodeContent = "USER-" . $uniqueId;
+        $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
     }
 }
