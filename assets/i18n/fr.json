@@ -13,6 +13,7 @@
     "sign-up": {
       "index": {
         "name": "Bienvenue en Système Numérique",
+        "created_by": "Réalise par :",
         "sign_up": {
           "name": "Inscrivez-vous",
           "desc": "Pour recevoir votre ticket"
