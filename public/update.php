@@ -101,7 +101,7 @@ foreach ($files as $file) {
         report(500, "Unknown status: " . $status);
 }
 
-$lastCommit = $differences["commits"][-1];
+$lastCommit = end($differences["commits"]);
 $lastCommitId = $lastCommit["sha"];
 JsonUtil::write(RELEASE_PATH, [
     "id" => $lastCommitId
