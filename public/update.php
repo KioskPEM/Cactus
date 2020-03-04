@@ -1,31 +1,14 @@
 <?php
 require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATOR . "bootstrap.php";
 
+use Cactus\Exception\FileException;
 use Cactus\Util\AppConfiguration;
+use Cactus\Util\JsonUtil;
 
-function clean()
-{
-    global $extractedFolder;
-    if (file_exists($extractedFolder))
-        recursive_rmdir($extractedFolder);
-
-    global $zipArchive;
-    if (isset($zipArchive))
-        $zipArchive->close();
-
-    global $curlHandler;
-    if (isset($curlHandler))
-        curl_close($curlHandler);
-
-    global $archivePath;
-    if (file_exists($archivePath))
-        unlink($archivePath);
-}
+define("RELEASE_PATH", ASSET_PATH . "release.json");
 
 function report(int $code, string $message)
 {
-    clean();
-
     http_response_code($code);
     header('Content-Type: application/json');
     echo json_encode([
@@ -34,101 +17,99 @@ function report(int $code, string $message)
     die($code === 200 ? 0 : 1);
 }
 
-function recursive_rmdir($dir): bool
+function download($url)
 {
-    if (is_file($dir))
-        return unlink($dir);
+    /** @var false|resource $ch */
+    $curlHandler = curl_init();
+    curl_setopt_array($curlHandler, [
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_BINARYTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_USERAGENT => "Cactus",
+        CURLOPT_CONNECTTIMEOUT => 60,
+        CURLOPT_TIMEOUT => 60
+    ]);
 
-    if (is_dir($dir)) {
-        $files = scandir($dir);
-        foreach ($files as $file) {
-            if ($file != "." && $file != "..")
-                recursive_rmdir("$dir/$file");
-        }
-        rmdir($dir);
+    /** @var bool|string $downloadData */
+    $downloadData = curl_exec($curlHandler);
+    if (!$downloadData) {
+        $error = curl_error($curlHandler);
+        report(500, "Unable to retrieve " . $url . ": " . $error);
     }
 
-    return true;
+    curl_close($curlHandler);
+    return $downloadData;
 }
 
-function recursive_move($src, $dst)
+
+function downloadFile($url, $destination)
 {
-    if (is_dir($src)) {
+    $fileHandler = fopen($destination, "w");
+    if (!$fileHandler)
+        report(500, "Unable to open file handler: " . $destination);
 
-        if (!file_exists($dst))
-            mkdir($dst);
+    /** @var false|resource $ch */
+    $curlHandler = curl_init();
+    curl_setopt_array($curlHandler, [
+        CURLOPT_URL => $url,
+        CURLOPT_FILE => $fileHandler,
+        CURLOPT_BINARYTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_USERAGENT => "Cactus",
+        CURLOPT_CONNECTTIMEOUT => 60,
+        CURLOPT_TIMEOUT => 60
+    ]);
 
-        $files = scandir($src);
-        foreach ($files as $file) {
-            if ($file != "." && $file != "..")
-                recursive_move("$src/$file", "$dst/$file");
-        }
+    if (!curl_exec($curlHandler)) {
+        curl_close($curlHandler);
+        fclose($fileHandler);
 
-    } else if (is_file($src))
-        rename($src, $dst);
+        $error = curl_error($curlHandler);
+        report(500, "Unable to retrieve " . $url . ": " . $error);
+    }
+
+    curl_close($curlHandler);
+    fclose($fileHandler);
 }
 
-/** @var string $tmpDir */
-$tmpDir = sys_get_temp_dir();
-
-/** @var string $archivePath */
-$archivePath = tempnam($tmpDir, "Cactus");
-if (file_exists($archivePath)) {
-    unlink($archivePath);
+try {
+    $releaseInfo = JsonUtil::read(RELEASE_PATH);
+    $currentVersion = $releaseInfo["id"];
+} catch (FileException $e) {
+    report(500, "Unable to read release.json");
 }
 
-$config = AppConfiguration::Instance();
+$compareUrl = "https://api.github.com/repos/TheWhoosher/Cactus/compare/" . $currentVersion . "...master";
+$rawDifferences = download($compareUrl);
+$differences = JsonUtil::decode($rawDifferences);
+$files = $differences["files"];
 
-/** @var false|resource $ch */
-$curlHandler = curl_init();
-curl_setopt_array($curlHandler, [
-    CURLOPT_URL => $config->get("update-endpoint"),
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_BINARYTRANSFER => true,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_SSL_VERIFYHOST => false,
-    CURLOPT_SSL_VERIFYPEER => false,
-    CURLOPT_USERAGENT => "Cactus",
-    CURLOPT_CONNECTTIMEOUT => 60,
-    CURLOPT_TIMEOUT => 60
+foreach ($files as $file) {
+    $status = $file["status"];
+    $fileName = $file["filename"];
+    $filePath = ROOT . $fileName;
+    if ($status === "removed")
+        unlink($filePath);
+    else if ($status === "renamed") {
+        $previousFilename = $file["previous_filename"];
+        rename(ROOT . $previousFilename, $filePath);
+    } else if ($status === "added" || $status === "modified") {
+        $contentUrl = $file["raw_url"];
+        downloadFile($contentUrl, $filePath);
+    } else
+        report(500, "Unknown status: " . $status);
+}
+
+$lastCommit = $differences["commits"][-1];
+$lastCommitId = $lastCommit["sha"];
+JsonUtil::write(RELEASE_PATH, [
+    "id" => $lastCommitId
 ]);
 
-/** @var bool|string $downloadData */
-$downloadData = curl_exec($curlHandler);
-if (!$downloadData) {
-    $error = curl_error($curlHandler);
-    report(500, "Unable to download the latest version of Cactus: " . $error);
-}
-
-if (!file_put_contents($archivePath, $downloadData)) {
-    report(500, "Unable to save the archive to the disk.");
-}
-
-/** @var ZipArchive $zipArchive */
-$zipArchive = new ZipArchive();
-if (!$zipArchive->open($archivePath)) {
-    report(500, "Unable to open the zip archive. The download is probably corrupted.");
-}
-
-if (!$zipArchive->extractTo($tmpDir)) {
-    report(500, "Unable to extract the zip archive. It's probably permission-related?");
-}
-
-/** @var string $extractedFolder */
-$extractedFolder = $tmpDir . DIRECTORY_SEPARATOR . "Cactus-master" . DIRECTORY_SEPARATOR;
-
-// load the current config
-/** @var array $savedConfig */
-$savedConfig = $config->getConfig();
-
-// move all the extracted files to the production directory
-$extractedFiles = scandir($extractedFolder);
-foreach ($extractedFiles as $file) {
-    if ($file !== '.' && $file !== "..")
-        recursive_move($extractedFolder . $file, ROOT . $file);
-}
-
 // save the overwritten config
+$config = AppConfiguration::Instance();
+$savedConfig = $config->getConfig();
 $config->reload();
 $config->apply($savedConfig);
 $config->save();
