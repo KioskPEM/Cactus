@@ -6,10 +6,19 @@ namespace Cactus\Util;
 
 use Cactus\Exception\FileException;
 
-class JsonFile
+class JsonUtil
 {
     private function __construct()
     {
+    }
+
+    /**
+     * @param string $json
+     * @return array|false
+     */
+    public static function decode(string $json): array
+    {
+        return json_decode($json, true, 512, JSON_THROW_ON_ERROR);
     }
 
     /**

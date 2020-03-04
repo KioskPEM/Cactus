@@ -56,12 +56,12 @@ class AppConfiguration
 
     public function save(): bool
     {
-        return JsonFile::write(self::CONFIG_PATH, $this->config);
+        return JsonUtil::write(self::CONFIG_PATH, $this->config);
     }
 
     public function reload(): bool
     {
-        $config = JsonFile::read(self::CONFIG_PATH);
+        $config = JsonUtil::read(self::CONFIG_PATH);
         if ($config) {
             $this->config = $config;
             return true;

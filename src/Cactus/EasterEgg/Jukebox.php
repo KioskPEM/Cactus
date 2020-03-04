@@ -6,7 +6,7 @@ namespace Cactus\EasterEgg;
 
 use Cactus\Database\CsvDatabase;
 use Cactus\Exception\FileException;
-use Cactus\Util\JsonFile;
+use Cactus\Util\JsonUtil;
 
 class Jukebox
 {
@@ -57,7 +57,7 @@ class Jukebox
         $songDatabase->close();
 
         if (is_file(self::SONG_PATH)) {
-            $this->currentSong = JsonFile::read(self::SONG_PATH);
+            $this->currentSong = JsonUtil::read(self::SONG_PATH);
         }
     }
 
@@ -93,7 +93,7 @@ class Jukebox
             "id" => $index,
             "pid" => $pid
         ];
-        return JsonFile::write(self::SONG_PATH, $this->currentSong);
+        return JsonUtil::write(self::SONG_PATH, $this->currentSong);
     }
 
     public function stop()

@@ -11,7 +11,7 @@ use Cactus\Template\Render\Pass\UrlPass;
 use Cactus\Template\TemplateManager;
 use Cactus\Util\AppConfiguration;
 use Cactus\Util\ClientRequest;
-use Cactus\Util\JsonFile;
+use Cactus\Util\JsonUtil;
 
 try {
 
@@ -40,7 +40,7 @@ try {
 
     $templateEngine->registerTemplate("layout");
 
-    $routes = JsonFile::read(ASSET_PATH . "routes.json");
+    $routes = JsonUtil::read(ASSET_PATH . "routes.json");
     foreach ($routes as $name => $entry) {
         $method = $entry["method"] ?? "GET";
         $path = $entry["path"];
