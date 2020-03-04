@@ -62,7 +62,7 @@ class UserTicket
         $printer->text($welcomeText);
         $printer->feed(2);
 
-        $ticketText = $i18nManager->translate($lang, "ticket.text");
+        $ticketText = $i18nManager->translate($lang, "ticket.text", '\n');
         $printer->text($ticketText);
         $printer->feed(2);
 
