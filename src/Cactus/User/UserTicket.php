@@ -34,8 +34,10 @@ class UserTicket
         try {
             $logo = EscposImage::load(STATIC_PATH . "img" . DIRECTORY_SEPARATOR . "logo.png");
             $printer->bitImage($logo);
+            $printer->feed();
         } catch (\Exception $e) {
             $printer->text("Unable to print image");
+            $printer->feed();
         }
 
         $printer->setTextSize(4, 4);
