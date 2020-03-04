@@ -6,6 +6,7 @@ namespace Cactus\User;
 
 use Cactus\I18n\I18nManager;
 use Cactus\Util\ClientRequest;
+use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\Printer;
 
 class UserTicket
@@ -29,6 +30,13 @@ class UserTicket
         $lang = $clientRequest->getLang();
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
+
+        try {
+            $logo = EscposImage::load(STATIC_PATH . "img" . DIRECTORY_SEPARATOR . "logo.png");
+            $printer->bitImage($logo);
+        } catch (\Exception $e) {
+            $printer->text("Unable to print image");
+        }
 
         $printer->setTextSize(4, 4);
         $headerLine1 = $i18nManager->translate($lang, "ticket.header_1");
