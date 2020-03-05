@@ -75,8 +75,11 @@ class UserTicket
         $i18nManager = I18nManager::Instance();
         $clientRequest = ClientRequest::Instance();
         $lang = $clientRequest->getLang();
-        $text = sprintf($i18nManager->translate($lang, $key), $params);
+
+        $text = $i18nManager->translate($lang, $key);
+        $text = vsprintf($text, $params);
         $printer->text($text);
+
         $printer->feed($feed);
     }
 }
