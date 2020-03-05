@@ -49,11 +49,11 @@ class UserTicket
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $this->append($printer, "ticket.welcome", 1);
         $this->append($printer, "ticket.school_name", 2);
-        $this->append($printer, "ticket.where_are_you", 2);
+        $this->append($printer, "ticket.where_are_you", 3);
 
 
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.school_section", 3);
+        $this->append($printer, "ticket.school_section", 4);
 
         $printer->setTextSize(1, 1);
         $this->append($printer, "ticket.school_section_option_1", 1);
@@ -65,8 +65,8 @@ class UserTicket
 
         $printer->feed(2);
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.have_fun", 1);
-        $this->appendImage($printer, "ok_hand", 2);
+        $this->appendImage($printer, "ok_hand", 1);
+        $this->append($printer, "ticket.have_fun", 2);
     }
 
     function append(Printer $printer, string $key, int $feed, array $params = [])
