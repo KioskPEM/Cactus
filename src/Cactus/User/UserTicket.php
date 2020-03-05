@@ -71,7 +71,7 @@ class UserTicket
 
         $printer->feed(2);
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.have_fun", 1);
+        $this->append($printer, "ticket.have_fun", 2);
     }
 
     function append(Printer $printer, string $key, int $feed = 2, array $params = [])
