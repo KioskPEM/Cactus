@@ -21,7 +21,7 @@ class SignUpEndpoint implements IRouteEndpoint
      */
     public function handle(Route $route, array $parameters): string
     {
-        $firstName = ucwords($_POST['first-name']);
+        $firstName = ucwords(strtolower($_POST['first-name']));
         $lastName = strtoupper($_POST['last-name']);
         $schoolId = $_POST['school-id'];
 
