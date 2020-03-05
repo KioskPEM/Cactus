@@ -87,10 +87,11 @@ class UserTicket
         try {
             $logo = EscposImage::load(ASSET_PATH . "img" . DIRECTORY_SEPARATOR . $name . ".png");
             $printer->bitImage($logo);
-            $printer->feed($feed);
         } catch (\Exception $e) {
             $printer->text("Unable to print image");
-            $printer->feed($feed);
         }
+
+        if ($feed > 0)
+            $printer->feed($feed);
     }
 }
