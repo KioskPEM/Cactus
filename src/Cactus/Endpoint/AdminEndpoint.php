@@ -30,8 +30,10 @@ class AdminEndpoint implements IRouteEndpoint
                 $config->save();
                 break;
             case "set_slideshow_mode":
-                header("Location: https://drive.google.com/file/d/1_i9u8hEeFmCYvRE7fRR-QBDYYzZzrCGj/view?usp=sharing", true, HttpCode::REDIRECT_SEE_OTHER);
-                return "";
+                $config = AppConfiguration::Instance();
+                $config->set("home-page", "slideshow.index");
+                $config->save();
+                break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }

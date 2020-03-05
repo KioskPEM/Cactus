@@ -38,6 +38,10 @@
     "path": "/sign-up/placement/success"
   },
 
+  "slideshow.index": {
+    "path": "/slideshow"
+  },
+
   "user.login": {
     "method": "POST",
     "path": "/user/login",
