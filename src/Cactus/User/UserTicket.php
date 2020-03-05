@@ -66,9 +66,9 @@ class UserTicket
         $printer->setTextSize(1, 1);
         $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
 
-        $printer->setTextSize(3, 3);
+        $printer->feed(2);
+        $printer->setTextSize(2, 2);
         $this->append($printer, "ticket.have_fun", 4);
-
     }
 
     function append(Printer $printer, string $key, int $feed = 2, array $params = [])
