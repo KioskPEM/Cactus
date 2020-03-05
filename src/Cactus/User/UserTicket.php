@@ -38,6 +38,7 @@ class UserTicket
 
         $printer->setTextSize(3, 3);
         $this->append($printer, "ticket.school_type", 2);
+        $printer->setTextSize(2, 2);
         $this->append($printer, "ticket.school_name", 4);
 
         $firstName = $this->user->getFirstName();
@@ -64,6 +65,7 @@ class UserTicket
         $printer->setTextSize(1, 1);
         $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
 
+        $printer->setTextSize(3, 3);
         $this->append($printer, "ticket.have_fun", 4);
 
     }
