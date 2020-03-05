@@ -45,6 +45,10 @@ function download($url)
 
 function downloadFile($url, $destination)
 {
+    $destinationParent = dirname($destination);
+    if (!is_dir($destinationParent))
+        mkdir($destinationParent, 0755, true);
+
     $fileHandler = fopen($destination, "w");
     if (!$fileHandler)
         report(500, "Unable to open file handler: " . $destination);
@@ -99,6 +103,10 @@ foreach ($files as $file) {
     if ($status === "removed")
         unlink($filePath);
     else if ($status === "renamed") {
+        $fileParent = dirname($filePath);
+        if (!is_dir($fileParent))
+            mkdir($fileParent, 0755, true);
+
         $previousFilename = $file["previous_filename"];
         rename(ROOT . $previousFilename, $filePath);
     } else if ($status === "added" || $status === "modified") {
