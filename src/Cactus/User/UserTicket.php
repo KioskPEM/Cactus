@@ -53,7 +53,7 @@ class UserTicket
 
 
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.school_section", 4);
+        $this->append($printer, "ticket.school_section", 3);
 
         $printer->setTextSize(1, 1);
         $this->append($printer, "ticket.school_section_option_1", 1);
