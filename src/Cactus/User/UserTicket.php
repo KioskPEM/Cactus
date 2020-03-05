@@ -27,14 +27,7 @@ class UserTicket
     {
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
-        try {
-            $logo = EscposImage::load(ASSET_PATH . "img" . DIRECTORY_SEPARATOR . "school.png");
-            $printer->bitImage($logo);
-            $printer->feed();
-        } catch (\Exception $e) {
-            $printer->text("Unable to print image");
-            $printer->feed();
-        }
+        $this->appendImage($printer, "school");
 
         $printer->setTextSize(3, 3);
         $this->append($printer, "ticket.school_type", 2);
@@ -71,7 +64,8 @@ class UserTicket
 
         $printer->feed(2);
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.have_fun", 2);
+        $this->append($printer, "ticket.have_fun", 0);
+        $this->appendImage($printer, "ok_hand");
     }
 
     function append(Printer $printer, string $key, int $feed = 2, array $params = [])
@@ -84,6 +78,19 @@ class UserTicket
         $text = vsprintf($text, $params);
         $printer->text($text);
 
-        $printer->feed($feed);
+        if ($feed > 0)
+            $printer->feed($feed);
+    }
+
+    function appendImage(Printer $printer, string $name, int $feed = 1)
+    {
+        try {
+            $logo = EscposImage::load(ASSET_PATH . "img" . DIRECTORY_SEPARATOR . $name . ".png");
+            $printer->bitImage($logo);
+            $printer->feed($feed);
+        } catch (\Exception $e) {
+            $printer->text("Unable to print image");
+            $printer->feed($feed);
+        }
     }
 }
