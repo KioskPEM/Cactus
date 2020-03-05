@@ -25,7 +25,6 @@ function download($url)
         CURLOPT_URL => $url,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_BINARYTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_USERAGENT => "Cactus",
         CURLOPT_CONNECTTIMEOUT => 60,
         CURLOPT_TIMEOUT => 60
@@ -55,7 +54,6 @@ function downloadFile($url, $destination)
         CURLOPT_URL => $url,
         CURLOPT_FILE => $fileHandler,
         CURLOPT_BINARYTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_USERAGENT => "Cactus",
         CURLOPT_CONNECTTIMEOUT => 60,
         CURLOPT_TIMEOUT => 60
@@ -83,12 +81,17 @@ try {
 $compareUrl = "https://api.github.com/repos/TheWhoosher/Cactus/compare/" . $currentVersion . "...master";
 $rawDifferences = download($compareUrl);
 $differences = JsonUtil::decode($rawDifferences);
-$files = $differences["files"];
 
+$commits = $differences["commits"];
+if (empty($commits))
+    report(200, "Cactus is already up-to-date");
+
+$files = $differences["files"];
 foreach ($files as $file) {
     $status = $file["status"];
     $fileName = $file["filename"];
     $filePath = ROOT . $fileName;
+
     if ($status === "removed")
         unlink($filePath);
     else if ($status === "renamed") {
@@ -101,7 +104,6 @@ foreach ($files as $file) {
         report(500, "Unknown status: " . $status);
 }
 
-$commits = $differences["commits"];
 $lastCommit = end($differences["commits"]);
 $lastCommitId = $lastCommit["sha"];
 JsonUtil::write(RELEASE_PATH, [
