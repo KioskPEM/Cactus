@@ -59,7 +59,8 @@ class UserTicket
         $this->append($printer, "ticket.school_section", 2);
 
         $printer->setTextSize(1, 1);
-        $this->append($printer, "ticket.school_section_option", 2);
+        $this->append($printer, "ticket.school_section_option_1", 2);
+        $this->append($printer, "ticket.school_section_option_2", 2);
 
         $barCodeContent = "USER-" . $uniqueId;
         $printer->setTextSize(1, 1);

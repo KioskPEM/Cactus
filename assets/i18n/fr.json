@@ -126,10 +126,10 @@
     "school_type": "Lycée",
     "school_name": "Pierre Emile Martin",
     "hello": "Bonjour %s %s,",
-    "welcome": "Bienvenue aux portes ouvertes de la section",
+    "welcome": "Bienvenue aux portes ouvertes du lycée Pierre Emile Martin. Vous êtes actuellement dans la section",
     "school_section": "Systèmes Numériques",
-    "option": "option",
-    "school_section_option": "Réseaux Informatiques Systèmes Communicants",
+    "school_section_option_1": "Réseaux Informatiques",
+    "school_section_option_2": "Systèmes Communicants",
     "have_fun": "Bonne visite"
   }
 }
