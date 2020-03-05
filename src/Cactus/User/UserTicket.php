@@ -6,6 +6,7 @@ namespace Cactus\User;
 
 use Cactus\I18n\I18nManager;
 use Cactus\Util\ClientRequest;
+use Exception;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\Printer;
 
@@ -27,7 +28,7 @@ class UserTicket
     {
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
-        $this->appendImage($printer, "school");
+        $this->appendImage($printer, "school", 1);
 
         $printer->setTextSize(3, 3);
         $this->append($printer, "ticket.school_type", 2);
@@ -64,11 +65,11 @@ class UserTicket
 
         $printer->feed(2);
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.have_fun", 0);
-        $this->appendImage($printer, "ok_hand");
+        $this->append($printer, "ticket.have_fun", 1);
+        $this->appendImage($printer, "ok_hand", 2);
     }
 
-    function append(Printer $printer, string $key, int $feed = 2, array $params = [])
+    function append(Printer $printer, string $key, int $feed, array $params = [])
     {
         $i18nManager = I18nManager::Instance();
         $clientRequest = ClientRequest::Instance();
@@ -78,20 +79,18 @@ class UserTicket
         $text = vsprintf($text, $params);
         $printer->text($text);
 
-        if ($feed > 0)
-            $printer->feed($feed);
+        $printer->feed($feed);
     }
 
-    function appendImage(Printer $printer, string $name, int $feed = 1)
+    function appendImage(Printer $printer, string $name, int $feed)
     {
         try {
             $logo = EscposImage::load(ASSET_PATH . "img" . DIRECTORY_SEPARATOR . $name . ".png");
             $printer->bitImage($logo);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $printer->text("Unable to print image");
         }
 
-        if ($feed > 0)
-            $printer->feed($feed);
+        $printer->feed($feed);
     }
 }
