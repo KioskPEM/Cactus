@@ -123,12 +123,13 @@
     }
   },
   "ticket": {
-    "header_1": "Lycée",
-    "header_2": "Pierre Emile Martin",
-    "welcome": "Bienvenue %s %s,",
-    "text": [
-      "Vous êtes en section Systèmes Numériques option Réseaux Informatiques et Systèmes Communicants"
-    ],
+    "school_type": "Lycée",
+    "school_name": "Pierre Emile Martin",
+    "hello": "Bonjour %s %s,",
+    "welcome": "Bienvenue aux portes ouvertes de la section",
+    "school_section": "Systèmes Numériques",
+    "option": "option",
+    "school_section_option": "Réseaux Informatiques Systèmes Communicants",
     "have_fun": "Bonne visite"
   }
 }

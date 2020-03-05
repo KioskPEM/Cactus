@@ -25,10 +25,6 @@ class UserTicket
 
     public function printTicket(Printer $printer)
     {
-        $i18nManager = I18nManager::Instance();
-        $clientRequest = ClientRequest::Instance();
-        $lang = $clientRequest->getLang();
-
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
         try {
@@ -41,14 +37,8 @@ class UserTicket
         }
 
         $printer->setTextSize(3, 3);
-        $headerLine1 = $i18nManager->translate($lang, "ticket.header_1");
-        $printer->text($headerLine1);
-        $printer->feed();
-        $printer->setTextSize(2, 2);
-        $headerLine2 = $i18nManager->translate($lang, "ticket.header_2");
-        $printer->text($headerLine2);
-
-        $printer->feed(4);
+        $this->append($printer, "ticket.school_type", 2);
+        $this->append($printer, "ticket.school_name", 4);
 
         $firstName = $this->user->getFirstName();
         $lastName = $this->user->getLastName();
@@ -56,24 +46,35 @@ class UserTicket
 
         $printer->setTextSize(1, 1);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
-
-        $welcomeText = $i18nManager->translate($lang, "ticket.welcome");
-        $welcomeText = sprintf($welcomeText, $firstName, $lastName);
-        $printer->text($welcomeText);
-        $printer->feed(2);
-
-        $ticketText = $i18nManager->translate($lang, "ticket.text");
-        $printer->text($ticketText);
-        $printer->feed(2);
+        $this->append($printer, "ticket.hello", 2, [
+            $firstName,
+            $lastName
+        ]);
+        $this->append($printer, "ticket.welcome", 2);
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
         $printer->setTextSize(2, 2);
-        $haveFunText = $i18nManager->translate($lang, "ticket.have_fun");
-        $printer->text($haveFunText);
-        $printer->feed(4);
+        $this->append($printer, "ticket.school_section", 2);
+
+        $printer->setTextSize(1, 1);
+        $this->append($printer, "ticket.school_section_option", 2);
 
         $barCodeContent = "USER-" . $uniqueId;
+        $printer->setTextSize(1, 1);
         $printer->barcode($barCodeContent, Printer::BARCODE_CODE39);
+
+        $this->append($printer, "ticket.have_fun", 4);
+
+    }
+
+    function append(Printer $printer, string $key, int $feed = 2, array $params = [])
+    {
+        $i18nManager = I18nManager::Instance();
+        $clientRequest = ClientRequest::Instance();
+        $lang = $clientRequest->getLang();
+        $text = sprintf($i18nManager->translate($lang, $key), $params);
+        $printer->text($text);
+        $printer->feed($feed);
     }
 }
