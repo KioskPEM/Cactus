@@ -47,11 +47,12 @@ class UserTicket
 
         $printer->setTextSize(1, 1);
         $printer->setJustification(Printer::JUSTIFY_LEFT);
-        $this->append($printer, "ticket.hello", 2, [
+        $this->append($printer, "ticket.hello", 1, [
             $firstName,
             $lastName
         ]);
-        $this->append($printer, "ticket.welcome", 2);
+        $this->append($printer, "ticket.welcome", 1);
+        $this->append($printer, "ticket.where_are_you", 2);
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
@@ -59,7 +60,7 @@ class UserTicket
         $this->append($printer, "ticket.school_section", 2);
 
         $printer->setTextSize(1, 1);
-        $this->append($printer, "ticket.school_section_option_1", 2);
+        $this->append($printer, "ticket.school_section_option_1", 1);
         $this->append($printer, "ticket.school_section_option_2", 2);
 
         $barCodeContent = "USER-" . $uniqueId;
