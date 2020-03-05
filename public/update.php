@@ -89,6 +89,8 @@ if (empty($commits))
     report(200, "Cactus is already up-to-date");
 
 $files = $differences["files"];
+$fileCount = count($files);
+
 foreach ($files as $file) {
     $status = $file["status"];
     $fileName = $file["filename"];
@@ -119,4 +121,4 @@ $config->reload();
 $config->apply($savedConfig);
 $config->save();
 
-report(200, "Cactus is now up-to-date");
+report(200, "Cactus is now up-to-date (" . $fileCount . " file(s) updated)");
