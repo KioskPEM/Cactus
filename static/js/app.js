@@ -1,5 +1,4 @@
 const Cactus = {
-    idleDelay: 300,
     init: function () {
 
         let links = document.getElementsByTagName("A");
@@ -9,19 +8,9 @@ const Cactus = {
                 link.addEventListener("click", Cactus.showLoadingPanel);
         }
 
-        ["mousedown", "mousemove", "keypress", "scroll", "touchstart"].forEach(name => {
-            document.addEventListener(name, Cactus.resetIdleDelay, true);
-        });
-
         Barcode.init();
         Barcode.register(/^SENDNUDES$/, function () {
             window.location.href = ADMIN_PAGE;
-        });
-        Barcode.register(/^4MXM6W70$/, function () {
-            window.location.href = ADMIN_PAGE;
-        });
-        Barcode.register(/^FORCEUPDATE$/, function () {
-            window.location.href = UPDATE_PAGE;
         });
         Barcode.register(/^EASTEREGG$/, function () {
             window.location.href = EASTER_EGG_PAGE;
@@ -42,9 +31,4 @@ const Cactus = {
         if (loadingPanel !== null)
             loadingPanel.style.display = "block";
     },
-    resetIdleDelay: function () {
-        if (Cactus.idleTimeoutId)
-            window.clearTimeout(Cactus.idleTimeoutId);
-        Cactus.idleTimeoutId = window.setTimeout(Cactus.home, Cactus.idleDelay * 1000);
-    }
 };

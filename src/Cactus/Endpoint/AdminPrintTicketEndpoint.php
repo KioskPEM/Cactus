@@ -14,12 +14,10 @@ use Mike42\Escpos\Printer;
 class AdminPrintTicketEndpoint implements IRouteEndpoint
 {
     private const HEADER_LINE = "Maintenance";
-    private const ADMIN_ACCESS_LINE = "Accès administration";
-    private const UPDATE_LINE = "Mise à jour forcée";
-    private const EASTER_EGG_ACCESS_LINE = "Accès ...";
+    private const ADMIN_ACCESS_LINE = "Administration";
+    private const EASTER_EGG_ACCESS_LINE = "Games";
 
     private const GO_TO_ADMIN_PASS = "SENDNUDES";
-    private const GO_TO_UPDATE_PASS = "FORCEUPDATE";
     private const GO_TO_EASTER_EGG_PASS = "EASTEREGG";
 
     /**
@@ -43,7 +41,6 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
         $printer->setJustification(Printer::JUSTIFY_LEFT);
 
         $this->addCode($printer, self::ADMIN_ACCESS_LINE, self::GO_TO_ADMIN_PASS);
-        $this->addCode($printer, self::UPDATE_LINE, self::GO_TO_UPDATE_PASS);
         $this->addCode($printer, self::EASTER_EGG_ACCESS_LINE, self::GO_TO_EASTER_EGG_PASS);
 
         $printer->cut(Printer::CUT_PARTIAL);
