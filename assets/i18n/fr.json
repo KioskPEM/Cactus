@@ -56,7 +56,7 @@
         "success": {
           "name": "Merci !",
           "header": "Inscription terminée",
-          "desc": "Vous êtes maintenant préinscrit pour participer à un mini-stage",
+          "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à un mini-stage",
           "warning": "N'oubliez pas, ceci n'est pas une inscription officielle",
           "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
         }
