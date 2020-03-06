@@ -95,6 +95,10 @@ if (empty($commits))
 $files = $differences["files"];
 $fileCount = count($files);
 
+// load config before overwriting it
+$config = AppConfiguration::Instance();
+$savedConfig = $config->getConfig();
+
 foreach ($files as $file) {
     $status = $file["status"];
     $fileName = $file["filename"];
@@ -123,8 +127,6 @@ JsonUtil::write(RELEASE_PATH, [
 ]);
 
 // save the overwritten config
-$config = AppConfiguration::Instance();
-$savedConfig = $config->getConfig();
 $config->reload();
 $config->apply($savedConfig);
 $config->save();
