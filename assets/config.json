@@ -12,13 +12,12 @@
     "secondary-color-dark": "#C7C7C7"
   },
   "database": {
-    "host": "192.168.2.230",
-    "name": "kiosk-pem",
-    "user": "kiosk-user",
-    "pass": "Ai956kYhG"
+    "host": "",
+    "name": "",
+    "user": "",
+    "pass": ""
   },
-  "home-page": "sign-up.index",
-  "update-endpoint": "https://github.com/TheWhoosher/Cactus/archive/master.zip",
+  "home-page": "admin.index",
   "printer": {
     "connector": "Mike42\\Escpos\\PrintConnectors\\DummyPrintConnector",
     "port": ""
