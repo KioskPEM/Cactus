@@ -123,6 +123,9 @@
   "ticket": {
     "school_type": "Lycée",
     "school_name": "Pierre Emile Martin",
+    "school_phone": "02.48.48.13.93",
+    "school_address": "1 Avenue de Gionne",
+    "school_city": "18000 Bourges",
     "hello": "Bonjour %s %s,",
     "welcome": "Bienvenue aux portes ouvertes du lycée",
     "where_are_you": "Vous êtes actuellement dans la section",
