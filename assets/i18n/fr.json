@@ -19,7 +19,7 @@
           "desc": "Pour recevoir votre ticket"
         },
         "placement": {
-          "name": "Préinscription mini-stage",
+          "name": "Demande de préinscription mini-stage",
           "desc": "En scannant votre ticket"
         }
       },
@@ -47,7 +47,7 @@
             "entry_2": "Montage Arduino",
             "entry_3": "Virtualisation de systèmes d'exploitations"
           },
-          "warning": "L'inscription au mini-stage est à titre indicatif, vous serez contactez ultérieurement par l'établissement pour officialiser la demande",
+          "warning": "Votre demande d'inscription au mini-stage doit être soumise à votre établissement",
           "help": "Pour confirmer l'inscription, scannez votre ticket",
           "actions": {
             "ask_placement": "Préinscription mini-stage"
@@ -56,8 +56,8 @@
         "success": {
           "name": "Merci !",
           "header": "Inscription terminée",
-          "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à un mini-stage",
-          "warning": "N'oubliez pas, ceci n'est pas une inscription officielle",
+          "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à des l'un mini-stage",
+          "warning": "N'oubliez pas de contacter votre établissement afin d'officialiser votre demande",
           "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
         }
       }
