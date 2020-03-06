@@ -9,6 +9,10 @@
     opacity: 0 !important;
 }
 
+.cursor-none {
+    cursor: none;
+}
+
 /*
  * Margin-related rules
  */
