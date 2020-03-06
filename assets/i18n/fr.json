@@ -42,10 +42,10 @@
         "scan": {
           "name": "Mini-stage",
           "info": {
-            "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers de diverses activitées :",
+            "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activités :",
             "entry_1": "Téléphonie",
             "entry_2": "Montage Arduino",
-            "entry_3": "Virtualisation de système d'exploitation"
+            "entry_3": "Virtualisation de systèmes d'exploitations"
           },
           "warning": "L'inscription au mini-stage est à titre indicatif, vous serez contactez ultérieurement par l'établissement pour officialiser la demande",
           "help": "Pour confirmer l'inscription, scannez votre ticket",
