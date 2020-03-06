@@ -37,7 +37,7 @@ class UserTicket
 
         $printer->setTextSize(1, 1);
         $this->append($printer, "ticket.school_address", 1);
-        $this->append($printer, "ticket.school_phone", 4);
+        $this->append($printer, "ticket.school_phone", 3);
 
         $firstName = $this->user->getFirstName();
         $lastName = $this->user->getLastName();
@@ -52,13 +52,11 @@ class UserTicket
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $this->append($printer, "ticket.welcome", 1);
-        $this->append($printer, "ticket.school_name", 2);
-        $this->append($printer, "ticket.where_are_you", 3);
+        $this->append($printer, "ticket.school_name", 3);
 
-
+        $this->append($printer, "ticket.where_are_you", 2);
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.school_section", 3);
-
+        $this->append($printer, "ticket.school_section", 2);
         $printer->setTextSize(1, 1);
         $this->append($printer, "ticket.school_section_option_1", 1);
         $this->append($printer, "ticket.school_section_option_2", 2);
