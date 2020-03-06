@@ -33,12 +33,11 @@ class UserTicket
         $printer->setTextSize(3, 3);
         $this->append($printer, "ticket.school_type", 2);
         $printer->setTextSize(2, 2);
-        $this->append($printer, "ticket.school_name", 2);
+        $this->append($printer, "ticket.school_name", 3);
 
         $printer->setTextSize(1, 1);
-        $this->append($printer, "ticket.school_address", 2);
-        $this->append($printer, "ticket.school_city", 2);
-        $this->append($printer, "ticket.school_phone", 5);
+        $this->append($printer, "ticket.school_address", 1);
+        $this->append($printer, "ticket.school_phone", 4);
 
         $firstName = $this->user->getFirstName();
         $lastName = $this->user->getLastName();
