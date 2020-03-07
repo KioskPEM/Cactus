@@ -38,8 +38,6 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
         $printer->text(self::HEADER_LINE);
 
         $printer->setTextSize(1, 1);
-        $printer->setJustification(Printer::JUSTIFY_LEFT);
-
         $this->addCode($printer, self::ADMIN_ACCESS_LINE, self::GO_TO_ADMIN_PASS);
         $this->addCode($printer, self::EASTER_EGG_ACCESS_LINE, self::GO_TO_EASTER_EGG_PASS);
 
