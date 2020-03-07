@@ -23,6 +23,7 @@ const Barcode = {
             let matches = command.regex.exec(input);
             if (matches != null) {
                 console.log("Executing command", input);
+                Cactus.showLoadingPanel();
                 command.action(matches);
                 return;
             }
