@@ -9,7 +9,7 @@
     </div>
     <div class="grid-column content-center flex-no-grow margin-50px">
         <h2>%{page.redirect_timer}</h2>
-        <progress value="0" id="progress-bar"></progress>
+        <progress value="1" id="progress-bar"></progress>
     </div>
 </div>
 <script>
@@ -17,22 +17,14 @@
     let progressBar = document.getElementById("progress-bar");
     let timeLeft = document.getElementById("time-left");
 
-    let lastTime = 0;
-
-    function tick(time) {
-        timer -= (time - lastTime) / 1_000;
-        lastTime = time;
-
-        if(timer <= 0) {
+    setInterval(function () {
+        timer--;
+        if (timer <= 0) {
             Cactus.home();
             return;
         }
 
-        timeLeft.innerText = Math.ceil(timer).toString(10);
+        timeLeft.innerText = timer.toString(10);
         progressBar.value = timer / 10;
-
-        window.requestAnimationFrame(tick);
-    }
-
-    tick(0);
+    }, 1_000);
 </script>
