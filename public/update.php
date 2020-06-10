@@ -84,7 +84,7 @@ try {
     report(500, "Unable to read release.json");
 }
 
-$compareUrl = "https://api.github.com/repos/TheWhoosher/Cactus/compare/" . $currentVersion . "...master";
+$compareUrl = "https://api.github.com/repos/KioskPEM/Cactus/compare/" . $currentVersion . "...master";
 $rawDifferences = download($compareUrl);
 $differences = JsonUtil::decode($rawDifferences);
 
