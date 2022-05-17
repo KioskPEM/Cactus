@@ -18,10 +18,6 @@
     "endpoint": "Cactus\\Endpoint\\AdminEndpoint"
   },
 
-  "presentation.index": {
-    "path": "/presentation"
-  },
-
   "sign-up.index": {
     "path": "/sign-up"
   },

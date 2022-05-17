@@ -4,12 +4,6 @@
       "name": "Erreur",
       "help": "Une erreur est survenue"
     },
-    "presentation": {
-      "index": {
-        "name": "Bienvenue",
-        "help": "Veuillez sélectionner une option ci-dessous"
-      }
-    },
     "sign-up": {
       "index": {
         "name": "Bienvenue en Systèmes Numériques",
@@ -84,7 +78,6 @@
         "actions": {
           "update": "Mettre à jour",
           "print_ticket": "Imprimer un ticket",
-          "presentation_mode": "Mode présentation",
           "sign-up_mode": "Mode inscription",
           "slideshow_mode": "Mode diaporama"
         }
