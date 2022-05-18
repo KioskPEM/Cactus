@@ -1,0 +1,41 @@
+<div class="grid-container text-center margin-10px">
+
+    <div class="grid-row text-left flex-no-grow content-spread">
+        <img class="keep-ratio" draggable="false" src="${url.static}/img/logo.png" alt="Logo PEM">
+        <div>
+            <p class="margin-5px">%{page.created_by}</p>
+            <ul class="margin-5px">
+                <li>PASDELOUP Jonathan</li>
+                <li>SENUT--SCHAPPACHER Fabien</li>
+            </ul>
+        </div>
+        <ul>
+            <li>LOMBARD Jean-Pierre</li>
+            <li>PERRIER Laurent</li>
+        </ul>
+    </div>
+
+    <div class="grid-row">
+
+        <section class="grid-column">
+            <header>
+                <h2>%{page.sign_up.name}</h2>
+                <p>%{page.sign_up.desc}</p>
+            </header>
+            <a class="btn btn-large margin-10px" href="@{school.region}">
+                <i class="mdi mdi-size-large mdi-account-plus"></i>
+            </a>
+        </section>
+
+        <section class="grid-column">
+            <header>
+                <h2>%{page.internship.name}</h2>
+                <p>%{page.internship.desc}</p>
+            </header>
+            <a class="btn btn-large margin-10px" href="@{internship.scan}">
+                <i class="mdi mdi-size-large mdi-file-document-edit-outline"></i>
+            </a>
+        </section>
+
+    </div>
+</div>

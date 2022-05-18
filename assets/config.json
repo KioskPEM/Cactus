@@ -17,7 +17,7 @@
         "user": "",
         "pass": ""
     },
-    "home-page": "sign-up.index",
+    "home-page": "admin.index",
     "printer": {
         "connector": "Mike42\\Escpos\\PrintConnectors\\DummyPrintConnector",
         "port": ""

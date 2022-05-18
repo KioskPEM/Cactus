@@ -4,7 +4,25 @@
       "name": "Erreur",
       "help": "Une erreur est survenue"
     },
-    "sign-up": {
+    "school": {
+      "region": {
+        "name": "Séléctionnez votre region"
+      },
+      "department": {
+        "name": "Séléctionnez votre département"
+      },
+      "type": {
+        "name": "Séléctionnez votre type d'établissement",
+        "types": {
+          "college": "Collège",
+          "high_school": "Lycée"
+        }
+      },
+      "institution": {
+        "name": "Séléctionnez votre établissement"
+      }
+    },
+    "register": {
       "index": {
         "name": "Bienvenue en Systèmes Numériques",
         "created_by": "Réalisé par :",
@@ -12,12 +30,12 @@
           "name": "Inscrivez-vous",
           "desc": "Imprimer votre ticket"
         },
-        "placement": {
+        "internship": {
           "name": "Mini-stage",
           "desc": "Réaliser une demande d'inscription"
         }
       },
-      "register": {
+      "form": {
         "name": "Inscription",
         "help": "Renseignez les informations ci-dessous",
         "form": {
@@ -31,45 +49,27 @@
         "header": "Inscription terminée",
         "dont_forget_ticket": "N'oubliez pas de récupérer votre ticket",
         "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
-      },
-      "placement": {
-        "scan": {
-          "name": "Mini-stage",
-          "info": {
-            "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activités :",
-            "entry_1": "Téléphonie",
-            "entry_2": "Montage Arduino",
-            "entry_3": "Virtualisation de systèmes d'exploitations"
-          },
-          "warning": "Pour l'officialiser, Votre demande d'inscription au mini-stage doit être soumise à votre établissement",
-          "register": "Demande de préinscription",
-          "help": "Pour réaliser une demande de préinscription, scannez votre ticket"
-        },
-        "success": {
-          "name": "Merci !",
-          "header": "Inscription terminée",
-          "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à des l'un mini-stage",
-          "warning": "N'oubliez pas de contacter votre établissement afin d'officialiser votre demande",
-          "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
-        }
       }
     },
-    "search-school": {
-      "region": {
-        "name": "Séléctionnez votre region"
+    "internship": {
+      "scan": {
+        "name": "Mini-stage",
+        "info": {
+          "header": "Lors de cette demi-journée, vous aurez la possibilité de découvrir la section Systèmes Numériques à travers diverses activités :",
+          "entry_1": "Téléphonie",
+          "entry_2": "Montage Arduino",
+          "entry_3": "Virtualisation de systèmes d'exploitations"
+        },
+        "warning": "Pour l'officialiser, Votre demande d'inscription au mini-stage doit être soumise à votre établissement",
+        "register": "Demande de préinscription",
+        "help": "Pour réaliser une demande de préinscription, scannez votre ticket"
       },
-      "department": {
-        "name": "Séléctionnez votre département"
-      },
-      "school-type": {
-        "name": "Séléctionnez votre type d'établissement",
-        "types": {
-          "college": "Collège",
-          "high_school": "Lycée"
-        }
-      },
-      "school": {
-        "name": "Séléctionnez votre établissement"
+      "success": {
+        "name": "Merci !",
+        "header": "Inscription terminée",
+        "desc": "Vous êtes maintenant inscrit dans la file d'attente pour participer à des l'un mini-stage",
+        "warning": "N'oubliez pas de contacter votre établissement afin d'officialiser votre demande",
+        "redirect_timer": "Redirection dans <span id=\"time-left\">10</span> secondes..."
       }
     },
     "admin": {

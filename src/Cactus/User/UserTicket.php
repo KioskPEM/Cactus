@@ -4,8 +4,8 @@
 namespace Cactus\User;
 
 
-use Cactus\I18n\I18nManager;
-use Cactus\Util\ClientRequest;
+use Banana\AppContext;
+use Banana\Localization\LocalizationManager;
 use Exception;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\Printer;
@@ -22,7 +22,6 @@ class UserTicket
     {
         $this->user = $user;
     }
-
 
     public function printTicket(Printer $printer)
     {
@@ -75,11 +74,10 @@ class UserTicket
 
     function append(Printer $printer, string $key, int $feed, array $params = [])
     {
-        $i18nManager = I18nManager::Instance();
-        $clientRequest = ClientRequest::Instance();
-        $lang = $clientRequest->getLang();
-
-        $text = $i18nManager->translate($lang, $key);
+//      TODO: Translate text
+//        $lang = $clientRequest->getLang();
+//        $text = $localizationManager->translate($lang, $key);
+        $text = $key;
         $text = vsprintf($text, $params);
         $printer->text($text);
 

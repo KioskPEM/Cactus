@@ -4,31 +4,33 @@
 namespace Cactus\Endpoint\User;
 
 
-use Cactus\Http\HttpCode;
-use Cactus\Routing\Exception\RouteException;
-use Cactus\Routing\IRouteEndpoint;
-use Cactus\Routing\Route;
+use Banana\AppContext;
+use Banana\Http\HttpCode;
+use Banana\Routing\IRouteEndpoint;
+use Banana\Routing\Route;
+use Banana\Routing\RouteException;
 use Cactus\User\Exception\UserException;
 use Cactus\User\UserManager;
-use Cactus\Util\UrlBuilder;
 
 class UserEndpoint implements IRouteEndpoint
 {
     /**
+     * @param AppContext $context
      * @inheritDoc
      * @throws UserException
      */
-    public function handle(Route $route, array $parameters): string
+    public function handle(AppContext $context, Route $route, array $parameters): string
     {
         $action = $parameters["action"];
         $id = intval($parameters["user_id"]);
 
+        //TODO: UserManager
         $userManager = UserManager::Instance();
         $user = $userManager->loginUser($id);
 
         switch ($action) {
-            case "set_placement":
-                $user->setPlacement(true);
+            case "set_internship":
+                $user->askForInternship();
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
@@ -37,9 +39,8 @@ class UserEndpoint implements IRouteEndpoint
         $userManager->updateUser($user);
 
         $router = $route->getRouter();
-        $urlBuilder = UrlBuilder::Instance();
-        $adminPage = $urlBuilder->build($router, "sign-up.placement.success", $parameters);
-        header("Location: " . $adminPage, true, HttpCode::REDIRECT_SEE_OTHER);
+        $url = $router->buildUrl("GET", "internship.success", null);
+        header("Location: " . $url, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
 }

@@ -4,14 +4,17 @@
 namespace Cactus\Controller\SearchSchool;
 
 
-use Cactus\Database\CsvDatabase;
-use Cactus\Routing\Exception\RouteNotFoundException;
-use Cactus\Template\Controller\ITemplateController;
-use Cactus\Template\Exception\TemplateException;
-use Cactus\Template\Pagination;
-use Cactus\Template\Render\RenderContext;
+use Banana\Collection\Pagination;
+use Banana\IO\FileException;
+use Banana\Routing\RouteFormatException;
+use Banana\Routing\RouteNotFoundException;
+use Banana\Serialization\CsvException;
+use Banana\Serialization\CsvSerializer;
+use Banana\Template\Render\IRenderHandler;
+use Banana\Template\Render\RenderContext;
+use Banana\Template\TemplateException;
 
-class SelectSchoolController implements ITemplateController
+class SelectSchoolController implements IRenderHandler
 {
     private const SCHOOL_ID = "Identifiant_de_l_etablissement";
     private const SCHOOL_NAME = "Nom_etablissement";
@@ -22,25 +25,25 @@ class SelectSchoolController implements ITemplateController
 
     /**
      * @inheritDoc
+     * @throws FileException
+     * @throws CsvException
      */
     function onRender(RenderContext $context): void
     {
         $schoolType = $context->param("route.school_type");
-        $schoolDatabase = new CsvDatabase($schoolType, ';');
-        $schoolDatabase->open();
-
         $regionCode = $context->param("route.region");
         $departmentCode = $context->param("route.department");
-        $schoolEntries = $schoolDatabase->get(function ($entry) use ($regionCode, $departmentCode) {
+
+        $schools = CsvSerializer::deserializeFile(DATA_PATH . $schoolType . ".csv", true, ';');
+        $schools = array_filter($schools, function ($entry) use ($departmentCode, $regionCode) {
             return $entry[self::REGION_CODE] === $regionCode && $entry[self::DEPARTMENT_CODE] === $departmentCode;
         });
-        $schoolDatabase->close();
 
-        usort($schoolEntries, function ($a, $b) {
+        usort($schools, function ($a, $b) {
             return $a[self::SCHOOL_NAME] <=> $b[self::SCHOOL_NAME];
         });
 
-        $this->schools = new Pagination($schoolEntries);
+        $this->schools = new Pagination($schools, 14);
     }
 
     /**
@@ -48,6 +51,7 @@ class SelectSchoolController implements ITemplateController
      * @return string
      * @throws RouteNotFoundException
      * @throws TemplateException
+     * @throws RouteFormatException
      */
     public function get_schools(RenderContext $context): string
     {
@@ -65,7 +69,8 @@ class SelectSchoolController implements ITemplateController
                 $output .= "<div class='grid-row'>";
             }
 
-            $url = $context->buildUrl("GET", "sign-up.register", [
+            $router = $context->getRouter();
+            $url = $router->buildUrl("GET", "register.form", [
                 "school_id" => $school[self::SCHOOL_ID]
             ]);
             $schoolName = $school[self::SCHOOL_NAME];
@@ -83,6 +88,7 @@ class SelectSchoolController implements ITemplateController
      * @param RenderContext $context
      * @return string
      * @throws RouteNotFoundException
+     * @throws RouteFormatException
      */
     public function get_pagination(RenderContext $context): string
     {
@@ -100,7 +106,8 @@ class SelectSchoolController implements ITemplateController
         $output = "";
 
         if ($hasPreviousPage) {
-            $previousPage = $context->buildUrl("GET", "search-school.school", [
+            $router = $context->getRouter();
+            $previousPage = $router->buildUrl("GET", "school.institution", [
                 "region" => $regionCode,
                 "department" => $departmentCode,
                 "school_type" => $schoolType,
@@ -113,7 +120,8 @@ class SelectSchoolController implements ITemplateController
         $output .= "<p>Page $currentPage / $pageCount</p>";
 
         if ($hasNextPage) {
-            $nextPage = $context->buildUrl("GET", "search-school.school", [
+            $router = $context->getRouter();
+            $nextPage = $router->buildUrl("GET", "school.institution", [
                 "region" => $regionCode,
                 "department" => $departmentCode,
                 "school_type" => $schoolType,

@@ -4,13 +4,13 @@
 namespace Cactus\Controller\User;
 
 
-use Cactus\Template\Controller\ITemplateController;
-use Cactus\Template\Render\RenderContext;
+use Banana\Template\Render\IRenderHandler;
+use Banana\Template\Render\RenderContext;
 use Cactus\User\Exception\UserException;
 use Cactus\User\User;
 use Cactus\User\UserManager;
 
-class UserProfileController implements ITemplateController
+class UserProfileController implements IRenderHandler
 {
     private User $user;
 
@@ -20,6 +20,7 @@ class UserProfileController implements ITemplateController
      */
     function onRender(RenderContext $context): void
     {
+        //TODO: UserManager
         $userId = intval($context->param("route.user_id"));
         $userManager = UserManager::Instance();
         $this->user = $userManager->loginUser($userId);

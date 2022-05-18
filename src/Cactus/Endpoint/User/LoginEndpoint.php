@@ -4,23 +4,23 @@
 namespace Cactus\Endpoint\User;
 
 
-use Cactus\Http\HttpCode;
-use Cactus\Routing\IRouteEndpoint;
-use Cactus\Routing\Route;
-use Cactus\Util\UrlBuilder;
+use Banana\AppContext;
+use Banana\Http\HttpCode;
+use Banana\Routing\IRouteEndpoint;
+use Banana\Routing\Route;
 
 class LoginEndpoint implements IRouteEndpoint
 {
     /**
+     * @param AppContext $context
      * @inheritDoc
      */
-    public function handle(Route $route, array $parameters): string
+    public function handle(AppContext $context, Route $route, array $parameters): string
     {
         $id = intval($_POST["id"]);
 
         $router = $route->getRouter();
-        $urlBuilder = UrlBuilder::Instance();
-        $url = $urlBuilder->build($router, "user.profile", [
+        $url = $router->buildUrl("GET", "user.profile", [
             "user_id" => $id
         ]);
         header("Location: " . $url, true, HttpCode::REDIRECT_SEE_OTHER);

@@ -5,11 +5,11 @@ ini_set("display_errors", 1);
 //
 
 define("ROOT", dirname(__DIR__) . DIRECTORY_SEPARATOR);
-define("SOURCE_PATH", ROOT . "src" . DIRECTORY_SEPARATOR);
-define("STATIC_PATH", ROOT . "static" . DIRECTORY_SEPARATOR);
-define("ASSET_PATH", ROOT . "assets" . DIRECTORY_SEPARATOR);
-define("DATA_PATH", ASSET_PATH . "data" . DIRECTORY_SEPARATOR);
-define("VIEWS_PATH", ASSET_PATH . "views" . DIRECTORY_SEPARATOR);
+const SOURCE_PATH = ROOT . "src" . DIRECTORY_SEPARATOR;
+const ASSET_PATH = ROOT . "assets" . DIRECTORY_SEPARATOR;
+const DATA_PATH = ASSET_PATH . "data" . DIRECTORY_SEPARATOR;
+const VIEWS_PATH = ASSET_PATH . "views" . DIRECTORY_SEPARATOR;
+const CONFIG_PATH = ASSET_PATH . "config.json";
 
 spl_autoload_register(function ($className) {
     $className = ltrim($className, '\\');

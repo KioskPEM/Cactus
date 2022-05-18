@@ -4,22 +4,16 @@
 namespace Cactus\User;
 
 
-use Cactus\Database\Database;
 use Cactus\User\Exception\UserException;
 use PDO;
 
 class UserManager
 {
-    private function __construct()
-    {
-    }
+    private PDO $pdo;
 
-    public static function Instance(): UserManager
+    public function __construct(PDO $pdo)
     {
-        static $inst = null;
-        if ($inst === null)
-            $inst = new UserManager();
-        return $inst;
+        $this->pdo = $pdo;
     }
 
     /**
@@ -29,10 +23,9 @@ class UserManager
      * @return User
      * @throws UserException
      */
-    public function createUser(string $firstName, string $lastName, string $schoolId)
+    public function createUser(string $firstName, string $lastName, string $schoolId): User
     {
-        $database = Database::Instance();
-        $statement = $database->prepare("INSERT INTO `kiosk-pem`.users(first_name, last_name, school_id) VALUES(:first_name, :last_name, :school_id)");
+        $statement = $this->pdo->prepare("INSERT INTO `kiosk-pem`.users(first_name, last_name, school_id) VALUES(:first_name, :last_name, :school_id)");
         $statement->bindValue(":first_name", $firstName);
         $statement->bindValue(":last_name", $lastName);
         $statement->bindValue(":school_id", $schoolId);
@@ -40,7 +33,7 @@ class UserManager
         if (!$statement->execute())
             throw new UserException("Unable to create the user");
 
-        $id = $database->lastInsertId();
+        $id = $this->pdo->lastInsertId();
         return new User($id, $firstName, $lastName, $schoolId);
     }
 
@@ -49,10 +42,9 @@ class UserManager
      * @return User
      * @throws UserException
      */
-    public function loginUser(int $userId)
+    public function loginUser(int $userId): User
     {
-        $database = Database::Instance();
-        $statement = $database->prepare("SELECT * FROM `kiosk-pem`.users WHERE users.id = :user_id");
+        $statement = $this->pdo->prepare("SELECT * FROM `kiosk-pem`.users WHERE users.id = :user_id");
         $statement->bindValue(":user_id", $userId, PDO::PARAM_INT);
 
         if (!$statement->execute())
@@ -77,10 +69,9 @@ class UserManager
      */
     public function updateUser(User $user)
     {
-        $database = Database::Instance();
-        $statement = $database->prepare("UPDATE users SET placement = :placement where id = :user_id");
+        $statement = $this->pdo->prepare("UPDATE users SET internship = :internship where id = :user_id");
         $statement->bindValue(":user_id", $user->getUniqueId(), PDO::PARAM_INT);
-        $statement->bindValue(":placement", $user->isAskingForPlacement(), PDO::PARAM_BOOL);
+        $statement->bindValue(":internship", $user->isAskingForInternship(), PDO::PARAM_BOOL);
 
         if (!$statement->execute())
             throw new UserException("Unable to update user " . $user->getUniqueId());

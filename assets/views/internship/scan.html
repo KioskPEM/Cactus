@@ -1,0 +1,25 @@
+<img class="keep-ratio" draggable="false" src="${url.static}/img/logo.png" alt="Logo PEM">
+
+<div class="grid-container text-center margin-10px">
+    <div class="grid-row">
+        <section class="grid-column content-center margin-20px">
+            <p class="text-left">%{page.info.header}</p>
+            <ul class="text-left">
+                <li>%{page.info.entry_1}</li>
+                <li>%{page.info.entry_2}</li>
+                <li>%{page.info.entry_3}</li>
+            </ul>
+            <p class="text-underline">%{page.warning}</p>
+        </section>
+        <section class="grid-column content-center">
+            <h2>%{page.register}</h2>
+            <i class="mdi mdi-size-large mdi-barcode-scan"></i>
+            <p class="text-italic">%{page.help}</p>
+        </section>
+    </div>
+</div>
+<script>
+    Barcode.register(/^USER-(\d+)$/, function (matches) {
+        window.location.href = "@{user.edit|user_id=_id_,action=set_internship}".replace("_id_", matches[1]);
+    });
+</script>

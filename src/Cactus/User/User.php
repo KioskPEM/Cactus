@@ -11,7 +11,7 @@ class User
     private string $lastName;
     private string $schoolId;
 
-    private bool $placement;
+    private bool $internship;
 
     /**
      * User constructor.
@@ -28,20 +28,14 @@ class User
         $this->uniqueId = $uniqueId;
     }
 
-    /**
-     * @return bool
-     */
-    public function isAskingForPlacement(): bool
+    public function isAskingForInternship(): bool
     {
-        return $this->placement;
+        return $this->internship;
     }
 
-    /**
-     * @param bool $placement
-     */
-    public function setPlacement(bool $placement): void
+    public function askForInternship(): void
     {
-        $this->placement = $placement;
+        $this->internship = true;
     }
 
     /**

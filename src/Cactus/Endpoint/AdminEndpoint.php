@@ -2,41 +2,46 @@
 
 namespace Cactus\Endpoint;
 
-use Cactus\Http\HttpCode;
-use Cactus\Routing\Exception\RouteException;
-use Cactus\Routing\IRouteEndpoint;
-use Cactus\Routing\Route;
-use Cactus\Util\AppConfiguration;
-use Cactus\Util\UrlBuilder;
+use Banana\AppContext;
+use Banana\Http\HttpCode;
+use Banana\Routing\IRouteEndpoint;
+use Banana\Routing\Route;
+use Banana\Routing\RouteException;
+use Banana\Routing\RouteFormatException;
+use Banana\Routing\RouteNotFoundException;
 
 class AdminEndpoint implements IRouteEndpoint
 {
     /**
+     * @param AppContext $context
+     * @param Route $route
+     * @param array $parameters
+     * @return string
+     * @throws RouteException
+     * @throws RouteFormatException
+     * @throws RouteNotFoundException
      * @inheritDoc
      */
-    public function handle(Route $route, array $parameters): string
+    public function handle(AppContext $context, Route $route, array $parameters): string
     {
         $action = $parameters["action"];
 
         switch ($action) {
-            case "set_sign_up_mode":
-                $config = AppConfiguration::Instance();
-                $config->set("home-page", "sign-up.index");
-                $config->save();
+            case "set_register_mode":
+                $context->setConfig("home-page", "register.index");
                 break;
             case "set_slideshow_mode":
-                $config = AppConfiguration::Instance();
-                $config->set("home-page", "slideshow.index");
-                $config->save();
+                $context->setConfig("home-page", "slideshow.index");
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }
 
+        //TODO: Save config
+
         $router = $route->getRouter();
-        $urlBuilder = UrlBuilder::Instance();
-        $adminPage = $urlBuilder->build($router, "admin.index", $parameters);
-        header("Location: " . $adminPage, true, HttpCode::REDIRECT_SEE_OTHER);
+        $url = $router->buildUrl("GET", "admin.index");
+        header("Location: " . $url, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
 }

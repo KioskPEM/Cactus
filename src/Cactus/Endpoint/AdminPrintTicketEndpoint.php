@@ -4,11 +4,10 @@
 namespace Cactus\Endpoint;
 
 
-use Cactus\Http\HttpCode;
-use Cactus\Routing\IRouteEndpoint;
-use Cactus\Routing\Route;
-use Cactus\Util\AppConfiguration;
-use Cactus\Util\UrlBuilder;
+use Banana\AppContext;
+use Banana\Http\HttpCode;
+use Banana\Routing\IRouteEndpoint;
+use Banana\Routing\Route;
 use Mike42\Escpos\Printer;
 
 class AdminPrintTicketEndpoint implements IRouteEndpoint
@@ -21,14 +20,13 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
     private const GO_TO_EASTER_EGG_PASS = "EASTEREGG";
 
     /**
+     * @param AppContext $context
      * @inheritDoc
      */
-    public function handle(Route $route, array $parameters): string
+    public function handle(AppContext $context, Route $route, array $parameters): string
     {
-        $config = AppConfiguration::Instance();
-
-        $connectorClass = $config->get("printer.connector");
-        $port = $config->get("printer.port");
+        $connectorClass = $context->getConfig("printer.connector");
+        $port = $context->getConfig("printer.port");
         $connector = new $connectorClass($port);
         $printer = new Printer($connector);
         $printer->initialize();
@@ -45,9 +43,8 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
         $printer->close();
 
         $router = $route->getRouter();
-        $urlBuilder = UrlBuilder::Instance();
-        $adminPage = $urlBuilder->build($router, "admin.index", $parameters);
-        header("Location: " . $adminPage, true, HttpCode::REDIRECT_SEE_OTHER);
+        $url = $router->buildUrl("GET", "admin.index");
+        header("Location: " . $url, true, HttpCode::REDIRECT_SEE_OTHER);
         return "";
     }
 

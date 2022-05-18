@@ -1,0 +1,19 @@
+<input type="hidden" id="parent-page" value="@{search-school.department|region=${route.region}}">
+<div class="grid-container text-center margin-10px">
+
+    <div class="grid-row">
+
+        <a class="btn btn-large margin-10px" href="@{school.institution|region=${route.region},department=${route.department},school_type=college,page=1}">
+            <h2>%{page.types.college}</h2>
+            <i class="mdi mdi-size-large mdi-home-variant-outline"></i>
+        </a>
+
+        <a class="btn btn-large margin-10px" href="@{school.institution|region=${route.region},department=${route.department},school_type=high_school,page=1}">
+            <h2>%{page.types.high_school}</h2>
+            <i class="mdi mdi-size-large mdi-home-city-outline"></i>
+        </a>
+
+    </div>
+
+
+</div>

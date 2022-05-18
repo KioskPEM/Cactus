@@ -2,30 +2,34 @@
 
 namespace Cactus\Endpoint;
 
+use Banana\AppContext;
+use Banana\Http\HttpCode;
+use Banana\IO\FileException;
+use Banana\Routing\IRouteEndpoint;
+use Banana\Routing\Route;
+use Banana\Routing\RouteException;
+use Banana\Serialization\CsvException;
 use Cactus\EasterEgg\Jukebox;
-use Cactus\Exception\FileException;
-use Cactus\Http\HttpCode;
-use Cactus\Routing\Exception\RouteException;
-use Cactus\Routing\IRouteEndpoint;
-use Cactus\Routing\Route;
+use JsonException;
 
 class JukeboxEndpoint implements IRouteEndpoint
 {
     /**
+     * @param AppContext $context
      * @inheritDoc
      * @throws FileException
+     * @throws CsvException
      */
-    public function handle(Route $route, array $parameters): string
+    public function handle(AppContext $context, Route $route, array $parameters): string
     {
-        $songPlayer = Jukebox::Instance();
-
         $action = $parameters["action"];
+        $song = null;
         switch ($action) {
             case "play":
-                $songPlayer->playRandom();
+                $song = Jukebox::play();
                 break;
             case "stop":
-                $songPlayer->stop();
+                Jukebox::stop();
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
@@ -34,7 +38,7 @@ class JukeboxEndpoint implements IRouteEndpoint
         http_response_code(HttpCode::SUCCESS_OK);
         header('Content-Type: application/json');
         return json_encode([
-            "song" => $songPlayer->getCurrentSong()
+            "song" => $song
         ]);
     }
 }
