@@ -4,6 +4,8 @@ namespace Banana\Routing;
 
 
 use Banana\AppContext;
+use Exception;
+use Exception as ExceptionAlias;
 
 class Route
 {
@@ -30,12 +32,12 @@ class Route
     }
 
     /**
-     * @param AppContext $request
+     * @param AppContext $context
      * @param array $matches
      * @return string
      * @throws RouteException
      */
-    public function call(AppContext $request, array $matches): string
+    public function call(AppContext $context, array $matches): string
     {
         // prevent security exploits
         foreach ($matches as $key => $value) {
@@ -43,7 +45,7 @@ class Route
                 unset($matches[$key]);
         }
 
-        return $this->endpoint->handle($request, $this, $matches);
+        return $this->endpoint->handle($context, $this, $matches);
     }
 
     public function getName(): string

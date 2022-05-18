@@ -19,7 +19,7 @@ class ArrayPath
      * @param array $subject
      * @param string $path
      * @param string $delimiter
-     * @return array|mixed
+     * @return mixed|false
      */
     public static function get(array $subject, string $path, string $delimiter = '.')
     {
@@ -63,9 +63,9 @@ class ArrayPath
      * @param string $path
      * @param $value
      * @param string $delimiter
-     * @return void
+     * @return mixed
      */
-    public static function set(array &$subject, string $path, $value, string $delimiter = '.'): void
+    public static function set(array &$subject, string $path, $value, string $delimiter = '.')
     {
         $parts = explode($delimiter, $path);
 
@@ -74,8 +74,7 @@ class ArrayPath
             $part = array_shift($parts);
 
             if (empty($parts)) {
-                $temp[$part] = $value;
-                return;
+                return $temp[$part] = $value;
             }
 
             if (!array_key_exists($part, $temp))

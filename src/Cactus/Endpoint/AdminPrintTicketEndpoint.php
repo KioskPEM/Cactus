@@ -25,8 +25,8 @@ class AdminPrintTicketEndpoint implements IRouteEndpoint
      */
     public function handle(AppContext $context, Route $route, array $parameters): string
     {
-        $connectorClass = $context->getConfig("printer.connector");
-        $port = $context->getConfig("printer.port");
+        $connectorClass = $context->config("printer.connector");
+        $port = $context->config("printer.port");
         $connector = new $connectorClass($port);
         $printer = new Printer($connector);
         $printer->initialize();

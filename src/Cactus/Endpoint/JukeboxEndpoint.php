@@ -10,15 +10,12 @@ use Banana\Routing\Route;
 use Banana\Routing\RouteException;
 use Banana\Serialization\CsvException;
 use Cactus\EasterEgg\Jukebox;
-use JsonException;
 
 class JukeboxEndpoint implements IRouteEndpoint
 {
     /**
      * @param AppContext $context
      * @inheritDoc
-     * @throws FileException
-     * @throws CsvException
      */
     public function handle(AppContext $context, Route $route, array $parameters): string
     {
@@ -26,7 +23,13 @@ class JukeboxEndpoint implements IRouteEndpoint
         $song = null;
         switch ($action) {
             case "play":
-                $song = Jukebox::play();
+                try {
+                    $song = Jukebox::play();
+                } catch (FileException|CsvException $e) {
+                    return self::report(HttpCode::SERVER_ERROR, [
+                        "error" => "Failed to initialize Jukebox"
+                    ]);
+                }
                 break;
             case "stop":
                 Jukebox::stop();
@@ -35,10 +38,15 @@ class JukeboxEndpoint implements IRouteEndpoint
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }
 
-        http_response_code(HttpCode::SUCCESS_OK);
-        header('Content-Type: application/json');
-        return json_encode([
+        return self::report(HttpCode::SUCCESS_OK, [
             "song" => $song
         ]);
+    }
+
+    private static function report(int $code, array $data)
+    {
+        http_response_code($code);
+        header('Content-Type: application/json');
+        return json_encode($data);
     }
 }

@@ -3,7 +3,6 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . "src" . DIRECTORY_SEPARATO
 
 use Banana\AppContext;
 use Banana\Http\HttpCode;
-use Banana\Localization\LocalizationManager;
 use Banana\Routing\Router;
 use Banana\Serialization\JsonSerializer;
 use Banana\Template\Render\Pass\EchoPass;
@@ -14,26 +13,29 @@ use Banana\Template\TemplateManager;
 use Cactus\EasterEgg\Jukebox;
 
 try {
+    $requestPath = $_GET["path"];
+    $requestLang = $_GET["lang"];
     $config = JsonSerializer::deserializeFile(ASSET_PATH . "config.json");
+    $data = JsonSerializer::deserializeFile(ASSET_PATH . "i18n" . DIRECTORY_SEPARATOR . $requestLang . ".json");
     $context = new AppContext(
         $_SERVER["REQUEST_METHOD"],
-        $_GET["path"],
-        $_GET["lang"],
-        $config
+        $requestPath,
+        $requestLang,
+        $config,
+        $data
     );
 
     $router = new Router(
-        $context->getConfig("url.format"),
-        $context->getLang()
+        $context->config("url.format"),
+        $requestLang
     );
-    $localizationManager = new LocalizationManager();
     $templateEngine = new TemplateManager([
         "url" => [
-            "root" => $context->getConfig("url.root"),
-            "static" => $context->getConfig("url.static")
+            "root" => $context->config("url.root"),
+            "static" => $context->config("url.static")
         ],
-        "theme" => $context->getConfig("theme"),
-        "home-page" => $context->getConfig("home-page")
+        "theme" => $context->config("theme"),
+        "home-page" => $context->config("home-page")
     ]);
 
     Jukebox::stop();
@@ -41,12 +43,11 @@ try {
     $templateEngine->addPass(new EchoPass());
     $templateEngine->addPass(new HandlerPass());
     $templateEngine->addPass(new UrlPass());
-    $templateEngine->addPass(new LocalizePass($localizationManager));
+    $templateEngine->addPass(new LocalizePass());
 
     $templateEngine->registerTemplate("layout");
 
-    $routeContent = file_get_contents(ASSET_PATH . "routes.json");
-    $routes = JsonSerializer::deserialize($routeContent);
+    $routes = JsonSerializer::deserializeFile(ASSET_PATH . "routes.json");
     foreach ($routes as $name => $entry) {
         $method = $entry["method"] ?? "GET";
         $path = $entry["path"];
@@ -72,11 +73,7 @@ try {
 
 } catch (Throwable $e) {
 
-    $httpCode = $e->getCode();
-    if (!HttpCode::isHttpCode($httpCode))
-        $httpCode = HttpCode::SERVER_ERROR;
-
-    http_response_code($httpCode);
+    http_response_code(HttpCode::SERVER_ERROR);
 
     $exceptionDetails = "Error " . $e->getCode() . ": " . $e->getMessage() . "<br>";
     $exceptionDetails .= "-> File: " . $e->getFile() . "<br>";

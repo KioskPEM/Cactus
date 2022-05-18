@@ -31,13 +31,13 @@ class SignUpEndpoint implements IRouteEndpoint
         {
             $userTicker = new UserTicket($user);
 
-            $connectorClass = $context->getConfig("printer.connector");
-            $port = $context->getConfig("printer.port");
+            $connectorClass = $context->config("printer.connector");
+            $port = $context->config("printer.port");
             $connector = new $connectorClass($port);
             $printer = new Printer($connector);
             $printer->initialize();
 
-            $userTicker->printTicket($printer);
+            $userTicker->printTicket($context, $printer);
 
             $printer->cut(Printer::CUT_PARTIAL);
             $printer->close();

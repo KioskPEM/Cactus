@@ -4,11 +4,12 @@ namespace Cactus\Endpoint;
 
 use Banana\AppContext;
 use Banana\Http\HttpCode;
+use Banana\IO\FileException;
 use Banana\Routing\IRouteEndpoint;
 use Banana\Routing\Route;
 use Banana\Routing\RouteException;
-use Banana\Routing\RouteFormatException;
-use Banana\Routing\RouteNotFoundException;
+use Banana\Serialization\JsonSerializer;
+use JsonException;
 
 class AdminEndpoint implements IRouteEndpoint
 {
@@ -17,9 +18,6 @@ class AdminEndpoint implements IRouteEndpoint
      * @param Route $route
      * @param array $parameters
      * @return string
-     * @throws RouteException
-     * @throws RouteFormatException
-     * @throws RouteNotFoundException
      * @inheritDoc
      */
     public function handle(AppContext $context, Route $route, array $parameters): string
@@ -28,16 +26,22 @@ class AdminEndpoint implements IRouteEndpoint
 
         switch ($action) {
             case "set_register_mode":
-                $context->setConfig("home-page", "register.index");
+                $context->config("home-page", "register.index");
                 break;
             case "set_slideshow_mode":
-                $context->setConfig("home-page", "slideshow.index");
+                $context->config("home-page", "slideshow.index");
                 break;
             default:
                 throw new RouteException("Invalid action", HttpCode::CLIENT_BAD_REQUEST);
         }
 
-        //TODO: Save config
+        //TODO: Improve config saving
+        try {
+            $config = $context->getConfig();
+            JsonSerializer::serializeFile(CONFIG_PATH, $config);
+        } catch (FileException|JsonException $e) {
+            throw new RouteException("Failed to save config");
+        }
 
         $router = $route->getRouter();
         $url = $router->buildUrl("GET", "admin.index");
