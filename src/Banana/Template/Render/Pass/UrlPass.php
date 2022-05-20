@@ -6,6 +6,7 @@ namespace Banana\Template\Render\Pass;
 
 use Banana\Routing\RouteFormatException;
 use Banana\Routing\RouteNotFoundException;
+use Banana\Template\Render\IRenderPass;
 use Banana\Template\Render\RenderContext;
 use Banana\Template\Template;
 use Banana\Template\TemplateManager;

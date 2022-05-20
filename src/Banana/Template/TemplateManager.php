@@ -8,7 +8,7 @@ use Banana\AppContext;
 use Banana\Routing\IRouteEndpoint;
 use Banana\Routing\Route;
 use Banana\Template\Render\IRenderHandler;
-use Banana\Template\Render\Pass\IRenderPass;
+use Banana\Template\Render\IRenderPass;
 use Banana\Template\Render\RenderContext;
 
 class TemplateManager implements IRouteEndpoint

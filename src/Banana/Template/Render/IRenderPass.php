@@ -1,9 +1,8 @@
 <?php
 
-namespace Banana\Template\Render\Pass;
+namespace Banana\Template\Render;
 
 
-use Banana\Template\Render\RenderContext;
 use Banana\Template\Template;
 
 interface IRenderPass
