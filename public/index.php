@@ -11,6 +11,7 @@ use Banana\Template\Render\Pass\LocalizePass;
 use Banana\Template\Render\Pass\UrlPass;
 use Banana\Template\TemplateManager;
 use Cactus\EasterEgg\Jukebox;
+use Cactus\User\UserManager;
 
 try {
     $requestPath = $_GET["path"];
@@ -37,6 +38,17 @@ try {
         "theme" => $context->config("theme"),
         "home-page" => $context->config("home-page")
     ]);
+
+    $pdo = new PDO(
+        $context->config("database.host"),
+        $context->config("database.user"),
+        $context->config("database.pass"),
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]
+    );
+    $userManager = new UserManager($pdo);
+    $context->registerService($userManager);
 
     Jukebox::stop();
 

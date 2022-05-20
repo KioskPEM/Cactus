@@ -12,6 +12,7 @@ class AppContext
     private string $path;
     private string $lang;
 
+    private array $services;
     private array $config;
     private array $i18n;
 
@@ -30,6 +31,28 @@ class AppContext
 
         $this->config = $config;
         $this->i18n = $i18n;
+    }
+
+    /**
+     * Registers a service
+     *
+     * @param object $service
+     * @return void
+     */
+    public function registerService(object $service) {
+        $name = get_class($service);
+        $this->services[$name] = $service;
+    }
+
+    /**
+     * Gets a service from its class name
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function getService(string $name)
+    {
+        return $this->services[$name];
     }
 
     /**
@@ -67,7 +90,7 @@ class AppContext
      */
     public function config(string $path, $value = null)
     {
-        if(is_null($value)) return ArrayPath::get($this->config, $path);
+        if (is_null($value)) return ArrayPath::get($this->config, $path);
         return ArrayPath::set($this->config, $path, $value);
     }
 

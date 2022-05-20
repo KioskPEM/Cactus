@@ -24,8 +24,7 @@ class UserEndpoint implements IRouteEndpoint
         $action = $parameters["action"];
         $id = intval($parameters["user_id"]);
 
-        //TODO: UserManager
-        $userManager = UserManager::Instance();
+        $userManager = $context->getService("Cactus\User\UserManager");
         $user = $userManager->loginUser($id);
 
         switch ($action) {

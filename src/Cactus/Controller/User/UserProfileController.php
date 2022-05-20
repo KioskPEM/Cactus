@@ -8,7 +8,6 @@ use Banana\Template\Render\IRenderHandler;
 use Banana\Template\Render\RenderContext;
 use Cactus\User\Exception\UserException;
 use Cactus\User\User;
-use Cactus\User\UserManager;
 
 class UserProfileController implements IRenderHandler
 {
@@ -20,9 +19,8 @@ class UserProfileController implements IRenderHandler
      */
     function onRender(RenderContext $context): void
     {
-        //TODO: UserManager
+        $userManager = $context->getContext()->getService("Cactus\User\UserManager");
         $userId = intval($context->param("route.user_id"));
-        $userManager = UserManager::Instance();
         $this->user = $userManager->loginUser($userId);
     }
 

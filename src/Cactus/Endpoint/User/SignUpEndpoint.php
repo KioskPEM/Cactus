@@ -24,8 +24,7 @@ class SignUpEndpoint implements IRouteEndpoint
         $lastName = strtoupper($_POST['last-name']);
         $schoolId = $_POST['school-id'];
 
-        //TODO: UserManager
-        $userManager = UserManager::Instance();
+        $userManager = $context->getService("Cactus\User\UserManager");
         $user = $userManager->createUser($firstName, $lastName, $schoolId);
 
         {

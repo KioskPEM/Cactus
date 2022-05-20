@@ -12,10 +12,9 @@
         "secondary-color-dark": "#C7C7C7"
     },
     "database": {
-        "host": "",
-        "name": "",
-        "user": "",
-        "pass": ""
+        "host": "mysql:host=HOST;dbname=NAME",
+        "user": "USER",
+        "pass": "PASS"
     },
     "home-page": "admin.index",
     "printer": {
